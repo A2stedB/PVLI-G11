@@ -20,7 +20,7 @@ p {
 .outfit {
     font-family: "Outfit", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 100;
+    font-weight: 200;
     font-style: normal;
 }
 
@@ -45,13 +45,18 @@ p {
     float: right;
 }
 
+.descripcion {
+    margin-left: auto;
+    font-size: medium;
+}
+
 .container {
     width: 100%;
     
     /*Muy interesante el flex, lo que hay abajo y el lateral-empty es de IA
     Lo que permite es que en un "contenedor" puedes poner las cosas casi como quiras
     y junto con justify-content permite decir como se alinea las cosas de que estan en el container
-
+    
     align-items se utiliza para autoajustar las alturas de los contenedores vacios
     */
     display:flex;
@@ -67,27 +72,25 @@ p {
     text-align: center;
 }
 
-.contacto {
-    width: 100%;
-    height: 50%;
+
+
+.center-content{
+    width: 80%;
+
+    display:flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction:column;
 
     text-align: center;
 }
 
-.contacto p {
-    background-color: white;
-}
-
-.descripcion {
-    margin-left: auto;
-    font-size: medium;
-}
 
 
 
 .equipo {
     width: 100%;
-
+    
     display:flex;
     justify-content: center;
     align-items: stretch;
@@ -95,7 +98,7 @@ p {
 
 .center{
     width: 80%;
-
+    
     border-spacing: 5px;
     border-collapse: separate;
     display: table; 
@@ -120,11 +123,11 @@ p {
 
 .equipo table td {
     width: 25%;
-
+    
     padding: 5px;
-
+    
     text-align: center;
-
+    
     line-height: 0;
 }
 
@@ -137,12 +140,141 @@ p {
     color: black;
 }
 
+.boceto-grid {
+    width: 100%;
+    display: flex; 
+    flex-direction:column;
+    height: auto;
+    margin: 0 auto;
+}
+
+.boceto-member-cell{
+    width: 33%; 
+    padding: 5px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boceto-member-name {
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 .profile-picture {
     max-width: 100%;
     max-height: 100%;
-
+    
     width: 100%;
     height: 100%;
     display: block;
     object-fit: contain;
+}
+
+.team-grid {
+    width: 100%;
+    display: flex; 
+    flex-direction:column;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.team-row-pictures {
+    display: flex;
+    height: 80%; /* Ocupa el 80% de la altura del .team-grid */
+}
+
+.team-row-names {
+    display: flex; 
+    height: 20%; /* Ocupa el 20% de la altura del .team-grid */
+    align-items: center; 
+}
+
+.team-member-cell {
+    width: 25%; 
+    padding: 5px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-member-name {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-member-name p {
+    font-size: 25px;
+    margin: 0;
+    
+}
+
+
+
+.contacto {
+    display:flex;
+    flex-direction:row;
+    background-color: black;
+    height: 400px;
+    position: relative;
+}
+
+.contacto-col-left{
+    width:50%;
+    display:flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 30px;
+}
+
+.contacto-col-right{
+    width:50%;
+    display:flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 30px;
+}
+
+
+.contacto p {
+   color: white;
+}
+
+.contacto-divider {
+    /* Posición absoluta para centrarla en el contenedor .contacto (que es relative) */
+    position: absolute;
+    top: 5%;      /* Empieza un poco menos de arriba (5%) */
+    bottom: 5%;   /* Termina un poco más arriba del abajo (95% de altura total) */
+    left: 50%;    /* Centrada horizontalmente */
+    transform: translateX(-50%); /* Ajusta al centro exacto */
+    
+    width: 2px; /* Grosor de la línea */
+    background-color: rgb(55, 53, 53); /* Color de la línea */
+}
+
+.link {
+    display: flex; 
+    align-items: center; 
+    text-decoration: none; 
+    color: white; 
+}
+
+.link-icon{
+    width: 20px;
+    height: 20px;
+    
+    margin-right: 8px; 
+}
+
+.list-actualizacion{
+    width: 80%;
+    display: flex; 
+    align-items: center; 
+    text-decoration: none; 
 }
