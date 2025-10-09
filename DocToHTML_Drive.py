@@ -1,7 +1,6 @@
 import io
 import os
 
-import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
@@ -11,8 +10,18 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 
+DOCUMENT_ID = "1FKiFgoqu_l7W7cBedDxXQO4P65SsibpmXWt9q4kmAkY"
 
-def download_file(real_file_id):
+PDF = "application/pdf"
+
+MD = "text/markdown"
+
+PDF_PATH = "Documentacion/GDD.pdf"
+
+MD_PATH = "Documentacion/GDD.md"
+
+
+def download_file(real_file_id,export_type):
   creds = None
   # The file token.json stores the user's access and refresh tokens, and is
   # created automatically when the authorization flow completes for the first
@@ -36,10 +45,10 @@ def download_file(real_file_id):
     # create drive api client
     service = build("drive", "v3", credentials=creds)
 
-    file_id = real_file_id
+    # file_id = real_file_id
 
     # pylint: disable=maybe-no-member
-    request = service.files().export_media(fileId=file_id,mimeType = "")
+    request = service.files().export_media(fileId=DOCUMENT_ID,mimeType = export_type)
     file = io.BytesIO()
     downloader = MediaIoBaseDownload(file, request)
     done = False
@@ -54,7 +63,8 @@ def download_file(real_file_id):
   return file.getvalue()
 
 
+
 if __name__ == "__main__":
-  content = download_file(real_file_id="1FKiFgoqu_l7W7cBedDxXQO4P65SsibpmXWt9q4kmAkY")
-  with open("Concepto.pdf","wb") as blank:
+  content = download_file(DOCUMENT_ID,MD)
+  with open(MD_PATH,"wb") as blank:
     blank.write(content); 
