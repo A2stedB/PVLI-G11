@@ -77,7 +77,9 @@ def download_file(real_file_id,export_type):
 
 
 if __name__ == "__main__":
-  setup_browser()
+  
+  path = os.environ["CHROME_PATH"]
+  webbrowser.register("chrome",None, webbrowser.BackgroundBrowser(path))
   content = download_file(DOCUMENT_ID,PDF)
   with open(PDF_PATH,"wb") as blank:
     blank.write(content); 
