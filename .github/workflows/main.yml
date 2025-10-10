@@ -25,7 +25,6 @@ jobs:
               with:
                 install-dependencies: true
                 install-chromedriver: true
-                no-sudo: true
             - run: |
                echo "path = ${{ steps.setup-chrome.outputs.chrome-path }}" >> $GITHUB_OUTPUT
 
