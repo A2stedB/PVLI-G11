@@ -6,12 +6,18 @@ p {
     font-size: 20px;
 }
 
-button{
+canvas {
+    width: 800px;
+    height: 600px;
+    background-color: black;
+}
+
+button {
     background-color: Transparent;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     border: none;
-    cursor:pointer;
-    overflow: hidden;     
+    cursor: pointer;
+    overflow: hidden;
     align-self: center;
     color: white;
     float: right;
@@ -22,7 +28,7 @@ button{
     font-style: normal;
 }
 
-.button{
+.button {
     display: flex;
     justify-content: center;
     align-items: stretch;
