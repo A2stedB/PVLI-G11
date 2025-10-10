@@ -34,6 +34,7 @@ def download_file(real_file_id,export_type):
   # created automatically when the authorization flow completes for the first
   # time.
   if os.path.exists("token.json"):
+    print("Token.json doesn't exist...")
     creds = Credentials.from_authorized_user_file("token.json", SCOPES)
   # If there are no (valid) credentials available, let the user log in.
   if not creds or not creds.valid:
@@ -43,9 +44,11 @@ def download_file(real_file_id,export_type):
       flow = InstalledAppFlow.from_client_secrets_file(
           "credential.json", SCOPES
       )
+      print("Getting credential.json...")
       creds = flow.run_local_server(port=0)
     # Save the credentials for the next run
     with open("token.json", "w") as token:
+      print("Get token")
       token.write(creds.to_json())
 
   try:
@@ -55,8 +58,10 @@ def download_file(real_file_id,export_type):
     # file_id = real_file_id
 
     # pylint: disable=maybe-no-member
+    print("Looking for file...")
     request = service.files().export_media(fileId=DOCUMENT_ID,mimeType = export_type)
     file = io.BytesIO()
+    print("Download Start...")
     downloader = MediaIoBaseDownload(file, request)
     done = False
     while done is False:

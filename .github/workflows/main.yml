@@ -40,8 +40,27 @@ jobs:
               with:
                   python-version: "3.13"
 
+
+            #From https://github.com/MarketingPipeline/Python-Selenium-Action
+            - name: Installing package list
+              run: apt list --installed    
+
+            - name: Removing previous chrome instances on runner 
+              run: sudo apt purge google-chrome-stable  
+              
+            # Need to fetch reqs if needed
+            - name: Installing all necessary packages
+              run: pip install chromedriver-autoinstaller selenium pyvirtualdisplay
+            - name: Install xvfb
+              run: sudo apt-get install xvfb
+
+
             - name: install Python Packages
               run: pip install -r requirements.txt
+
+
+
+              
 
             - name: Disable AppArmor
               run: |
