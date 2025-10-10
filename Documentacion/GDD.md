@@ -1,4 +1,4 @@
-# **标签页 1**
+# **PVLI  \- G11**
 
 # **Documento de diseño PVLI**
 
@@ -26,9 +26,9 @@
 
 [Movimiento	3](#movimiento)
 
-[Ataque	3](#ataque)
+[Ataque	3](#heading=h.k12bm6a2szgp)
 
-[Obstáculos en el mapa	4](#obstáculos-en-el-mapa)
+[Obstáculos en el mapa	4](#//obstáculos-en-el-mapa)
 
 [Objetivos en el mapa	4](#objetivos-en-el-mapa)
 
@@ -112,32 +112,35 @@ En cada turno, el jugador puede elegir mover el submarino o quedar en la misma p
 
 La zona de juego tiene un límite, si el submarino se encuentra en una posición en el borde de la zona de juego, no podrá mover más hacia la dirección del borde.
 
-Si tras mover el submarino se encuentra con el submarino del rival
+Si tras mover el submarino se encuentra con el submarino del rival, 
 
-## **Ataque** {#ataque}
+1. no puedes  
+2. moris los dos  
+3. se echa a suertes quien muere  
+4. lucha epica (minijuego o lucha)
 
-En cada turno, después del movimiento, el jugador decide si quiere atacar o no, y hay dos tipos de ataque:
+## **Ataque**
+
+En cada turno, después del movimiento, el jugador decide si quiere atacar o no, y hay dos tipos de ataque. Dependiendo de la distancia el daño cambia:
 
 1. Disparo normal  
    El jugador puede lanzar un ataque un punto de un rectángulo de 2x4 casillas en la  
    orientación del jugador.  
    Este ataque se realiza tras el instante tras el jugador confirma el punto que quiere atacar 
 
-   ¿Frecuencia del ataque?  
-   Daño que hace 
+   Puede atacar en todos los turnos  
+   Daño que hace: Parámetro. 
 
 2. Ataque aéreo  
    Se abre la zona del juego completo, el jugador elige una casilla cualquiera del mapa donde quiere atacar. Cuando lanza este ataque, la zona de efecto son los cuatro vértices de la casilla que ha elegido el jugador  
    Este ataque se realiza después de que ambos jugadores hayan terminado sus turnos.
 
-   Si un ataque aéreo le da al jugador que ha lanzado el ataque? 
+   El ataque aéreo también afecta al jugador que lo lanza. Parámetro.
 
-   Frecuencia del ataque  
-   Daño que hace   
-     
-3. Anticipar ataque para turnos posteriores?
+   Frecuencia del ataque: no todos los turnos, hay que esperar tras utilizarlo  
+   Daño que hace 
 
-## **Obstáculos en el mapa** {#obstáculos-en-el-mapa}
+## **//Obstáculos en el mapa** {#//obstáculos-en-el-mapa}
 
 En el mapa puede haber obstáculos, que pueden ocupar casillas (los cuatro vértices) o un solo vértice.  
 Los obstáculos son visibles en el mapa general, los jugadores pueden consultarlo en su turno.
@@ -153,11 +156,25 @@ Durante la partida, hay unos objetivos opcionales que el jugador puede decidir s
 1. Salida  
    Esta es una forma de alcanzar la victoria. En el mapa hay una salida para cada rival en forma de una casilla. Si el jugador consigue llegar a la casilla automáticamente gana la partida  
    La salida está en otra mitad del mapa de la posición inicial del jugador respecto de la mitad vertical del mapa.  
-   Las salidas distan lo mismo para ambos jugadores para no producir desequilibrio.
+   Las salidas distan lo mismo para ambos jugadores para no producir desequilibrio.  
+2. Se va cerrando la zona de juego después de unos turnos según las acciones que hayan ocurrido. 
 
 ## **Recursos** {#recursos}
 
-No está definido todavía.
+Hay recursos por el mapa. los jugadores pueden conseguir para su propio uso.
+
+Los disparos causan fugas, tienes x tiempo para arreglarlo.  
+Un recurso que reduce el turno para utilizar el ataque aereo de nuevo  
+Un objeto que limita el movimiento del enemigo, solo podra mover en dos direcciones  
+**Dragon \-** Tiene su propio ruta, si un submarino se encuentra dañado entonces lo puede reparar.
+
+## **Vida**
+
+El submarino no muere de un ataque
+
+## **Dragon**
+
+# **Dinámica**
 
 # **Interfaz** {#interfaz}
 
@@ -203,7 +220,11 @@ Una ronda se da por finalizada cuando ambos jugadores han realizado su turno.
 
 ## **Fin de la partida** {#fin-de-la-partida}
 
-Una partida llega a su fin cuando solo queda un submarino en pie, o un jugador ha alcanzado el objetivo para ganar  
+Una partida llega a su fin cuando solo queda un submarino en pie, o un jugador ha alcanzado el objetivo para ganar
+
+testeando automatización \= \=  
+
+3  
  
 
 # **En desuso**
