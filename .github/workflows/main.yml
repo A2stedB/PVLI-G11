@@ -33,6 +33,10 @@ jobs:
             - name: install Python Packages
               run: pip install -r requirements.txt
 
+            - name: Disable AppArmor
+              run: |
+                echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+
             - name: Execute script
               run: python DocToHTML_Drive.py
               env:
