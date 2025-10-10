@@ -1,1 +1,38 @@
+name: DocToHTML
+on:
+    push:
+    schedule:
+        - cron: "0 0 * * *"
 
+jobs:
+    run_script:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout reposotory
+              uses: actions/checkout@v4
+
+            - name: setup python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: 3.10
+
+            - name: install Python Packages
+              run: python -m pip install --upgrade pip
+                  pip install -r requirements.txt
+
+            - name: Execute scripts
+              env:
+                  SECRET: ${{ secretS.CREDENTIAL }}
+              run: python DocToHTML_Drive.py
+
+            - name: Commit changes
+              run: git config --local user.user "Github Action"
+                  git config --local user.email "action@github.com"
+                  git add -A
+                  gi commit -m "GDD Update by Github Action"
+
+            - name: Push changes
+              uses: ad-m/github-push-action@v1.0.0
+              with:
+                  github_token: ${{ secrets.GH_TOKEN }}

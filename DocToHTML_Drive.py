@@ -22,6 +22,8 @@ MD_PATH = "Documentacion/GDD.md"
 
 
 def download_file(real_file_id,export_type):
+
+  credential_path = os.environ['SECRET']
   creds = None
   # The file token.json stores the user's access and refresh tokens, and is
   # created automatically when the authorization flow completes for the first
@@ -34,7 +36,7 @@ def download_file(real_file_id,export_type):
       creds.refresh(Request())
     else:
       flow = InstalledAppFlow.from_client_secrets_file(
-          "credential.json", SCOPES
+          credential_path, SCOPES
       )
       creds = flow.run_local_server(port=0)
     # Save the credentials for the next run
@@ -65,6 +67,11 @@ def download_file(real_file_id,export_type):
 
 
 if __name__ == "__main__":
+  content = download_file(DOCUMENT_ID,PDF)
+  with open(PDF_PATH,"wb") as blank:
+    blank.write(content); 
+
   content = download_file(DOCUMENT_ID,MD)
   with open(MD_PATH,"wb") as blank:
-    blank.write(content); 
+    blank.write(content)
+
