@@ -57,7 +57,7 @@ jobs:
             - name: Set virtual enviroment
               run: |
                 python3 -m venv .venv
-                source my_venv/bin/activate
+                source .venv/bin/activate
 
             - name: List files in the repository (github.workspace)
               run: |
