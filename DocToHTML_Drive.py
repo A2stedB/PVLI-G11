@@ -1,6 +1,7 @@
 import io
 import os
 
+import webbrowser
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
@@ -19,6 +20,11 @@ MD = "text/markdown"
 PDF_PATH = "Documentacion/GDD.pdf"
 
 MD_PATH = "Documentacion/GDD.md"
+
+def setup_browser():
+  path = os.environ["CHROME_PATH"]
+  webbrowser.register("chrome",None, webbrowser.BackgroundBrowser(path))
+
 
 
 def download_file(real_file_id,export_type):
