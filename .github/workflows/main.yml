@@ -12,6 +12,13 @@ jobs:
             - name: Checkout reposotory
               uses: actions/checkout@v4
 
+            - name: Get credential.json
+              uses: jsdaniell/create-json@v1.2.3
+              with:
+                name: credential.json
+                json: ${{ secretS.CREDENTIAL }}
+                dir: ""
+
             - name: setup python
               uses: actions/setup-python@v6
               with:
@@ -20,9 +27,7 @@ jobs:
             - name: install Python Packages
               run: pip install -r requirements.txt
 
-            - name: Execute scripts
-              env:
-                  SECRET: ${{ secretS.CREDENTIAL }}
+            - name: Execute script
               run: python DocToHTML_Drive.py
 
             - name: Commit changes
