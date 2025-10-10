@@ -23,7 +23,7 @@ jobs:
               uses: browser-actions/setup-chrome@v2.1.0
               id: setup-chrome
             - run: |
-               echo "${{ steps.setup-chrome.outputs.chrome-path }}" >> $CHROME_PATH
+               echo "path = ${{ steps.setup-chrome.outputs.chrome-path }}" >> $GITHUB_OUTPUT
 
             - name: setup python
               uses: actions/setup-python@v6
@@ -35,6 +35,8 @@ jobs:
 
             - name: Execute script
               run: python DocToHTML_Drive.py
+              env:
+                CHROME_PATH: ${{steps.setup-chrome.outputs.path}}
 
             - name: Commit changes
               run: git config --local user.user "Github Action"
