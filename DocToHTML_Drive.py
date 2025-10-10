@@ -22,6 +22,7 @@ PDF_PATH = "Documentacion/GDD.pdf"
 MD_PATH = "Documentacion/GDD.md"
 
 def setup_browser():
+  print("Setting up browser enviroment")
   path = os.environ["CHROME_PATH"]
   webbrowser.register("chrome",None, webbrowser.BackgroundBrowser(path))
 
@@ -77,9 +78,7 @@ def download_file(real_file_id,export_type):
 
 
 if __name__ == "__main__":
-  
-  path = os.environ["CHROME_PATH"]
-  webbrowser.register("chrome",None, webbrowser.BackgroundBrowser(path))
+  setup_browser()
   content = download_file(DOCUMENT_ID,PDF)
   with open(PDF_PATH,"wb") as blank:
     blank.write(content); 

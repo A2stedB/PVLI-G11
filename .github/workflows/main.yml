@@ -82,7 +82,7 @@ jobs:
             #       export DISPLAY=:99
 
             - name: Execute script
-              run: python DocToHTML_Drive.py
+              run: python3 -u DocToHTML_Drive.py
               env:
                 CHROME_PATH: ${{steps.setup-browser.outputs.path}}
 
