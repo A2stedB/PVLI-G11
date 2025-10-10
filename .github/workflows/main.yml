@@ -36,7 +36,7 @@ jobs:
             - name: Execute script
               run: python DocToHTML_Drive.py
               env:
-                CHROME_PATH: ${{steps.setup-chrome.outputs.path}}
+                CHROME_PATH: ${{steps.setup-chrome.outputs.chrome-path}}
 
             - name: Commit changes
               run: git config --local user.user "Github Action"
