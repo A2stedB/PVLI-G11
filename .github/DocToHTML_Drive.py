@@ -1,5 +1,6 @@
 import io
 import os
+import time
 
 import webbrowser
 from googleapiclient.discovery import build
@@ -8,6 +9,7 @@ from googleapiclient.http import MediaIoBaseDownload
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
+from git import Repo
 
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 
@@ -78,7 +80,7 @@ def download_file(real_file_id,export_type):
 
 
 if __name__ == "__main__":
-  setup_browser()
+  # setup_browser()
   content = download_file(DOCUMENT_ID,PDF)
   with open(PDF_PATH,"wb") as blank:
     blank.write(content); 
@@ -87,3 +89,10 @@ if __name__ == "__main__":
   with open(MD_PATH,"wb") as blank:
     blank.write(content)
 
+  time.sleep(3)
+
+  repo = Repo(os.getcwd())
+  repo.git.add("Documentacion/GDD.pdf")
+  repo.git.add("Documentacion/GDD.md")
+  repo.index.commit('Update GDD')
+  repo.remote("origin").push()
