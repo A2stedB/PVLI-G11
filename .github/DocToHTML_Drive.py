@@ -19,9 +19,9 @@ PDF = "application/pdf"
 
 MD = "text/markdown"
 
-PDF_PATH = "Documentacion/GDD.pdf"
+PDF_PATH = "../Documentacion/GDD.pdf"
 
-MD_PATH = "Documentacion/GDD.md"
+MD_PATH = "../Documentacion/GDD.md"
 
 def setup_browser():
   print("Setting up browser enviroment")
