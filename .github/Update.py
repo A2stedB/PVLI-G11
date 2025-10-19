@@ -19,9 +19,9 @@ PDF = "application/pdf"
 
 MD = "text/markdown"
 
-PDF_PATH = "../Documentacion/GDD.pdf"
+PDF_PATH = "Documentacion/GDD.pdf"
 
-MD_PATH = "../Documentacion/GDD.md"
+MD_PATH = "Documentacion/GDD.md"
 
 def setup_browser():
   print("Setting up browser enviroment")
@@ -36,16 +36,16 @@ def download_file(real_file_id,export_type):
   # The file token.json stores the user's access and refresh tokens, and is
   # created automatically when the authorization flow completes for the first
   # time.
-  if os.path.exists("token.json"):
+  if os.path.exists(".github/token.json"):
     print("Token.json doesn't exist...")
-    creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+    creds = Credentials.from_authorized_user_file(".github/token.json", SCOPES)
   # If there are no (valid) credentials available, let the user log in.
   if not creds or not creds.valid:
     if creds and creds.expired and creds.refresh_token:
       creds.refresh(Request())
     else:
       flow = InstalledAppFlow.from_client_secrets_file(
-          "credential.json", SCOPES
+          ".github/credential.json", SCOPES
       )
       print("Getting credential.json...")
       creds = flow.run_local_server(port=0)
