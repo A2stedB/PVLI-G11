@@ -4,11 +4,10 @@
 //         Square:"Square"
 //     }
 // Object.freeze(Type)
-
+import { Position } from "./Position.js";
 export class Vertex{
-    constructor(t){
-        this.tipo = t;
+    constructor(x,y){
+        this.position = new Position(x,y);
         this.available = true;
-        this.bomb = false;
     }
 }

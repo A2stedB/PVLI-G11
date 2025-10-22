@@ -1,5 +1,5 @@
 import Board from "./Board.js";
-
+import Board_Graphic from "./Board_Graphic.js";
 export class Game_Screen extends Phaser.Scene{
     constructor(){
         super({key:"Game_Screen"})
@@ -13,28 +13,32 @@ export class Game_Screen extends Phaser.Scene{
         console.log("preload");
     }
 
+    //La dimension de la tabla tiene que ser un numero impar
     create(){
-        let tablero = new Board(this,11,11);
+        let tablero = new Board_Graphic(this,15,15);
+        const GRAPHIC = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
+        this.add.existing(tablero);
+        tablero.render(GRAPHIC,40);
         // const graphics = this.add.graphics();
-        const cellSize = 40;
-        const graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } })
-        let m = tablero.matrix;
+        // const cellSize = 40;
+        // const graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } })
+        // let m = tablero.matrix;
 
-        for(let i = 0;i < tablero.matrix.length;++i){
-            for(let j = 0;j < tablero.matrix[i].length;++j){
-                if(m[i][j].tipo == "Casilla"){
-                    if(i != tablero.matrix.length -2 && j != tablero.matrix[i].length -2){
-                        graphics.fillStyle(0x021561);
-                        graphics.fillRect(j*cellSize,i*cellSize,cellSize*2,cellSize*2)
-                    }
-                }
-                if(m[i][j].tipo == "Vertice"){
+        // for(let i = 0;i < tablero.matrix.length;++i){
+        //     for(let j = 0;j < tablero.matrix[i].length;++j){
+        //         if(m[i][j].tipo == "Casilla"){
+        //             if(i != tablero.matrix.length -2 && j != tablero.matrix[i].length -2){
+        //                 graphics.fillStyle(0x021561);
+        //                 graphics.fillRect(j*cellSize,i*cellSize,cellSize*2,cellSize*2)
+        //             }
+        //         }
+        //         if(m[i][j].tipo == "Vertice"){
                     
-                    graphics.fillStyle(0xe6e8f0);
-                    graphics.fillCircle((j-1)*cellSize,(i-1)*cellSize,2);
-                }
-            }
-        }
+        //             graphics.fillStyle(0xe6e8f0);
+        //             graphics.fillCircle((j-1)*cellSize,(i-1)*cellSize,2);
+        //         }
+        //     }
+        // }
         // this.add.existing(tablero);
 
         // let matriz = tablero.matriz;
@@ -56,7 +60,7 @@ export class Game_Screen extends Phaser.Scene{
     }
 
     update(){
-        console.log("update")
+        // console.log("update")
     }
 
 }

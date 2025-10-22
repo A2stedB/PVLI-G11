@@ -1,7 +1,8 @@
 import { Vertex } from "./Vertex.js";
-export default class Board extends Phaser.GameObjects.Graphics{
-    constructor(scene,x,y){
-        super(scene,x,y)
+import { Square } from "./Square.js";
+export default class Board{
+    constructor(x,y){
+        // super(x,y)
         this.initialize(x,y);
         //Declarar los miembros de la clase
         // this.matrix = Array(x).fill(Array(y));
@@ -23,9 +24,9 @@ export default class Board extends Phaser.GameObjects.Graphics{
     initialize(x,y){
         // this.matrix = Array(x).fill(Array(y)); 
         //this.matrix = Array.from(Array(9), () => Array.from(Array(9)));
-        // this.matrix = Array.from({x,y},() =>)
+        // this.matrix = Array.from({x,y},() =>) 
         this.matrix = [];
-        console.log(this.matrix)
+        // console.log(this.matrix)
 
         for(let i = 0; i < x; ++i){
             this.matrix[i] = [];
@@ -34,7 +35,7 @@ export default class Board extends Phaser.GameObjects.Graphics{
             }
         }
 
-        console.table(this.matrix);
+        //console.table(this.matrix);
     }
 
     /**
@@ -44,32 +45,14 @@ export default class Board extends Phaser.GameObjects.Graphics{
      */
     createVertex(x,y){
         if(!(x%2) && !(y%2)){
-            this.matrix[x][y] = new Vertex("Vertice");
+            this.matrix[x][y] = new Vertex(x,y);
         }
         else if(x%2 && y%2){
-            this.matrix[x][y] = new Vertex("Casilla");
+            this.matrix[x][y] = new Square(x,y);
         }
         else {
-            this.matrix[x][y] = new Vertex("NONE");
+            this.matrix[x][y] = null;
         }
-        //Un punto valido
-        // if(x%2 == 0){
-        //     if(y%2 == 0){
-        //         this.matrix[x][y] = new Vertex("Vertice");
-        //     }
-        //     else{
-        //         this.matrix[x][y] = new Vertex("NONE");
-        //     }
-        // }
-        // if(x%2 == 1){
-        //     if(y%2 == 1){
-        //         this.matrix[x][y] = new Vertex("Casilla");
-        //     }
-        //     else{
-        //         this.matrix[x][y] = new Vertex("NONE");
-        //     }
-        // }
-        // this.matrix[x][y] = new Vertex()
-        console.log("Creando vertices en: " + x + " " + y + + " " + this.matrix[x][y].tipo)
+        //console.log("Creando vertices en: " + x + " " + y + + " " + this.matrix[x][y].tipo)
     }
 }
