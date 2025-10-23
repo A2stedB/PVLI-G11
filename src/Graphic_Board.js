@@ -1,19 +1,41 @@
-/**
- * @extends Phaser.GameObjects.Graphics
- */
+
 import Board from "./Logic_Board.js";
 import { Vertex_Graphic } from "./Graphic_Vertex.js";
 import { Square_Graphic } from "./Graphic_Square.js";
 import { Vertex } from "./Vertex.js";
 
-export default class Graphic_Board extends Phaser.GameObjects.Graphics{
-    constructor(scene,x,y,logic,texture){
-        super(scene,x,y,logic);
+export default class Graphic_Board extends Phaser.GameObjects.Image{
+    constructor(scene,x,y,logic,texture,cellSize){
+        super(scene,(x-2)*cellSize/2,(y-2)*cellSize/2,texture[1]);
+        this.GRAPHIC = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
+        this.cellSize = cellSize;
+        this.active = false;
+
+        this.setAlpha(0.1);
+        this.setDisplaySize(x*40,y*40)
+
         this.matrix = [];
         this.texture = texture
         // this.board = new Board(x,y);
         // console.table(this.board.matrix)
         this.initialize(scene,x,y,logic);
+        // this.setInteractive();
+
+        // this.on("pointerdown",()=>{
+        //     if(this.active){
+        //         this.active = !this.active;
+        //         super.setAlpha(0);
+        //         console.log(this.active)
+        //         this.input.enabled = true;
+        //     }
+        //     else{
+        //         this.active = !this.active;
+        //         super.setAlpha(0.3);
+        //         console.log(this.active)
+        //         this.input.enabled = true;
+        //     }
+        //     console.log("Clicked")
+        // })
 
         scene.add.existing(this);
     }
@@ -32,11 +54,12 @@ export default class Graphic_Board extends Phaser.GameObjects.Graphics{
 
     createVertex(scene,x,y,logic){
         //console.log(this.board.matrix[x][y])
-        if(!(x%2) && !(y%2)){
-            this.matrix[x][y] = new Vertex_Graphic(scene,logic.matrix[x][y]);
+        if((x%2 == 0) && (y%2 == 0)){
+            this.matrix[x][y] = new Vertex_Graphic(scene,this.GRAPHIC,this.cellSize,logic.matrix[x][y]);
         }
-        else if(x%2 && y%2){
-            this.matrix[x][y] = new Square_Graphic(scene,logic.matrix[x][y],this.texture[0]);
+        else if((x%2 == 1) && (y%2 == 1)){
+            //this.matrix[x][y] = new Vertex_Graphic(scene,this.GRAPHIC,this.cellSize,logic.matrix[x][y]);
+            this.matrix[x][y] = new Square_Graphic(scene,logic.matrix[x][y],this.texture[0],40);
         }
         else {
             this.matrix[x][y] = null;
@@ -45,17 +68,19 @@ export default class Graphic_Board extends Phaser.GameObjects.Graphics{
 
 
     //Mejor que solo llame al render y no pasar ningun informacion
-    render(GRAPHIC,cellSize){
-        this.matrix.forEach(row =>{
+    render(){
+        this.matrix.forEach((row,num) =>{
             row.forEach(point =>{
                 if(point instanceof Square_Graphic){
-                    point.render(GRAPHIC,cellSize,this.matrix.length-2,this.matrix.length-2);
+                    point.render();
                 }
                 if(point instanceof Vertex_Graphic){
-                    point.render(GRAPHIC,cellSize);
+                    point.render();
                 }
             })
         })
+
+        
         // for(let i = 0;i < this.graphic_matrix.length;++i){
         //     for(let j = 0;j < this.graphic_matrix[0].length;++j){
         //         if(this.graphic_matrix[i][j] instanceof Vertex_Graphic){
@@ -73,5 +98,9 @@ export default class Graphic_Board extends Phaser.GameObjects.Graphics{
 
     add(texture){
         this.texture.push(texture);
+    }
+
+    addEvent(){
+
     }
 }

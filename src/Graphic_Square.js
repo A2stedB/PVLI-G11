@@ -6,10 +6,14 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
      * @param {*} scene 
      * @param {Square} s 
      */
-    constructor(scene,s,texture,frame = 0){
-        super(scene,s.position.x,s.position.y,texture,frame)
+    constructor(scene,s,texture,cellSize,max_x,max_y){
+        super(scene,(s.position.x*cellSize),(s.position.y*cellSize),texture)
+        this.cellSize = cellSize;
+        this.max_x = max_x;
+        this.max_y = max_y;
         this.square = s;
         this.texture = texture;
+        this.setDisplaySize(cellSize*2,cellSize*2)
         
         scene.add.existing(this);
 
@@ -23,15 +27,16 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
      * @param {number} cellSize 
      * @param {number} max 
      */
-    render(GRAPHIC,cellSize,max_x,max_y){
-        let square = this.scene.add.image((this.square.position.y)*cellSize,(this.square.position.x)*cellSize,"Square",0);
-        square.setDisplaySize(cellSize*2,cellSize*2);
+    render(){
+        this.setDisplaySize(this.cellSize*2,this.cellSize*2);
         if(this.square.active){
-            square.setAlpha(0);
+            this.setAlpha(1);
         }
         else{
-            square.setAlpha(1);
+            this.setAlpha(0.1);
         }
+        // if(this.square.position.x != max_x && this.square.position.y != max_y){
+        // }
         // console.log()
         // if(this.square.position.x != max_x && this.square.position.y != max_y){
         //     // console.log("Dibujando: " + this.square.position.x + " " + this.square.position.y);
@@ -41,10 +46,10 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
     }
 
     addEvent(){
-        this.on("pointerdown",()=>{
+        this.on("pointerover",()=>{
             this.square.active = !this.square.active
             console.log(this.square.position.x + " " + this.square.position.y)
-            this.render(0,40,0,0)
+            this.render();
             console.log(this.square.active);
         })
     }

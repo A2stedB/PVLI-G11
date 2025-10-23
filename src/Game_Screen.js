@@ -19,17 +19,18 @@ export class Game_Screen extends Phaser.Scene{
         console.log("preload");
         
         this.load.image("Square","Page/img/Profile/Lappland.jpeg")
+        this.load.image("BG","Page/img/Profile/icon.jpg")
     }
     
     //La dimension de la tabla tiene que ser un numero impar
     create(){
-        let texturas = ["Square"];
-        this.tablero = new Game_Board(this,13,13,texturas);
-        const GRAPHIC = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
+        let texturas = ["Square","BG"];
+        this.tablero = new Game_Board(this,13,13,texturas,40);
+        //const GRAPHIC = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
         // tablero.addGraphic("Square")
         // let tablero = new Graphic_Board(this,15,15);
         
-        this.tablero.render(GRAPHIC,40);
+        this.tablero.render();
         // const graphics = this.add.graphics();
         // const cellSize = 40;
         // const graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } })
