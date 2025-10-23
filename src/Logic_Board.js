@@ -1,8 +1,10 @@
 import { Vertex } from "./Vertex.js";
 import { Square } from "./Square.js";
-export default class Board{
+
+export default class Logic_Board{
     constructor(x,y){
         // super(x,y)
+        this.matrix = [];
         this.initialize(x,y);
         //Declarar los miembros de la clase
         // this.matrix = Array(x).fill(Array(y));
@@ -25,7 +27,6 @@ export default class Board{
         // this.matrix = Array(x).fill(Array(y)); 
         //this.matrix = Array.from(Array(9), () => Array.from(Array(9)));
         // this.matrix = Array.from({x,y},() =>) 
-        this.matrix = [];
         // console.log(this.matrix)
 
         for(let i = 0; i < x; ++i){

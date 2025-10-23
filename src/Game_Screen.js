@@ -1,24 +1,35 @@
-import Board from "./Board.js";
-import Board_Graphic from "./Board_Graphic.js";
+import Board from "./Logic_Board.js";
+import Board_Graphic from "./Graphic_Board.js";
+import Graphic_Board from "./Graphic_Board.js";
+import Game_Board from "./Game_Board.js";
+
 export class Game_Screen extends Phaser.Scene{
     constructor(){
         super({key:"Game_Screen"})
-    }
 
+        this.tablero;
+    }
+    
     init(){
         console.log("init");
+        this.tablero;
     }
-
+    
     preload(){
         console.log("preload");
+        
+        this.load.image("Square","Page/img/Profile/Lappland.jpeg")
     }
-
+    
     //La dimension de la tabla tiene que ser un numero impar
     create(){
-        let tablero = new Board_Graphic(this,15,15);
+        let texturas = ["Square"];
+        this.tablero = new Game_Board(this,13,13,texturas);
         const GRAPHIC = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
-        this.add.existing(tablero);
-        tablero.render(GRAPHIC,40);
+        // tablero.addGraphic("Square")
+        // let tablero = new Graphic_Board(this,15,15);
+        
+        this.tablero.render(GRAPHIC,40);
         // const graphics = this.add.graphics();
         // const cellSize = 40;
         // const graphics = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } })
@@ -61,6 +72,7 @@ export class Game_Screen extends Phaser.Scene{
 
     update(){
         // console.log("update")
+        //this.tablero.render(GRAPHIC,40);
     }
 
 }
