@@ -1,9 +1,9 @@
 
-export default class Menu extends Phaser.Scene {
+export class Menu extends Phaser.Scene {
 	constructor() {
 		super({ key: 'menu' }); //seteamos el nobmre de la escena para el SceneManager
 	}
-	
+
 	/**
 	* Carga de los recursos que vamos a necesitar en la escena
 	*/
@@ -18,13 +18,13 @@ export default class Menu extends Phaser.Scene {
 	*/
 	create() {
 		//Imagen de fondo
-		this.add.image(0, 0, 'menufondo').setOrigin(0, 0);
+		this.add.image(10, 10, 'menufondo').setOrigin(0, 0);
 		
 		//Boton interactivo
         let boton = this.add.image(400, 300, 'boton').setInteractive();
-        boton.on('pointerdown', () => {
-            this.scene.start('menu');
-        }
+        // boton.on('pointerdown', () => {
+        //     this.scene.start('menu');
+        // }
 		
 	}
 
