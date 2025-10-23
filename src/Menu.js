@@ -8,8 +8,8 @@ export class Menu extends Phaser.Scene {
 	* Carga de los recursos que vamos a necesitar en la escena
 	*/
 	preload(){
-		this.load.image('menufondo', 'assets/menufondo.webp');
-		this.load.image('boton', 'assets/boton.png');
+		this.load.image('menufondo', 'assets/menufondo.jpg');
+		this.load.image('boton', 'assets/boton.jpg');
 		
 	}
 	
@@ -18,13 +18,21 @@ export class Menu extends Phaser.Scene {
 	*/
 	create() {
 		//Imagen de fondo
-		this.add.image(10, 10, 'menufondo').setOrigin(0, 0);
+		this.add.image(100, 100, 'menufondo').setScale(1.9).setOrigin(0.15, 0.2);
 		
-		//Boton interactivo
-        let boton = this.add.image(400, 300, 'boton').setInteractive();
-        // boton.on('pointerdown', () => {
-        //     this.scene.start('menu');
-        // }
+	// Botón interactivo
+		let boton = this.add.image(690, 500, 'boton') 
+			.setInteractive()
+			.setScale(0.25); 
+
+		
+		boton.on('pointerover', () => boton.setTint(0xaaaaaa));
+		boton.on('pointerout', () => boton.clearTint());
+
+		// Cambiar a otra escena al hacer clic
+		boton.on('pointerdown', () => {
+			this.scene.start('game');
+		});
 		
 	}
 
