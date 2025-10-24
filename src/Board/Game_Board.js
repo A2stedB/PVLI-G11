@@ -5,6 +5,8 @@ export default class Game_Board extends Phaser.GameObjects.Graphics{
     constructor(scene,x,y,texture,cellSize){
         super(scene,x,y);
         this.logic = new Logic_Board(x,y);
+        //Dejar la grafica directamente aqui
+        this.matrix = []
         this.graphic = new Graphic_Board(scene,x,y,this.logic,texture,cellSize);
 
         scene.add.existing(this);

@@ -1,7 +1,7 @@
-import Board from "./Logic_Board.js";
-import Board_Graphic from "./Graphic_Board.js";
-import Graphic_Board from "./Graphic_Board.js";
-import Game_Board from "./Game_Board.js";
+// import Board from "./Logic_Board.js";
+// import Board_Graphic from "./Graphic_Board.js";
+// import Graphic_Board from "./Graphic_Board.js";
+import Game_Board from "../Board/Game_Board.js";
 
 export class Game_Screen extends Phaser.Scene{
     constructor(){
