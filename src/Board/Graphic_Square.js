@@ -17,7 +17,6 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
         
         scene.add.existing(this);
 
-        this.scene.events = Phaser.e
         this.setInteractive();
         this.addEvent();
         
@@ -34,7 +33,7 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
             this.setAlpha(1);
         }
         else{
-            this.setAlpha(0.1);
+            this.setAlpha(0.3);
         }
         // if(this.square.position.x != max_x && this.square.position.y != max_y){
         // }

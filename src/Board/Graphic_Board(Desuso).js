@@ -66,8 +66,6 @@ export default class Graphic_Board extends Phaser.GameObjects.Image{
         }   
     }
 
-
-    //Mejor que solo llame al render y no pasar ningun informacion
     render(){
         this.matrix.forEach((row,num) =>{
             row.forEach(point =>{
