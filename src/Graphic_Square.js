@@ -17,6 +17,7 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
         
         scene.add.existing(this);
 
+        this.scene.events = Phaser.e
         this.setInteractive();
         this.addEvent();
         
@@ -46,7 +47,7 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
     }
 
     addEvent(){
-        this.on("pointerover",()=>{
+        this.on("pointerdown",()=>{
             this.square.active = !this.square.active
             console.log(this.square.position.x + " " + this.square.position.y)
             this.render();
@@ -54,3 +55,7 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
         })
     }
 }
+
+// const evebts = {
+//     SUBMARINE_MOVED = subms
+// }

@@ -6,7 +6,7 @@ import { Vertex } from "./Vertex.js";
 
 export default class Graphic_Board extends Phaser.GameObjects.Image{
     constructor(scene,x,y,logic,texture,cellSize){
-        super(scene,((x)*cellSize)/2,((y)*cellSize)/2,texture[1]);
+        super(scene,((x-2)*cellSize)/2,((y-2)*cellSize)/2,texture[1]);
         this.GRAPHIC = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
         this.cellSize = cellSize;
         this.active = false;

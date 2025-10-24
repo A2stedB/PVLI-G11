@@ -25,7 +25,7 @@ export class Game_Screen extends Phaser.Scene{
     //La dimension de la tabla tiene que ser un numero impar
     create(){
         let texturas = ["Square","BG"];
-        this.tablero = new Game_Board(this,12,12,texturas,40);
+        this.tablero = new Game_Board(this,11,11,texturas,40);
         //const GRAPHIC = this.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
         // tablero.addGraphic("Square")
         // let tablero = new Graphic_Board(this,15,15);
