@@ -6,20 +6,21 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
      * @param {*} scene 
      * @param {Square} s 
      */
-    constructor(scene,s,texture,cellSize,max_x,max_y){
-        super(scene,(s.position.x*cellSize),(s.position.y*cellSize),texture)
+    constructor(scene,square,texture,cellSize,offsetX,offsetY){
+        super(scene,(square.position.x*cellSize)+offsetX,square.position.y*cellSize+offsetY,texture)
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
         this.cellSize = cellSize;
-        this.max_x = max_x;
-        this.max_y = max_y;
-        this.square = s;
+
+        this.square = square;
         this.texture = texture;
         this.setDisplaySize(cellSize*2,cellSize*2)
         
-        scene.add.existing(this);
-
+        
         this.setInteractive();
         this.addEvent();
         
+        scene.add.existing(this);
     }
     /**
      * 
@@ -28,12 +29,13 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
      * @param {number} max 
      */
     render(){
+        //this.setPosition((this.square.position.x*this.cellSize)+this.offsetX,this.square.position.y*this.cellSize+this.offsetY)
         this.setDisplaySize(this.cellSize*2,this.cellSize*2);
         if(this.square.active){
             this.setAlpha(1);
         }
         else{
-            this.setAlpha(0.3);
+            this.setAlpha(0);
         }
         // if(this.square.position.x != max_x && this.square.position.y != max_y){
         // }
