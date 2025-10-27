@@ -1,4 +1,5 @@
 import { Square } from "./Square.js";
+import EventDispatch from "../Event/EventBroker.js";
 export class Square_Graphic extends Phaser.GameObjects.Image{
 
     /**
@@ -8,6 +9,7 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
      */
     constructor(scene,square,texture,cellSize,offsetX,offsetY){
         super(scene,(square.position.x*cellSize)+offsetX,square.position.y*cellSize+offsetY,texture)
+        this.eventBroker =  EventDispatch;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.cellSize = cellSize;
@@ -19,6 +21,10 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
         
         this.setInteractive();
         this.addEvent();
+
+        this.eventBroker.on("Click",()=>{console.log("this")})
+        // EventDispatch.subscribe("Click",()=>{this.Update})
+        this.eventBroker.on()
         
         scene.add.existing(this);
     }
@@ -49,11 +55,18 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
 
     addEvent(){
         this.on("pointerdown",()=>{
-            this.square.active = !this.square.active
-            console.log(this.square.position.x + " " + this.square.position.y)
-            this.render();
-            console.log(this.square.active);
+            this.eventBroker.publish("Click")
+            // this.square.active = !this.square.active
+            // console.log(this.square.position.x + " " + this.square.position.y)
+            // this.render();
+            // console.log(this.square.active);
         })
+    }
+    Update(){
+        this.square.active = !this.square.active
+        console.log(this.square.position.x + " " + this.square.position.y)
+        this.render();
+        console.log(this.square.active);
     }
 }
 

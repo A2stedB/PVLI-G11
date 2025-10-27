@@ -1,6 +1,7 @@
 import Logic_Board from "./Logic_Board.js"
 import { Vertex_Graphic } from "./Graphic_Vertex.js";
 import { Square_Graphic } from "./Graphic_Square.js";
+import EventDispatch from "../Event/EventBroker.js"
 
 export default class Game_Board extends Phaser.GameObjects.Container{
     /**
@@ -15,6 +16,7 @@ export default class Game_Board extends Phaser.GameObjects.Container{
      */
     constructor(scene,boardWidth,boardHeight,x,y,texture,cellSize){
         super(scene,x,y);
+        this.eventBroker = EventDispatch;
         this.x = x;
         this.y = y;
         this.scene = scene;
@@ -25,13 +27,15 @@ export default class Game_Board extends Phaser.GameObjects.Container{
         this.cellSize = cellSize;
         this.GRAPHIC = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
         this.logic = new Logic_Board(boardWidth,boardHeight);
-        
+
         this.graphic = []
 
         this.Initialize_background(x,y,"BG");
         this.Graphic_initialize(boardWidth,boardHeight,this.logic);
 
         scene.add.existing(this);
+
+        this.eventBroker.subscribe()
     }
 
     render(){
