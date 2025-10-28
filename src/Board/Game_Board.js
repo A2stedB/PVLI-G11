@@ -3,7 +3,10 @@ import { Vertex_Graphic } from "./Graphic_Vertex.js";
 import { Square_Graphic } from "./Graphic_Square.js";
 import EventDispatch from "../Event/EventDispatch.js"
 import { Submarine_v2 } from "../Submarine_v2.js";
+import Event from "../Event/Event.js";
+import { Orientation } from "../Orientation.js";
 
+//Por hacer: Hacer que el submarino tenga la tabla logica real del tablero y no una copia
 
 export default class Game_Board extends Phaser.GameObjects.Container{
     /**
@@ -13,7 +16,7 @@ export default class Game_Board extends Phaser.GameObjects.Container{
      * @param {Number} boardHeight El alto del tablero
      * @param {Number} x La posicion x de la esquina superior izquierda de donde esta el tablero
      * @param {Number} y La posicion y de la esquina superior izquierda de donde esta el tablero
-     * @param {Array{string}} texture La lista de texturas que utilizara el tablero
+     * @param {Array.<string>} texture La lista de texturas que utilizara el tablero
      * @param {Number} cellSize El tamaño de la celda
      */
     constructor(scene,boardWidth,boardHeight,x,y,texture,cellSize){
@@ -47,18 +50,20 @@ export default class Game_Board extends Phaser.GameObjects.Container{
             1:new Submarine_v2(0,0,this.matrix.logic),
             2:new Submarine_v2(1,1,this.matrix.logic)
         }
-        //Por hacer: Hacer que el submarino tenga la tabla logica real del tablero y no una copia
 
+        this.submarine[1].move(Orientation.S)
 
-
-        // console.log(this.submarine[1].position instanceof Position)
-        // console.log(this.submarine[1].position == this.matrix.logic[this.submarine[1].position.x/2][this.submarine[1].position.y/2])
-
-        // this.logic = new Logic_Board(boardWidth,boardHeight);
+        // console.log(this.submarine[1].board[0][0] === this.matrix.logic[0][0]);
+        console.log(this.submarine[1].board[0][0].available)
+        this.submarine[1].board[0][0].available = false;
+        // console.log(this.submarine[2].board === this.matrix.logic);
 
         this.initializeBackground(x,y,"BG");
 
-        EventDispatch.on("RefreshMap",()=>{this.refresh();console.log("Refreshed")})
+        EventDispatch.on(Event.TOGGLE_MAP,()=>{
+            this.refresh();
+            console.log("Refreshed");
+        })
         
         console.log("Board created")
         scene.add.existing(this);

@@ -1,5 +1,6 @@
 import Game_Board from "../Board/Game_Board.js";
 import EventDispatch from "../Event/EventDispatch.js";
+import Event from "../Event/Event.js";
 
 export class Game_Screen extends Phaser.Scene{
     constructor(){
@@ -26,7 +27,10 @@ export class Game_Screen extends Phaser.Scene{
         this.tablero = new Game_Board(this,11,11,200,0,texturas,40);
         
         this.tablero.render();
-        this.input.keyboard.on('keydown-M', ()=>{EventDispatch.emit("RefreshMap"); console.log("M pressed")})
+        this.input.keyboard.on('keydown-M', ()=>{
+            EventDispatch.emit(Event.TOGGLE_MAP); 
+            console.log("M pressed")
+        })
         // EventDispatch.on("keydown-M",()=>{EventDispatch.emit("RefreshMap"); console.log("M pressed")})
         // let matriz = tablero.matriz;
         // const cellSize = 40;

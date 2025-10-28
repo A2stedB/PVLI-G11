@@ -1,8 +1,8 @@
 export const Orientation = Object.freeze({
-    N:Symbol(0),
-    E:Symbol(90),
-    S:Symbol(180),
-    W:Symbol(270),
+    N:(0),
+    E:(90),
+    S:(180),
+    W:(270),
 
     /**
      * 
