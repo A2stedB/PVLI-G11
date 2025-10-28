@@ -47,11 +47,11 @@ export default class Game_Board extends Phaser.GameObjects.Container{
         this.matrix.graphic = this.graphicMatrixInitialize(boardWidth,boardHeight,this.matrix.logic)
 
         this.submarine = {
-            1:new Submarine_v2(0,0,this.matrix.logic),
-            2:new Submarine_v2(1,1,this.matrix.logic)
+            1:new Submarine_v2(scene, 0,0,this.matrix.logic,this),
+            2:new Submarine_v2(scene, 1,1,this.matrix.logic,this)
         }
 
-        this.submarine[1].move(Orientation.S)
+      //  this.submarine[1].moveRight()
 
         // console.log(this.submarine[1].board[0][0] === this.matrix.logic[0][0]);
         console.log(this.submarine[1].board[0][0].available)
@@ -115,6 +115,7 @@ export default class Game_Board extends Phaser.GameObjects.Container{
         this.add(this.background_image)
         this.moveDown(this.background_image)
     }
+
     /**
      * 
      * @param {*} m 
@@ -141,6 +142,8 @@ export default class Game_Board extends Phaser.GameObjects.Container{
             this.setVisible(true);
         }
         else this.setVisible(false);
+         
+        // Eve
         this.render()
     }
 }

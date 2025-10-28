@@ -1,4 +1,5 @@
 import Game_Board from "../Board/Game_Board.js";
+import { Submarine_v2 } from "../Submarine_v2.js";
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
 
@@ -19,18 +20,22 @@ export class Game_Screen extends Phaser.Scene{
         
         this.load.image("Square","Page/img/Profile/Lappland.jpeg")
         this.load.image("BG","Page/img/Profile/icon.jpg")
+        this.load.image("Submarine","assets/red.png")
     }
     
     //La dimension de la tabla tiene que ser un numero impar
     create(){
-        let texturas = ["Square","BG"];
+        let texturas = ["Square","BG", "Submarine"];
         this.tablero = new Game_Board(this,11,11,200,0,texturas,40);
+        let submarine = new Submarine_v2(5,5,this.tablero);
         
         this.tablero.render();
         this.input.keyboard.on('keydown-M', ()=>{
             EventDispatch.emit(Event.TOGGLE_MAP); 
             console.log("M pressed")
         })
+
+
         // EventDispatch.on("keydown-M",()=>{EventDispatch.emit("RefreshMap"); console.log("M pressed")})
         // let matriz = tablero.matriz;
         // const cellSize = 40;
@@ -50,7 +55,8 @@ export class Game_Screen extends Phaser.Scene{
         // }
     }
 
-    update(){
-    }
+    update(){}
+
+    
 
 }
