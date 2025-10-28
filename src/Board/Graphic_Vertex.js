@@ -14,6 +14,6 @@ export class Vertex_Graphic extends Phaser.GameObjects.Graphics{
 
     render(){
         this.graphic.fillStyle(0xe6e8f0);
-        this.graphic.fillCircle((this.vertex.position.x)*this.cellSize+this.offsetX,(this.vertex.position.y*this.cellSize)+this.offsetY,2);
+        this.graphic.fillCircle((this.vertex.position.x)*this.cellSize,(this.vertex.position.y*this.cellSize),2);
     }
 }

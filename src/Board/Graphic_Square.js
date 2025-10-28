@@ -1,5 +1,5 @@
 import { Square } from "./Square.js";
-import EventDispatch from "../Event/EventBroker.js";
+import EventDispatch from "../Event/EventDispatch.js";
 export class Square_Graphic extends Phaser.GameObjects.Image{
 
     /**
@@ -8,7 +8,7 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
      * @param {Square} s 
      */
     constructor(scene,square,texture,cellSize,offsetX,offsetY){
-        super(scene,(square.position.x*cellSize)+offsetX,square.position.y*cellSize+offsetY,texture)
+        super(scene,(square.position.x*cellSize),square.position.y*cellSize,texture)
         this.eventBroker =  EventDispatch;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
@@ -22,9 +22,9 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
         this.setInteractive();
         this.addEvent();
 
-        this.eventBroker.on("Click",()=>{console.log("this")})
+        // this.eventBroker.on("Click",()=>{console.log("this")})
         // EventDispatch.subscribe("Click",()=>{this.Update})
-        this.eventBroker.on()
+        // this.eventBroker.on()
         
         scene.add.existing(this);
     }
@@ -41,7 +41,7 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
             this.setAlpha(1);
         }
         else{
-            this.setAlpha(0.1);
+            this.setAlpha(0.01);
         }
         // if(this.square.position.x != max_x && this.square.position.y != max_y){
         // }
@@ -55,11 +55,10 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
 
     addEvent(){
         this.on("pointerdown",()=>{
-            this.eventBroker.publish("Click")
-            // this.square.active = !this.square.active
-            // console.log(this.square.position.x + " " + this.square.position.y)
-            // this.render();
-            // console.log(this.square.active);
+            this.square.active = !this.square.active
+            console.log(this.square.position.x + " " + this.square.position.y)
+            this.render();
+            console.log(this.square.active);
         })
     }
     Update(){
