@@ -3,6 +3,6 @@ export class Square{
     constructor(x,y){
         this.position = new Position(x,y);
         this.vertex_next = [];
-        this.active = false;
+        this.active = true;
     }
 }
