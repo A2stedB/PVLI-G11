@@ -27,8 +27,7 @@ export class Game_Screen extends Phaser.Scene{
     create(){
         let texturas = ["Square","BG", "Submarine"];
         this.tablero = new Game_Board(this,11,11,200,0,texturas,40);
-        let submarine = new Submarine_v2(5,5,this.tablero);
-        
+
         this.tablero.render();
         this.input.keyboard.on('keydown-M', ()=>{
             EventDispatch.emit(Event.TOGGLE_MAP); 
