@@ -24,7 +24,7 @@ export class Submarine_View extends Phaser.Scene {
         // PANTALLA DIVIDIDA: mitad superior para Jugador 1, mitad inferior para Jugador 2
         const halfHeight = screenHeight / 2; // 300px por jugador
         
-        // ============== JUGADOR 1 (Parte Superior) ==============
+        //JUGADOR 1 (Parte Superior)
         this.createPlayerViews(0, 0, screenWidth, halfHeight, 'JUGADOR 1', this.submarine1, this.submarine2);
         
         // Linea divisoria
@@ -32,7 +32,7 @@ export class Submarine_View extends Phaser.Scene {
         line.lineStyle(2, 0xffffff, 1);
         line.lineBetween(0, halfHeight, screenWidth, halfHeight);
         
-        // ============== JUGADOR 2 (Parte Inferior) ==============
+        // JUGADOR 2 (Parte Inferior)
         this.createPlayerViews(0, halfHeight, screenWidth, halfHeight, 'JUGADOR 2', this.submarine2, this.submarine1);
     }
 
