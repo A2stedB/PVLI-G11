@@ -22,100 +22,77 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         console.log("Submarine created")
     }
 
+  canMoveTo(newX, newY) {
+        return newX >= 0 && newY >= 0 && newX <=  this.board.length - 1 && newY <= this.board[0].length - 1;
+    }
 
-    moveFront(){
-        // if(!Orientation.getAvailableDirection(this.orientation).includes(direction)){
-        //     console.log("No se puede mover en esa direccion")
-        // }
-        // else{
-            console.log("Se puede mover en ese direccion")
-           // no se cambia la orientacion
-            switch(this.orientation){
-                case Orientation.N:
-                    this.position.y -= 2;
-                    break;  
-                case Orientation.S:
-                    this.position.y += 2;
-                    break;
-                case Orientation.E:
-                    this.position.x += 2;
-                    break;
-                case Orientation.W:
-                    this.position.x -= 2;
-                    break;
-               
-            }
+    moveFront() {
+        let newX = this.position.x;
+        let newY = this.position.y;
 
-       // }
+        switch (this.orientation) {
+            case Orientation.N:
+                newY -= 2;
+                break;
+            case Orientation.S:
+                newY += 2;
+                break;
+            case Orientation.E:
+                newX += 2;
+                break;
+            case Orientation.W:
+                newX -= 2;
+                break;
+        }
 
+        if (this.canMoveTo(newX, newY)) {
+            this.position.x = newX;
+            this.position.y = newY;
+            console.log("movendose a", this.position);
+        } else {
+            console.log("fuera del tablero.");
+        }
+    }
+
+    moveRight() {
+        let newdirection = Orientation.N;
+        switch (this.orientation) {
+            case Orientation.N:
+                newdirection = Orientation.E;
+                break;
+            case Orientation.S:
+                newdirection = Orientation.W;
+                break;
+            case Orientation.E:
+                newdirection = Orientation.S;
+                break;
+            case Orientation.W:
+                newdirection = Orientation.N;
+                break;
+        }
         this.orientation = newdirection;
-
+        console.log("girar derecha", this.orientation);
     }
-    moveRight(){
+
+    moveLeft() {
         let newdirection = Orientation.N;
-        // if(!Orientation.getAvailableDirection(this.orientation).includes(direction)){
-        //     console.log("No se puede mover en esa direccion")
-        // }
-       // else{
-            console.log("Se puede mover en ese direccion")
-          
-            switch(this.orientation){
-                case Orientation.N:
-                    this.position.y -= 2;
-                    newdirection = Orientation.E;
-                    break;  
-                case Orientation.S:
-                    this.position.y += 2;
-                    newdirection = Orientation.W;
-                    break;
-                case Orientation.E:
-                    this.position.x += 2;
-                    newdirection = Orientation.S;
-                    break;    
-                case Orientation.W:
-                    this.position.x -= 2;
-                    newdirection = Orientation.N;
-                    break;
-               
-            }
-
-      //  }
-
-         this.orientation = newdirection;
+        switch (this.orientation) {
+            case Orientation.N:
+                newdirection = Orientation.W;
+                break;
+            case Orientation.S:
+                newdirection = Orientation.E;
+                break;
+            case Orientation.E:
+                newdirection = Orientation.N;
+                break;
+            case Orientation.W:
+                newdirection = Orientation.S;
+                break;
+        }
+        this.orientation = newdirection;
+        console.log("girar izquierda:", this.orientation);
     }
-
-    moveLeft(){
-        let newdirection = Orientation.N;
-        // if(!Orientation.getAvailableDirection(this.orientation).includes(direction)){
-        //     console.log("No se puede mover en esa direccion")
-        // }
-        // else{
-            console.log("Se puede mover en ese direccion")
-          
-            switch(this.orientation){
-                case Orientation.N:
-                    this.position.y += 2;
-                    newdirection = Orientation.W;
-                    break;  
-                case Orientation.S:
-                    this.position.y -= 2;
-                    newdirection = Orientation.E;
-                    break;
-                case Orientation.E:
-                    this.position.x -= 2;
-                    newdirection = Orientation.N;
-                    break;    
-                case Orientation.W:
-                    this.position.x += 2;
-                    newdirection = Orientation.E;
-                    break;
-               
-            }
-
-      //  }
-         this.orientation = newdirection;
-    }
-    
 
     shoot(){
 
