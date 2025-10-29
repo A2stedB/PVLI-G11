@@ -19,7 +19,15 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         this.texture = "Submarine";
 
         container.add(this);
+
+        this.updateSpritePosition();
         console.log("Submarine created")
+    }
+
+     updateSprite() {
+        // Las posiciones lógicas ya vienen con coordenadas de Phaser
+        this.setPosition(this.position.x, this.position.y);
+        this.setAngle(this.orientation);
     }
 
   canMoveTo(newX, newY) {
@@ -48,6 +56,7 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         if (this.canMoveTo(newX, newY)) {
             this.position.x = newX;
             this.position.y = newY;
+              this.updateSprite();
             console.log("movendose a", this.position);
         } else {
             console.log("fuera del tablero.");
@@ -71,6 +80,8 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
                 break;
         }
         this.orientation = newdirection;
+        this.orientation = (this.orientation + 90) % 360;
+        this.updateSprite();
         console.log("girar derecha", this.orientation);
     }
 
@@ -91,6 +102,8 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
                 break;
         }
         this.orientation = newdirection;
+        this.orientation = (this.orientation - 90 + 360) % 360;
+        this.updateSprite();
         console.log("girar izquierda:", this.orientation);
     }
 
