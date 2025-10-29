@@ -20,13 +20,13 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
 
         container.add(this);
 
-        this.updateSpritePosition();
+        this.updateSprite();
         console.log("Submarine created")
     }
 
      updateSprite() {
-        // Las posiciones lógicas ya vienen con coordenadas de Phaser
-        this.setPosition(this.position.x, this.position.y);
+        const cellSize = this.container.data.cellSize;
+        this.setPosition(this.position.x * cellSize, this.position.y * cellSize);
         this.setAngle(this.orientation);
     }
 

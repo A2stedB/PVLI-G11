@@ -46,11 +46,18 @@ export default class Game_Board extends Phaser.GameObjects.Container{
 
         this.matrix.graphic = this.graphicMatrixInitialize(boardWidth,boardHeight,this.matrix.logic)
 
-        this.submarine = {
-            1:new Submarine_v2(scene, 0,0,this.matrix.logic,this),
-            2:new Submarine_v2(scene, 1,1,this.matrix.logic,this)
-        }
+        this.submarines = {
+            blue: new Submarine_v2(scene, 0, 0, this.matrix.logic, this),   
+            red:  new Submarine_v2(scene, 2, 2, this.matrix.logic, this)  
+        };
 
+        
+        this.submarines.blue.setTint(0x00aaff);
+        this.submarines.red.setTint(0xff4444);
+
+      
+        this.submarines.blue.moveRight();
+        this.submarines.red.moveLeft();
       //  this.submarine[1].moveRight()
 
         // console.log(this.submarine[1].board[0][0] === this.matrix.logic[0][0]);
