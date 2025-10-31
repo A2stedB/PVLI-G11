@@ -33,23 +33,6 @@ export class Game_Screen extends Phaser.Scene{
 
 
 this.inputManager = new InputManager(this, this.tablero.submarines.blue, this.tablero.submarines.red);
-        this.input.keyboard.on('keydown-M', ()=>{
-            EventDispatch.emit(Event.TOGGLE_MAP); 
-            console.log("M pressed")
-
-        })
-        
-        this.input.keyboard.on('keydown-D', ()=>{
-            EventDispatch.emit(Event.MOVE_RIGHT); 
-            console.log("D pressed")
-        })
-
-        this.input.keyboard.on('keydown-W', ()=>{
-            EventDispatch.emit(Event.MOVE_FRONT); 
-            console.log("W pressed")
-        })
-
-
 
         // EventDispatch.on("keydown-M",()=>{EventDispatch.emit("RefreshMap"); console.log("M pressed")})
         // let matriz = tablero.matriz;

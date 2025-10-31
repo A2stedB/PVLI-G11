@@ -1,4 +1,3 @@
-//import { Scene } from "phaser";
 import { Submarine_v2 } from "../Submarine_v2.js";
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
@@ -40,14 +39,21 @@ export class InputManager {
     }
 
     createEvents(){
-        this.scene.input.keyboard.on('keydown-D', ()=>{
-            EventDispatch.emit(Event.MOVE_RIGHT);
-            console.log("D pressed")
+
+        this.scene.input.keyboard.on('keydown-M', ()=>{
+            EventDispatch.emit(Event.TOGGLE_MAP); 
+            console.log("M pressed")
+
         })
         
-        this.scene.input.keyboard.on('keydown-M', ()=>{
-        EventDispatch.emit(Event.TOGGLE_MAP); 
-        console.log("M pressed")
+        this.scene.input.keyboard.on('keydown-D', ()=>{
+            EventDispatch.emit(Event.MOVE_RIGHT); 
+            console.log("D pressed")
+        })
+
+        this.scene.input.keyboard.on('keydown-W', ()=>{
+            EventDispatch.emit(Event.MOVE_FRONT); 
+            console.log("W pressed")
         })
 
     }
