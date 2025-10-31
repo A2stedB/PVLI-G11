@@ -34,6 +34,12 @@ export class Game_Screen extends Phaser.Scene{
         this.input.keyboard.on('keydown-M', ()=>{
             EventDispatch.emit(Event.TOGGLE_MAP); 
             console.log("M pressed")
+
+        })
+        
+        this.input.keyboard.on('keydown-D', ()=>{
+            EventDispatch.emit(Event.MOVE_RIGHT); 
+            console.log("D pressed")
         })
 
 

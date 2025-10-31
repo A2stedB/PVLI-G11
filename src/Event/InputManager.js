@@ -1,5 +1,5 @@
-import { Scene } from "phaser";
-import Submarine from "../Submarine";
+// // import { Scene } from "phaser";
+// import Submarine from "../Submarine_v2.js";
 
 export class InputManager {
     /**

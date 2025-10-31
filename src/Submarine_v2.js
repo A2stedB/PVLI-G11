@@ -11,6 +11,7 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
      */
     constructor(scene, x,y,board,container){
         super(scene,100,100,"Submarine",0);
+        this.container = container;
         this.board = board;
         this.position = this.board[x*2][y*2].position;
         this.range = 2;
@@ -27,10 +28,11 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
      updateSprite() {
         const cellSize = this.container.data.cellSize;
         this.setPosition(this.position.x * cellSize, this.position.y * cellSize);
-        this.setAngle(this.orientation);
+        console.log(this.position);
+        // this.setAngle(this.orientation);
     }
 
-  canMoveTo(newX, newY) {
+    canMoveTo(newX, newY) {
         return newX >= 0 && newY >= 0 && newX <=  this.board.length - 1 && newY <= this.board[0].length - 1;
     }
 
@@ -110,5 +112,63 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
     shoot(){
 
     }
-}
 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // /**
+    //  * 
+    //  * @param {Orientation} direction 
+    //  */
+    // move(direction){
+    //     direction = direction%360
+    //     if(!Orientation.getAvailableDirection(this.orientation).includes(direction)){
+    //         console.log("No se puede mover en esa direccion")
+    //     }
+    //     else{
+    //         let check = (x,y) =>{
+    //             return (x+2 < this.container.data.boardWidth) && (x-2 > 0) && (y+2 < this.container.data.boardHeight) && (y-2 > 0)
+    //         }
+    //         this.orientation = Orientation.getAvailableDirection(this.orientation).at(Orientation.getAvailableDirection(this.orientation).indexOf(direction));
+    //         console.log(this.orientation)
+
+    //         let x = this.position.x; let y = this.position.y;
+
+    //         switch (this.orientation){
+    //             case 0:
+    //                 if(check(x,y-2)) this.position = this.board[x][y-2].position
+    //                 break;
+    //             case 90:
+    //                 if(check(x+2,y)) this.position = this.board[x+2][y].position
+    //                 break;
+    //             case 180:
+    //                 if(check(x,y+2)) this.position = this.board[x][y+2].position
+    //                 break;
+    //             case 270:
+    //                 if(check(x-2,y)) this.position = this.board[x-2][y].position
+    //                 break;
+    //         }
+    //         this.updateSprite();
+    //     }
+    // }
+}

@@ -58,11 +58,11 @@ export default class Game_Board extends Phaser.GameObjects.Container{
       
         this.submarines.blue.moveRight();
         this.submarines.red.moveLeft();
-      //  this.submarine[1].moveRight()
+        // this.submarine[1].moveRight()
 
         // console.log(this.submarine[1].board[0][0] === this.matrix.logic[0][0]);
-        console.log(this.submarine[1].board[0][0].available)
-        this.submarine[1].board[0][0].available = false;
+        // console.log(this.submarine[1].board[0][0].available)
+        // this.submarine[1].board[0][0].available = false;
         // console.log(this.submarine[2].board === this.matrix.logic);
 
         this.initializeBackground(x,y,"BG");
@@ -71,6 +71,12 @@ export default class Game_Board extends Phaser.GameObjects.Container{
             this.refresh();
             console.log("Refreshed");
         })
+
+        EventDispatch.on(Event.MOVE_RIGHT,() => 
+            {
+                this.submarines.red.moveRight();
+                // this.submarines.red.move(this.submarines.red.orientation+90);
+            })
         
         console.log("Board created")
         scene.add.existing(this);
