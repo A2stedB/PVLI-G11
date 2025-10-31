@@ -2,6 +2,7 @@ import Game_Board from "../Board/Game_Board.js";
 import { Submarine_v2 } from "../Submarine_v2.js";
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
+import { InputManager } from "../Event/InputManager.js";
 
 export class Game_Screen extends Phaser.Scene{
     constructor(){
@@ -29,6 +30,7 @@ export class Game_Screen extends Phaser.Scene{
         this.tablero = new Game_Board(this,11,11,200,0,texturas,40);
 
         this.tablero.render();
+
         this.input.keyboard.on('keydown-M', ()=>{
             EventDispatch.emit(Event.TOGGLE_MAP); 
             console.log("M pressed")
