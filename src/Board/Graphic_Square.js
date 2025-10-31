@@ -54,7 +54,7 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
     }
 
     addEvent(){
-        this.on("pointerdown",()=>{
+        this.on("pointerover",()=>{
             this.square.active = !this.square.active
             console.log(this.square.position.x + " " + this.square.position.y)
             this.render();
