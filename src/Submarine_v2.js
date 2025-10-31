@@ -29,6 +29,7 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         const cellSize = this.container.data.cellSize;
         this.setPosition(this.position.x * cellSize, this.position.y * cellSize);
         console.log(this.position);
+        console.log(this.orientation)
         // this.setAngle(this.orientation);
     }
 
@@ -53,6 +54,9 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
             case Orientation.W:
                 newX -= 2;
                 break;
+        this.position.y = newY;
+        this.position.x = newY;
+        
         }
 
         if (this.canMoveTo(newX, newY)) {
@@ -67,8 +71,12 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
 
     moveRight() {
         let newdirection = Orientation.N;
+         let newX = this.position.x;
+        let newY = this.position.y;
+
         switch (this.orientation) {
             case Orientation.N:
+                
                 newdirection = Orientation.E;
                 break;
             case Orientation.S:
@@ -82,7 +90,8 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
                 break;
         }
         this.orientation = newdirection;
-        this.orientation = (this.orientation + 90) % 360;
+       // this.orientation = (this.orientation + 90) % 360;
+        this.moveFront();
         this.updateSprite();
         console.log("girar derecha", this.orientation);
     }
@@ -104,7 +113,8 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
                 break;
         }
         this.orientation = newdirection;
-        this.orientation = (this.orientation - 90 + 360) % 360;
+      //  this.orientation = (this.orientation - 90 + 360) % 360;
+         this.moveFront();
         this.updateSprite();
         console.log("girar izquierda:", this.orientation);
     }
