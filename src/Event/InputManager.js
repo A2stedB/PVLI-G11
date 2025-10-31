@@ -1,26 +1,27 @@
-// // import { Scene } from "phaser";
-// import Submarine from "../Submarine_v2.js";
+//import { Scene } from "phaser";
+import { Submarine_v2 } from "../Submarine_v2.js";
+import EventDispatch from "../Event/EventDispatch.js";
+import Event from "../Event/Event.js";
+
 
 export class InputManager {
     /**
      * 
-     * @param {Submarine} player1
-     * @param {Submarine} player2
-     * @param {Scene} scene
+     * @param {Submarine_v2} player1
+     * @param {Submarine_v2} player2
+     * @param {Phaser.Scene} scene
      */
 
 
     constructor(scene, player1, player2){
             
-        this.board = board;
         this.scene = scene;
+        this.board = this.scene.tablero;
         this.player1 = player1;
         this.player2 = player2;
 
         this.createKeys();
         this.createEvents();
-        
-
     }
 
     createKeys(){
@@ -39,8 +40,19 @@ export class InputManager {
     }
 
     createEvents(){
-
+        this.scene.input.keyboard.on('keydown-D', ()=>{
+            EventDispatch.emit(Event.MOVE_RIGHT);
+            console.log("D pressed")
+        })
         
+        this.scene.input.keyboard.on('keydown-M', ()=>{
+        EventDispatch.emit(Event.TOGGLE_MAP); 
+        console.log("M pressed")
+        })
+
+    }
+
+    preUpdate(){
 
     }
 
