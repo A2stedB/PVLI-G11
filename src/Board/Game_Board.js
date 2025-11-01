@@ -72,17 +72,20 @@ export default class Game_Board extends Phaser.GameObjects.Container{
             console.log("Refreshed");
         })
 
-        EventDispatch.on(Event.MOVE_RIGHT,() => 
-            {
-                this.submarines.red.moveRight();
-                // this.submarines.red.move(this.submarines.red.orientation+90);
-            })
+        // EventDispatch.on(Event.MOVE_RIGHT,() => 
+        //     {
+        //         this.submarines.red.moveRight();
+        //         // this.submarines.red.move(this.submarines.red.orientation+90);
+        //     })
 
-        EventDispatch.on(Event.MOVE_FRONT,() => 
-            {
-                this.submarines.red.moveFront();
-                // this.submarines.red.move(this.submarines.red.orientation+90);
-            })
+        // EventDispatch.on(Event.MOVE_FRONT,() => 
+        //     {
+        //         this.submarines.red.moveFront();
+        //         // this.submarines.red.move(this.submarines.red.orientation+90);
+
+                    //emit event to "state machine" to change state
+                    //Same for shoot
+        //     })
         
         console.log("Board created")
         scene.add.existing(this);

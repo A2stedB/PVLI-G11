@@ -71,51 +71,75 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
 
     moveRight() {
         let newdirection = Orientation.N;
-         let newX = this.position.x;
+        let newX = this.position.x;
         let newY = this.position.y;
 
         switch (this.orientation) {
             case Orientation.N:
                 
                 newdirection = Orientation.E;
+
+                 newX += 2;
                 break;
             case Orientation.S:
                 newdirection = Orientation.W;
+                newX -= 2;
+
                 break;
             case Orientation.E:
                 newdirection = Orientation.S;
+                newY += 2;
                 break;
             case Orientation.W:
                 newdirection = Orientation.N;
+                newY -= 2;
                 break;
         }
-        this.orientation = newdirection;
-       // this.orientation = (this.orientation + 90) % 360;
-        this.moveFront();
-        this.updateSprite();
+       
+      
+        if (this.canMoveTo(newX, newY)) {
+            if (newX != this.position.x)this.position.x = newX;
+            if (newY != this.position.y)this.position.y = newY;
+              this.updateSprite();
+            console.log("movendose a", this.position);
+        } else {
+            console.log("fuera del tablero.");
+        }
+         this.orientation = newdirection;
         console.log("girar derecha", this.orientation);
     }
 
     moveLeft() {
         let newdirection = Orientation.N;
+          let newX = this.position.x;
+        let newY = this.position.y;
         switch (this.orientation) {
             case Orientation.N:
                 newdirection = Orientation.W;
+                newX -= 2;
                 break;
             case Orientation.S:
                 newdirection = Orientation.E;
+                newX += 2;
                 break;
             case Orientation.E:
                 newdirection = Orientation.N;
+                newY -= 2;
                 break;
             case Orientation.W:
                 newdirection = Orientation.S;
+                newY += 2;
                 break;
         }
-        this.orientation = newdirection;
-      //  this.orientation = (this.orientation - 90 + 360) % 360;
-         this.moveFront();
-        this.updateSprite();
+         if (this.canMoveTo(newX, newY)) {
+            if (newX != this.position.x)this.position.x = newX;
+            if (newY != this.position.y)this.position.y = newY;
+              this.updateSprite();
+            console.log("movendose a", this.position);
+        } else {
+            console.log("fuera del tablero.");
+        }
+         this.orientation = newdirection;
         console.log("girar izquierda:", this.orientation);
     }
 
@@ -124,26 +148,6 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
     }
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     
     // /**
