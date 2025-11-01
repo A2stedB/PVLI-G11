@@ -1,4 +1,4 @@
-import Game_Board from "../Board/Game_Board.js";
+import GameBoard from "../Board/Game_Board.js";
 import { Submarine_v2 } from "../Submarine_v2.js";
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
@@ -27,30 +27,8 @@ export class Game_Screen extends Phaser.Scene{
     //La dimension de la tabla tiene que ser un numero impar
     create(){
         let texturas = ["Square","BG", "Submarine"];
-        this.tablero = new Game_Board(this,11,11,200,0,texturas,40);
-
-        this.tablero.render();
-
-
+        this.tablero = new GameBoard(this,11,11,200,0,texturas,40);
         this.inputManager = new InputManager(this, this.tablero.submarines.blue, this.tablero.submarines.red);
-
-        // EventDispatch.on("keydown-M",()=>{EventDispatch.emit("RefreshMap"); console.log("M pressed")})
-        // let matriz = tablero.matriz;
-        // const cellSize = 40;
-        // const graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 } });
-
-        // for (let y = 0; y < matriz.length; y++) {
-        //     for (let x = 0; x < matriz[y].length; x++) {
-        //         if (matriz[y][x] === 1) {
-        //             graphics.fillStyle(0xff0000);
-        //             graphics.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-        //         } 
-        //         else {
-        //             graphics.fillRect(x * cellSize, y * cellSize, cellSize, cellSize); // Draw background cell
-        //         }
-        //             graphics.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize); // Outline for all cells
-        //         }   
-        // }
     }
 
     update(){}

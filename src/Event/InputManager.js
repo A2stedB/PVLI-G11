@@ -56,6 +56,11 @@ export class InputManager {
             console.log("W pressed")
         })
 
+        this.scene.input.keyboard.on('keydown-A',()=>{
+            EventDispatch.emit(Event.MOVE_LEFT); 
+            console.log("A pressed")
+        })
+
     }
 
     preUpdate(){

@@ -21,10 +21,6 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
         
         this.setInteractive();
         this.addEvent();
-
-        // this.eventBroker.on("Click",()=>{console.log("this")})
-        // EventDispatch.subscribe("Click",()=>{this.Update})
-        // this.eventBroker.on()
         
         scene.add.existing(this);
     }
@@ -35,7 +31,6 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
      * @param {number} max 
      */
     render(){
-        //this.setPosition((this.square.position.x*this.cellSize)+this.offsetX,this.square.position.y*this.cellSize+this.offsetY)
         this.setDisplaySize(this.cellSize*2,this.cellSize*2);
         if(this.square.active){
             this.setAlpha(1);
@@ -43,18 +38,10 @@ export class Square_Graphic extends Phaser.GameObjects.Image{
         else{
             this.setAlpha(0.01);
         }
-        // if(this.square.position.x != max_x && this.square.position.y != max_y){
-        // }
-        // console.log()
-        // if(this.square.position.x != max_x && this.square.position.y != max_y){
-        //     // console.log("Dibujando: " + this.square.position.x + " " + this.square.position.y);
-        //     GRAPHIC.fillStyle(0x021561);
-        //     GRAPHIC.fillRect((this.square.position.y)*cellSize,(this.square.position.x)*cellSize,cellSize*2,cellSize*2)
-        // }
     }
 
     addEvent(){
-        this.on("pointerover",()=>{
+        this.on("pointerdown",()=>{
             this.square.active = !this.square.active
             console.log(this.square.position.x + " " + this.square.position.y)
             this.render();

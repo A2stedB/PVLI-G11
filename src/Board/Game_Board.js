@@ -6,9 +6,8 @@ import { Submarine_v2 } from "../Submarine_v2.js";
 import Event from "../Event/Event.js";
 import { Orientation } from "../Orientation.js";
 
-//Por hacer: Hacer que el submarino tenga la tabla logica real del tablero y no una copia
 
-export default class Game_Board extends Phaser.GameObjects.Container{
+export default class GameBoard extends Phaser.GameObjects.Container{
     /**
      * 
      * @param {*} scene El nombre de la escena
@@ -55,16 +54,6 @@ export default class Game_Board extends Phaser.GameObjects.Container{
         this.submarines.blue.setTint(0x00aaff);
         this.submarines.red.setTint(0xff4444);
 
-      
-        this.submarines.blue.moveRight();
-        this.submarines.red.moveLeft();
-        // this.submarine[1].moveRight()
-
-        // console.log(this.submarine[1].board[0][0] === this.matrix.logic[0][0]);
-        // console.log(this.submarine[1].board[0][0].available)
-        // this.submarine[1].board[0][0].available = false;
-        // console.log(this.submarine[2].board === this.matrix.logic);
-
         this.initializeBackground(x,y,"BG");
 
         EventDispatch.on(Event.TOGGLE_MAP,()=>{
@@ -72,20 +61,32 @@ export default class Game_Board extends Phaser.GameObjects.Container{
             console.log("Refreshed");
         })
 
-        // EventDispatch.on(Event.MOVE_RIGHT,() => 
-        //     {
-        //         this.submarines.red.moveRight();
-        //         // this.submarines.red.move(this.submarines.red.orientation+90);
-        //     })
+        EventDispatch.on(Event.MOVE_RIGHT,() => 
+            {
+                this.submarines.red.moveRight();
+                // this.submarines.red.move(this.submarines.red.orientation+90);
+            }
+        )
 
-        // EventDispatch.on(Event.MOVE_FRONT,() => 
-        //     {
-        //         this.submarines.red.moveFront();
-        //         // this.submarines.red.move(this.submarines.red.orientation+90);
+        EventDispatch.on(Event.MOVE_FRONT,() => 
+            {
+                this.submarines.red.moveFront();
+                // this.submarines.red.move(this.submarines.red.orientation+90);
 
-                    //emit event to "state machine" to change state
-                    //Same for shoot
-        //     })
+                    // emit event to "state machine" to change state
+                    // Same for shoot
+            }
+        )
+
+        EventDispatch.on(Event.MOVE_LEFT,() => 
+            {
+                this.submarines.red.moveLeft();
+                // this.submarines.red.move(this.submarines.red.orientation+90);
+
+                    // emit event to "state machine" to change state
+                    // Same for shoot
+            }
+        )
         
         console.log("Board created")
         scene.add.existing(this);
@@ -165,7 +166,6 @@ export default class Game_Board extends Phaser.GameObjects.Container{
         }
         else this.setVisible(false);
          
-        // Eve
         this.render()
     }
 }
