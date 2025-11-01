@@ -1,7 +1,7 @@
 
-import Board from "./Logic_Board.js";
-import { Vertex_Graphic } from "./Graphic_Vertex.js";
-import { Square_Graphic } from "./Graphic_Square.js";
+import Board from "./LogicBoard.js";
+import { Vertex_Graphic } from "./GraphicVertex.js";
+import { Square_Graphic } from "./GraphicSquare.js";
 import { Vertex } from "./Vertex.js";
 
 export default class Graphic_Board extends Phaser.GameObjects.Image{

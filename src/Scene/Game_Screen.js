@@ -20,7 +20,7 @@ export class Game_Screen extends Phaser.Scene{
         console.log("preload");
         
         this.load.image("Square","Page/img/Profile/Lappland.jpeg")
-        this.load.image("BG","Page/img/Profile/icon.jpg")
+        this.load.image("BG","assets/GameBoard_BG.jpg")
         this.load.image("Submarine","assets/red.png")
     }
     

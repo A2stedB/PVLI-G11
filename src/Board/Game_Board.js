@@ -1,6 +1,6 @@
-import Logic_Board from "./Logic_Board.js"
-import { Vertex_Graphic } from "./Graphic_Vertex.js";
-import { Square_Graphic } from "./Graphic_Square.js";
+import LogicBoard from "./LogicBoard.js"
+import { GraphicVertex } from "./GraphicVertex.js";
+import { GraphicSquare } from "./GraphicSquare.js";
 import EventDispatch from "../Event/EventDispatch.js"
 import { Submarine_v2 } from "../Submarine_v2.js";
 import Event from "../Event/Event.js";
@@ -39,10 +39,11 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         }
 
         this.matrix = {
-            logic: new Logic_Board(boardWidth,boardHeight).matrix,
+            logic: new LogicBoard(boardWidth,boardHeight),
             graphic: null
         }
 
+        // this.matrix.logic.getVertexListForSquare();
         this.matrix.graphic = this.graphicMatrixInitialize(boardWidth,boardHeight,this.matrix.logic)
 
         this.submarines = {
@@ -88,6 +89,7 @@ export default class GameBoard extends Phaser.GameObjects.Container{
             }
         )
         
+        this.render();
         console.log("Board created")
         scene.add.existing(this);
     }
@@ -96,10 +98,10 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         if(this.active){
             this.matrix.graphic.forEach((row) =>{
                 row.forEach(point =>{
-                    if(point instanceof Square_Graphic){
+                    if(point instanceof GraphicSquare){
                         point.render();
                     }
-                    if(point instanceof Vertex_Graphic){
+                    if(point instanceof GraphicVertex){
                         point.render();
                     }
                 })
@@ -148,10 +150,10 @@ export default class GameBoard extends Phaser.GameObjects.Container{
      */
     createGraphicPoint(m,i,j,logic){
         if((i%2 === 0) && (j%2 === 0)){
-            m[i][j] = new Vertex_Graphic(this.scene,this.GRAPHIC,this.data.cellSize,logic[i][j],this.data.x,this.data.y);
+            m[i][j] = new GraphicVertex(this.scene,this.GRAPHIC,this.data.cellSize,logic.matrix[i][j],this.data.x,this.data.y);
         }
         else if((i%2 === 1) && (j%2 === 1)){
-            m[i][j] = new Square_Graphic(this.scene,logic[i][j],"Square",this.data.cellSize,this.data.x,this.data.y);
+            m[i][j] = new GraphicSquare(this.scene,logic.matrix[i][j],"Square",this.data.cellSize,this.data.x,this.data.y);
             this.add(m[i][j])
         }
         else {

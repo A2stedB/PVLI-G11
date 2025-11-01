@@ -13,7 +13,7 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         super(scene,100,100,"Submarine",0);
         this.container = container;
         this.board = board;
-        this.position = this.board[x*2][y*2].position;
+        this.position = this.board.matrix[x*2][y*2].position;
         this.range = 2;
         this.orientation = Orientation.N;
         this.damage = 10;
@@ -25,16 +25,25 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         console.log("Submarine created")
     }
 
-     updateSprite() {
+    get X(){
+        return this.position.x;
+    }
+
+    get Y(){
+        return this.position.y;
+    }
+    updateSprite() {
         const cellSize = this.container.data.cellSize;
         this.setPosition(this.position.x * cellSize, this.position.y * cellSize);
         console.log(this.position);
         console.log(this.orientation)
+        this.positionReferenceCheck();
+        // this.vertexReferenceCheck();
         // this.setAngle(this.orientation);
     }
 
     canMoveTo(newX, newY) {
-        return newX >= 0 && newY >= 0 && newX <=  this.board.length - 1 && newY <= this.board[0].length - 1;
+        return newX >= 0 && newY >= 0 && newX <=  this.board.matrix.length - 1 && newY <= this.board.matrix[0].length - 1;
     }
 
     moveFront() {
@@ -60,8 +69,10 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         }
 
         if (this.canMoveTo(newX, newY)) {
-            this.position.x = newX;
-            this.position.y = newY;
+            this.position = this.board.matrix[newX][newY].position;
+            // this.vertexReferenceCheck();
+            // this.position.x = newX;
+            // this.position.y = newY;
               this.updateSprite();
             console.log("movendose a", this.position);
         } else {
@@ -98,14 +109,14 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
        
       
         if (this.canMoveTo(newX, newY)) {
-            if (newX != this.position.x)this.position.x = newX;
-            if (newY != this.position.y)this.position.y = newY;
-              this.updateSprite();
+            this.position = this.board.matrix[newX][newY].position;
+            // this.vertexReferenceCheck();
+            this.updateSprite();
             console.log("movendose a", this.position);
         } else {
             console.log("fuera del tablero.");
         }
-         this.orientation = newdirection;
+        this.orientation = newdirection;
         console.log("girar derecha", this.orientation);
     }
 
@@ -132,9 +143,9 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
                 break;
         }
          if (this.canMoveTo(newX, newY)) {
-            if (newX != this.position.x)this.position.x = newX;
-            if (newY != this.position.y)this.position.y = newY;
-              this.updateSprite();
+            this.position = this.board.matrix[newX][newY].position;
+            // this.vertexReferenceCheck();
+            this.updateSprite();
             console.log("movendose a", this.position);
         } else {
             console.log("fuera del tablero.");
@@ -146,6 +157,22 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
     shoot(){
 
     }
+
+    //Metodos para debugear
+    positionReferenceCheck(){
+        console.log(`Position has correct reference: ${this.position === this.board.matrix[this.X][this.Y].position}`);
+    }
+    vertexReferenceCheck(){
+        let x = this.X - 1;
+        let y = this.Y + 1;
+        let list = this.board.matrix[x][y].nextPoint;
+        Array.from(list).forEach((point) =>{
+            if(point === this.board.matrix[this.X][this.Y]){
+                console.log("Found the vertex!!!")
+            }
+        })
+    }
+
 
     
 
