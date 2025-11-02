@@ -15,12 +15,15 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         this.board = board;
         this.position = this.board.matrix[x*2][y*2].position;
         this.range = 2;
-        this.orientation = Orientation.N;
+        this.orientation = Orientation.E;
         this.damage = 10;
+        this.mun1= 5; // municion corta
+        this.mun2= 5; // municion larga
         this.texture = "Submarine";
-
+      
         container.add(this);
-
+       this.setScale(0.1);
+        this.setOrigin(0.5, 0.5); //
         this.updateSprite();
         console.log("Submarine created")
     }
@@ -37,9 +40,10 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         this.setPosition(this.position.x * cellSize, this.position.y * cellSize);
         console.log(this.position);
         console.log(this.orientation)
-        this.positionReferenceCheck();
-        // this.vertexReferenceCheck();
-        // this.setAngle(this.orientation);
+       
+            this.positionReferenceCheck();
+            // this.vertexReferenceCheck();
+    this.setAngle(this.orientation);
     }
 
     canMoveTo(newX, newY) {
@@ -154,7 +158,37 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         console.log("girar izquierda:", this.orientation);
     }
 
-    shoot(){
+    shoot1(){
+        if (this.mun1 > 0){
+            this.mun1 -= 1;
+            console.log("Disparo corta distacia. Municion restante:", this.mun1);
+        }
+        else  console.log("No hay municion de corta distancia");
+
+    }
+      addMun1(mun){
+        if (this.mun1 + mun < 5){
+            mun = 5 - this.mun1;
+        }
+        this.mun1 += mun;
+    console.log(`Cargar ${mun} de municion corta distancia. Total : ${this.mun1}`);
+
+    }
+    shoot2(){
+           if (this.mun2 > 0){
+            this.mun2 -= 1;
+            console.log("Disparo larga distacia. Municion restante:", this.mun2);
+        }
+        else  console.log("No hay municion de larga distancia");
+
+
+    }
+      addMun2(mun){
+        if (this.mun2 + mun < 5){
+            mun = 5 - this.mun2;
+        }
+        this.mun2 += mun;
+    console.log(`Cargar ${mun} de municion larga distancia. Total : ${this.mun2}`);
 
     }
 
