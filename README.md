@@ -1,2 +1,18 @@
-# PVLI-G11
-PVLI Grupo 11
+//TODO:
+Meter la escena del submarine_view junto al Game_Screen, y sacar captura de esa escena
+
+## Este proyecto es un trabajo universitario
+
+# Proyecto G11
+
+# Redes sociales
+[Twitter](https://x.com/DeepCodeStudio)
+
+# Descripción
+Es un juego competitivo multijugador local por turno en el que manipulas un submarino. El objetivo es intentar hundir el submarino rival o llegar a la salida.
+
+La característica principal es la información asimétrica: cada jugador solo puede ver su entorno inmediato (frontal y laterales), creando un intenso juego de deducción psicológica y anticipación de movimientos.
+
+# Capturas del juego
+
+[Link al juego](https://a2stedb.github.io/PVLI-G11/)
