@@ -72,7 +72,7 @@ vértice a vértice, para posteriormente comunicar las coordenadas a la torre de
 
 ### 
 
-### **4.2 Condiciones de Victoria** {#4.2-condiciones-de-victoria}
+### **4.2 Condiciones de Victoria**
 
 Un jugador gana cuando:
 
