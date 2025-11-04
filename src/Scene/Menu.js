@@ -31,7 +31,8 @@ export class Menu extends Phaser.Scene {
 
 		// Cambiar a otra escena al hacer clic
 		boton.on('pointerdown', () => {
-			this.scene.start('Game_Screen');
+			// this.scene.start('Submarine_View');
+			this.scene.start('GameScreen');
 		});
 		
 	}

@@ -1,4 +1,4 @@
-import {Game_Screen} from "./Scene/Game_Screen.js";
+import {GameScreen} from "./Scene/GameScreen.js";
 import { Menu } from "./Scene/Menu.js";	
 import { Submarine_View } from "./Scene/Submarine_View.js";
 import Container_Scene from "./Container_test/Container_Scene.js";
@@ -15,7 +15,7 @@ let config = {
 	scale: {
 		autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
 	},
-	scene: [Game_Screen,Container_Scene,Menu, Submarine_View, ],
+	scene: [Menu,GameScreen, Submarine_View],
 };
 
 new Phaser.Game(config);

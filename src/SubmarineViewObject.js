@@ -1,9 +1,19 @@
-import GameBoard from "../Board/GameBoard.js";
-import { InputManager } from "../Event/InputManager.js";
 
-export class Submarine_View extends Phaser.Scene {
-    constructor() {
-        super({ key: 'Submarine_View' });
+//TODO:
+//Vincular las vistas con el tablero y el submarino de verdad, pasandole a esto como parametros
+
+export default class SubmarineView extends Phaser.GameObjects.Container{
+
+    constructor(scene,x,y){
+        super(scene,x,y)
+        this.scene = scene;
+        this.active = true;
+        this.screenWidth = scene.cameras.main.width;   // 800
+        this.screenHeight = scene.cameras.main.height; // 600
+        this.setSize(this.screenWidth,this.screenHeight);
+        
+        // PANTALLA DIVIDIDA: mitad superior para Jugador 1, mitad inferior para Jugador 2
+        this.halfHeight = this.screenHeight / 2; // 300px por jugador
         
         // Posiciones temporales de los submarinos (estas vendran del sistema de movimiento)
         // Los submarinos estan en vertices (coordenadas pares)
@@ -18,47 +28,49 @@ export class Submarine_View extends Phaser.Scene {
             y: 6,  // 2 casillas al sur del submarino 1
             direction: 'south'
         };
+        
+        this.initialize()
+        this.setInteractive();
+
+        this.on("pointerdown",()=>{
+            this.active = !this.active;
+            if(this.active){
+                this.setVisible(true)
+            }
+            else{
+                this.setVisible(false)
+            }
+        })
+        scene.add.existing(this)
     }
 
-    preload(){
-        console.log("preload");
+    initialize(){
+        // const screenWidth = this.cameras.main.width;   // 800
+        // const screenHeight = this.cameras.main.height; // 600
         
-        this.load.image("Square","Page/img/Profile/Lappland.jpeg")
-        this.load.image("BG","assets/GameBoard_BG.jpg")
-        this.load.image("Submarine","assets/red.png")
-    }
-
-    create() {
-        // let texturas = ["Square","BG", "Submarine"];
-        // this.tablero = new GameBoard(this,11,11,200,0,texturas,40);
-        // this.inputManager = new InputManager(this, this.tablero.submarines.blue, this.tablero.submarines.red);
-        // this.tablero.setToTop();
-
-        const screenWidth = this.cameras.main.width;   // 800
-        const screenHeight = this.cameras.main.height; // 600
-        
-        // PANTALLA DIVIDIDA: mitad superior para Jugador 1, mitad inferior para Jugador 2
-        const halfHeight = screenHeight / 2; // 300px por jugador
+        // // PANTALLA DIVIDIDA: mitad superior para Jugador 1, mitad inferior para Jugador 2
+        // const halfHeight = screenHeight / 2; // 300px por jugador
         
         //JUGADOR 1 (Parte Superior)
-        this.createPlayerViews(0, 0, screenWidth, halfHeight, 'JUGADOR 1', this.submarine1, this.submarine2);
+        this.createPlayerViews(0, 0, this.screenWidth, this.halfHeight, 'JUGADOR 1', this.submarine1, this.submarine2);
         
         // Linea divisoria
-        const line = this.add.graphics();
+        const line = this.scene.add.graphics();
         line.lineStyle(2, 0xffffff, 1);
-        line.lineBetween(0, halfHeight, screenWidth, halfHeight);
+        line.lineBetween(0, this.halfHeight, this.screenWidth, this.halfHeight);
         
         // JUGADOR 2 (Parte Inferior)
-        this.createPlayerViews(0, halfHeight, screenWidth, halfHeight, 'JUGADOR 2', this.submarine2, this.submarine1);
+        this.createPlayerViews(0, this.halfHeight, this.screenWidth, this.halfHeight, 'JUGADOR 2', this.submarine2, this.submarine1);
     }
 
-    /**
+     /**
      * Crea las 3 vistas para un jugador
      */
     createPlayerViews(x, y, width, height, playerLabel, mySub, enemySub) {
         const viewWidth = width / 3;
         
         // VISTA LATERAL IZQUIERDA
+        console.log(mySub.direction)
         const leftDirection = this.getLeftDirection(mySub.direction);
         this.createSingleView(
             x,
@@ -97,7 +109,7 @@ export class Submarine_View extends Phaser.Scene {
         );
         
         // Etiqueta del jugador
-        this.add.text(x + 10, y + 10, playerLabel, {
+        this.scene.add.text(x + 10, y + 10, playerLabel, {
             fontSize: '16px',
             fill: '#ffffff',
             backgroundColor: '#000000',
@@ -110,7 +122,7 @@ export class Submarine_View extends Phaser.Scene {
      */
     createSingleView(x, y, width, height, label, mySub, enemySub, viewDirection) {
         // Fondo azul oscuro (agua) - UNA SOLA PANTALLA
-        const waterBg = this.add.rectangle(
+        const waterBg = this.scene.add.rectangle(
             x + width / 2,
             y + height / 2,
             width - 10,
@@ -120,12 +132,12 @@ export class Submarine_View extends Phaser.Scene {
         );
         
         // Borde blanco de la vista
-        const border = this.add.graphics();
+        const border = this.scene.add.graphics();
         border.lineStyle(2, 0xffffff, 1);
         border.strokeRect(x + 5, y + 10, width - 10, height - 20);
         
         // Etiqueta de la vista
-        this.add.text(x + width / 2, y + 15, label, {
+        this.scene.add.text(x + width / 2, y + 15, label, {
             fontSize: '14px',
             fill: '#ffffff',
             backgroundColor: '#000000',
@@ -180,10 +192,10 @@ export class Submarine_View extends Phaser.Scene {
         }
         
         // Cuerpo del submarino (circulo rojo)
-        this.add.circle(centerX, centerY, size * 0.4, 0xff0000, 1);
+        this.scene.add.circle(centerX, centerY, size * 0.4, 0xff0000, 1);
         
         // Torre del submarino (rectangulo)
-        this.add.rectangle(
+        this.scene.add.rectangle(
             centerX,
             centerY - size * 0.25,
             size * 0.3,
@@ -203,7 +215,7 @@ export class Submarine_View extends Phaser.Scene {
         );
         
         // Texto de alerta
-        this.add.text(centerX, centerY + size * 0.6, '! ENEMIGO !', {
+        this.scene.add.text(centerX, centerY + size * 0.6, '! ENEMIGO !', {
             fontSize: distance === 1 ? '14px' : '11px',
             fill: '#ff0000',
             fontStyle: 'bold',
@@ -212,7 +224,7 @@ export class Submarine_View extends Phaser.Scene {
         }).setOrigin(0.5);
         
         // Indicador de distancia
-        this.add.text(centerX, centerY - size * 0.9, distance + ' casilla' + (distance === 1 ? '' : 's'), {
+        this.scene.add.text(centerX, centerY - size * 0.9, distance + ' casilla' + (distance === 1 ? '' : 's'), {
             fontSize: '10px',
             fill: '#ffff00',
             backgroundColor: '#000000',
@@ -225,12 +237,12 @@ export class Submarine_View extends Phaser.Scene {
      */
     drawWater(centerX, centerY) {
         // Efecto de agua con circulos concentricos
-        this.add.circle(centerX, centerY, 80, 0x003366, 0.3);
-        this.add.circle(centerX, centerY, 50, 0x004488, 0.4);
-        this.add.circle(centerX, centerY, 25, 0x0055aa, 0.5);
+        this.scene.add.circle(centerX, centerY, 80, 0x003366, 0.3);
+        this.scene.add.circle(centerX, centerY, 25, 0x0055aa, 0.5);
+        this.scene.add.circle(centerX, centerY, 50, 0x004488, 0.4);
         
         // Texto
-        this.add.text(centerX, centerY, 'Agua oscura\n(sin enemigo)', {
+        this.scene.add.text(centerX, centerY, 'Agua oscura\n(sin enemigo)', {
             fontSize: '12px',
             fill: '#66ccff',
             align: 'center',

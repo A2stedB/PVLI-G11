@@ -133,7 +133,7 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         let height = ((this.data.boardHeight-1)*this.data.cellSize);
         this.background_image.setDisplaySize(width,height)
         this.scene.add.existing(this.background_image);
-        this.background_image.setAlpha(0.2);
+        this.background_image.setAlpha(0.5);
 
         console.log(this.background_image.getCenter());
 
