@@ -2,6 +2,99 @@
 
 # **Documento de diseño PVLI**
 
+[1.Resumen](#Resumen)
+
+[2\. Concepto del juego](#2.-concepto-del-juego)
+
+[2.1 Descripción General](#2.1-descripción-general)
+
+[2.2 Género](#2.2-género)
+
+[2.3 Pilares de Diseño](#2.3-pilares-de-diseño)
+
+[2.4 Experiencia de Juego Deseada](#2.4-experiencia-de-juego-deseada)
+
+[3\. Narrativa y Contexto (esto es antiguo ya)](#3.-narrativa,-contexto-y-estética-\(esto-es-antiguo-ya\))
+
+[**4\. Gameplay**](#4.-gameplay)
+
+[4.1 Requisitos Mínimos](#4.1-requisitos-mínimos)
+
+[4.2 Condiciones de Victoria](#4.2-condiciones-de-victoria)
+
+[4.3 estructura de Turno (Core Loop)](#4.3-estructura-de-turno-\(core-loop\))
+
+[**5\. Mecánicas**](#5.-mecánicas)
+
+[5.1 El Tablero de Juego](#5.1-el-tablero-de-juego)
+
+[5.1.1 Estructura](#5.1.1-estructura)
+
+[5.1.2 Elementos en el Mapa](#5.1.2-elementos-en-el-mapa)
+
+[5.2 Sistema de Orientación](#5.2-sistema-de-orientación)
+
+[5.3 Sistema de Movimiento](#5.3-sistema-de-movimiento)
+
+[5.4 Sistema de Combate](#5.4-sistema-de-combate)
+
+[5.4.1 Disparo Normal (Cañones)](#5.4.1-disparo-normal-\(cañones\))
+
+[5.4.2 Ataque Aéreo (Bombardeo)](#5.4.2-ataque-aéreo-\(bombardeo\))
+
+[5.5 Sistema de Vida](#5.5-sistema-de-vida)
+
+[5.6 Sistema de Recursos](#5.6-sistema-de-recursos)
+
+[//5.7 Obstáculos en el mapa](#//5.7-obstáculos-en-el-mapa)
+
+[5.8 Dragon (NPC)](#5.8-dragon-\(npc\))
+
+[**6\. Sistemas del Juego**](#6.-sistemas-del-juego)
+
+[6.1 Sistema de Visión](#6.1-sistema-de-visión)
+
+[6.2 Sistema de Mapa Anotable](#6.2-sistema-de-mapa-anotable)
+
+[6.3 Sistema de Cierre de Zona](#6.3-sistema-de-cierre-de-zona)
+
+[**7\. Interfaz y Controles**](#7.-interfaz-y-controles)
+
+[7.1 Pantalla Dividida](#7.1-pantalla-dividida)
+
+[7.2 Vista de Interfaz](#7.2-vista-de-interfaz)
+
+[7.2.1 Vista Principal (3 Ventanas)](#7.2.1-vista-principal-\(3-ventanas\))
+
+[7.2.2 Vista de Mapa Completo](#7.2.2-vista-de-mapa-completo)
+
+[7.2.3 Vista de Selección de Ataque Normal](#7.2.3-vista-de-selección-de-ataque-normal)
+
+[7.2.4 Vista de Selección de Ataque Aéreo](#7.2.4-vista-de-selección-de-ataque-aéreo)
+
+[7.3 HUD (Heads-Up Display)](#7.3-hud-\(heads-up-display\))
+
+[7.5 Controles](#7.5-controles)
+
+[7.5 Menú principal](#7.5-menú-principal)
+
+[**8\. Ejemplo de una partida**](#8.-ejemplo-de-una-partida)
+
+[8.1 Inicio](#8.1-inicio)
+
+[8.2 Progresión detallada de un turno](#8.2-progresión-detallada-de-un-turno)
+
+[8.3 Fin de la partida](#8.3-fin-de-la-partida)
+
+[**9\. En desuso**](#9.-en-desuso)
+
+[**9.1 Ideas para limitar el tiempo de juego**](#9.1-ideas-para-limitar-el-tiempo-de-juego)
+
+[**9.2 Posibles detalles**](#9.2-posibles-detalles)
+
+[**10\. Enlace**](#11.-enlace)
+
+<a id="Resumen"></a>
 # **1.Resumen**
 
 
