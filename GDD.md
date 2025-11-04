@@ -1,102 +1,10 @@
-# **PVLI %20 G11**
+# **PVLI G11**
 
 # **Documento de diseño PVLI**
 
-**[1.Resumen](#1.resumen)**
-
-[2. Concepto del juego](#2.Concepto%20del%20juego)
-
-[2.1 Descripción General](#2.1%20Descripción%20General)
-
-[2.2 Género](#2.2%20género)
-
-[2.3 Pilares de Diseño](#2.3%20pilares%20de%20diseño)
-
-[2.4 Experiencia de Juego Deseada](#2.4%20experiencia%20de%20juego%20deseada)
-
-[3\. Narrativa y Contexto (esto es antiguo ya)](#3.%20narrativa,%20contexto%20y%20estética%20\(esto%20es%20antiguo%20ya\))
-
-[**4\. Gameplay**](#4.%20gameplay)
-
-[4.1 Requisitos Mínimos](#4.1%20requisitos%20mínimos)
-
-[4.2 Condiciones de Victoria](#4.2%20condiciones%20de%20victoria)
-
-[4.3 estructura de Turno (Core Loop)](#4.3%20estructura%20de%20turno%20\(core%20loop\))
-
-[**5\. Mecánicas**](#5.%20mecánicas)
-
-[5.1 El Tablero de Juego](#5.1%20el%20tablero%20de%20juego)
-
-[5.1.1 Estructura	](#5.1.1%20estructura)
-
-[5.1.2 Elementos en el Mapa](#5.1.2%20elementos%20en%20el%20mapa)
-
-[5.2 Sistema de Orientación](#5.2%20sistema%20de%20orientación)
-
-[5.3 Sistema de Movimiento](#5.3%20sistema%20de%20movimiento)
-
-[5.4 Sistema de Combate](#5.4%20sistema%20de%20combate)
-
-[5.4.1 Disparo Normal (Cañones)](#5.4.1%20disparo%20normal%20\(cañones\))
-
-[5.4.2 Ataque Aéreo (Bombardeo)](#5.4.2%20ataque%20aéreo%20\(bombardeo\))
-
-[5.5 Sistema de Vida](#5.5%20sistema%20de%20vida)
-
-[5.6 Sistema de Recursos](#5.6%20sistema%20de%20recursos)
-
-[//5.7 Obstáculos en el mapa](#//5.7%20obstáculos%20en%20el%20mapa)
-
-[5.8 Dragon (NPC)](#5.8%20dragon%20\(npc\))
-
-[**6\. Sistemas del Juego**](#6.%20sistemas%20del%20juego)
-
-[6.1 Sistema de Visión](#6.1%20sistema%20de%20visión)
-
-[6.2 Sistema de Mapa Anotable](#6.2%20sistema%20de%20mapa%20anotable)
-
-[6.3 Sistema de Cierre de Zona](#6.3%20sistema%20de%20cierre%20de%20zona)
-
-[**7\. Interfaz y Controles**](#7.%20interfaz%20y%20controles)
-
-[7.1 Pantalla Dividida](#7.1%20pantalla%20dividida)
-
-[7.2 Vista de Interfaz](#7.2%20vista%20de%20interfaz)
-
-[7.2.1 Vista Principal (3 Ventanas)](#7.2.1%20vista%20principal%20\(3%20ventanas\))
-
-[7.2.2 Vista de Mapa Completo](#7.2.2%20vista%20de%20mapa%20completo)
-
-[7.2.3 Vista de Selección de Ataque Normal](#7.2.3%20vista%20de%20selección%20de%20ataque%20normal)
-
-[7.2.4 Vista de Selección de Ataque Aéreo](#7.2.4%20vista%20de%20selección%20de%20ataque%20aéreo)
-
-[7.3 HUD (Heads%20Up Display)](#7.3%20hud%20\(heads%20up%20display\))
-
-[7.5 Controles](#7.5%20controles)
-
-[7.5 Menú principal](#7.5%20menú%20principal)
-
-[**8\. Ejemplo de una partida**](#8.%20ejemplo%20de%20una%20partida)
-
-[8.1 Inicio](#8.1%20inicio)
-
-[8.2 Progresión detallada de un turno](#8.2%20progresión%20detallada%20de%20un%20turno)
-
-[8.3 Fin de la partida](#8.3%20fin%20de%20la%20partida)
-
-[**9\. En desuso**](#9.%20en%20desuso)
-
-[**9.1 Ideas para limitar el tiempo de juego**](#9.1%20ideas%20para%20limitar%20el%20tiempo%20de%20juego)
-
-[**9.2 Posibles detalles**](#9.2%20posibles%20detalles)
-
-[**10\. Enlace**](#11.%20enlace)
-
 # **1.Resumen**
 
-   
+
 **Título del juego:** \[POR DEFINIR \- Opciones: "Deep Tactics", "Submarine Duel", "Bajo Presión"\]
 
 **Concepto principal:** Juego multijugador local de estrategia por turnos donde dos jugadores controlan submarinos en un tablero de casillas. La característica principal es la información asimétrica: cada jugador solo puede ver su entorno inmediato (frontal y laterales), creando un intenso juego de deducción psicológica y anticipación de movimientos.
@@ -366,7 +274,7 @@ Cada turno, el jugador puede:
 * Sistema de fugas: "Los disparos causan fugas, tienes X tiempo para arreglarlo"  
   * ¿Cómo funciona exactamente? ¿Daño progresivo? ¿Turno perdido para reparar?
 
-### **5.6 Sistema de Recursos** {#5.6-sistema-de-recursos}
+### **5.6 Sistema de Recursos**
 
 Los jugadores pueden recoger recursos moviéndose sobre ellos:
 
@@ -505,7 +413,7 @@ Para evitar partidas eternas y forzar el enfrentamiento:
 
 * Cierre simétrico toda la fila exterior se vuelve inaccesible, la casilla de salida se reubica con el cierre poniéndose en el mismo sitio pero en el espacio reducido.
 
-![][]
+![image9.jpg (1999×1172)](https://raw.githubusercontent.com/A2stedB/PVLI-G11/8ec30b404dcf98a054692907836a1d144d89ee0f/Documentacion/images/image9.jpg)
 
 **Tamaño mínimo:** El mapa NO puede reducirse más allá de **\[POR DEFINIR: 4x4 casillas\]**
 
@@ -513,7 +421,7 @@ Para evitar partidas eternas y forzar el enfrentamiento:
 
 # **7\. Interfaz y Controles**
 
-### **7.1 Pantalla Dividida** {#7.1-pantalla-dividida}
+### **7.1 Pantalla Dividida**
 
 **Filosofía de diseño:** Toda la información se muestra en una sola pantalla física dividida en dos mitades (una por jugador).
 
@@ -525,7 +433,7 @@ Para evitar partidas eternas y forzar el enfrentamiento:
 
 ### **7.2 Vista de Interfaz**
 
-#### **7.2.1 Vista Principal (3 Ventanas)** {#7.2.1-vista-principal-(3-ventanas)}
+#### **7.2.1 Vista Principal (3 Ventanas)**
 
 **Ventana Central (Frontal) \- La más grande:**
 
@@ -541,7 +449,9 @@ Para evitar partidas eternas y forzar el enfrentamiento:
 
 **Estilo visual:**
 
-# **![][image2]![][image3]**
+![image3.jpg (1999×1500)](https://raw.githubusercontent.com/A2stedB/PVLI-G11/8ec30b404dcf98a054692907836a1d144d89ee0f/Documentacion/images/image3.jpg)
+
+![image2.jpg (1999×1500)](https://raw.githubusercontent.com/A2stedB/PVLI-G11/8ec30b404dcf98a054692907836a1d144d89ee0f/Documentacion/images/image2.jpg)
 
 #### 
 
@@ -552,11 +462,13 @@ Para evitar partidas eternas y forzar el enfrentamiento:
 
 * Click en casillas para añadir/quitar anotaciones  
 * Selector de tipo de marca (colores, símbolos)  
-* Borrador de anotaciones![][image4]
+* Borrador de anotaciones
 
-#### 
+![image13.jpg (1999×1500)](https://raw.githubusercontent.com/A2stedB/PVLI-G11/refs/heads/main/Documentacion/images/image13.jpg)
 
-#### **7.2.3 Vista de Selección de Ataque Normal** {#7.2.3-vista-de-selección-de-ataque-normal}
+####
+
+#### **7.2.3 Vista de Selección de Ataque Normal**
 
 **Activación:** Botón "Atacar \- Cañones" durante fase de ataque
 
@@ -567,9 +479,8 @@ Para evitar partidas eternas y forzar el enfrentamiento:
 * Cursor para seleccionar punto de impacto específico  
 * Feedback visual si hay objetivo válido en el área
 
-![][image5]
+![image10.png (1999×1500)](https://raw.githubusercontent.com/A2stedB/PVLI-G11/refs/heads/main/Documentacion/images/image10.png)
 
-#### 
 
 #### **7.2.4 Vista de Selección de Ataque Aéreo**
 
@@ -582,9 +493,8 @@ Para evitar partidas eternas y forzar el enfrentamiento:
 * Previsualización del área de efecto (4 vértices de la casilla)  
 * Advertencia si tu propia posición está en el área de efecto
 
-![][image6]
+![image4.png (1999×1500)](https://raw.githubusercontent.com/A2stedB/PVLI-G11/refs/heads/main/Documentacion/images/image4.png)
 
-### 
 
 ### **7.3 HUD (Heads-Up Display)**
 **Elementos permanentes en pantalla:**
@@ -701,7 +611,7 @@ Una partida llega a su fin cuando solo queda un submarino en pie, o un jugador h
 
 # **9\. En desuso**
 
-### **9.1 Ideas para limitar el tiempo de juego** {#9.1-ideas-para-limitar-el-tiempo-de-juego}
+### **9.1 Ideas para limitar el tiempo de juego**
 
 Motivar los jugadores a enfrentarse con objetos en el mapa, por ejemplo más munición extra, o objeto que permite saber la ubicación actual no exacta del rival.
 
@@ -709,7 +619,7 @@ La zona del juego va cerrando con el paso de turno, por ejemplo a partir del tur
 
 Establecer una “salida” para ambos como otro objetivo para conseguir la victoria, o otros objetivos para conseguir la victoria.
 
-### **9.2 Posibles detalles** {#9.2-posibles-detalles}
+### **9.2 Posibles detalles**
 
 En el mapa puede haber obstáculos, que incrementa un poco la jugabilidad para que no sea tan aburrido.
 
@@ -719,7 +629,7 @@ Anticipar ataque para turnos posteriores
 
 # **10\. Prueba en papel** 
 
-![][image7]
+![image6.jpg (1999×1500)](https://raw.githubusercontent.com/A2stedB/PVLI-G11/refs/heads/main/Documentacion/images/image6.jpg)
 
 # **11\. Enlace**
 
