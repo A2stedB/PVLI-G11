@@ -62,7 +62,7 @@ vértice a vértice, para posteriormente comunicar las coordenadas a la torre de
 
 	Se usarán unos gráficos pseudo 3D como en Myst. Modelos 3D hechos en Blender pero se usarán fotografías de estos como sprites y spritesheets.
 
-# **4\. Gameplay** {#4.-gameplay}
+# **4\. Gameplay**
 
 ### **4.1 Requisitos Mínimos**
 
