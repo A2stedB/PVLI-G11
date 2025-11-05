@@ -4,7 +4,9 @@ import { GraphicSquare } from "./GraphicSquare.js";
 import EventDispatch from "../Event/EventDispatch.js"
 import { Submarine_v2 } from "../Submarine_v2.js";
 import Event from "../Event/Event.js";
-import { Orientation } from "../Orientation.js";
+import { Orientation } from "../Submarine/Orientation.js";
+import { ResourceManager } from "./ResourceManager.js";
+import { SubmarineInventory } from "./SubmarineInventory.js";
 
 
 export default class GameBoard extends Phaser.GameObjects.Container{
@@ -60,6 +62,23 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         this.submarines.blue.setDepth(100);
         this.submarines.red.setDepth(100);
         this.initializeBackground(x,y,"BG");
+
+         // Inicializar el ResourceManager
+    this.resourceManager = new ResourceManager_Complete(scene, this);
+    
+    // Distribuir recursos en el mapa
+    // Opción A: Distribución aleatoria
+    this.resourceManager.distributeRandomResources(8); // 8 recursos aleatorios
+    
+    // Opción B: Distribución específica por tipo
+    /*
+    this.resourceManager.distributeResourcesByType({
+        "cooldown_reducer": 2,
+        "repair_kit": 3,
+        "movement_limiter": 1,
+        "ammunition_extra": 2
+    });
+    */
 
         EventDispatch.on(Event.TOGGLE_MAP,()=>{
             this.refresh();

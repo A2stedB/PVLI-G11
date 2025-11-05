@@ -4,7 +4,7 @@ import { GraphicSquare } from "./GraphicSquare.js";
 import EventDispatch from "../Event/EventDispatch.js"
 import { Submarine_v2 } from "../Submarine_v2.js";
 import Event from "../Event/Event.js";
-import { Orientation } from "../Orientation.js";
+import { Orientation } from "../Submarine/Orientation.js";
 
 
 export default class GameBoard extends Phaser.GameObjects.Container{
