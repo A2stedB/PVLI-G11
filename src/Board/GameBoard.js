@@ -106,20 +106,24 @@ export default class GameBoard extends Phaser.GameObjects.Container{
                 }
 
                 console.log("Disparo:", direction, "Distancia:", distance);
+                
                 //Logica del disparo - aqui se comprueba la municion y se resta
                 // El disparo largo da a corta distancia, pero no viceversa y hace menos daño
+                let isTargetDir1 = isTarget1&&
+                        this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 1, direction) 
+                        && this.submarines.red.canShoot(distance);
+                let isTargetDir2 = isTarget2 && 
+                            this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 2, direction) &&
+                            this.submarines.red.canShoot(distance);
+
                 if (distance == 1) {
                     this.submarines.red.shoot(distance);
-                    if (isTarget1&&
-                        this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 1, direction) 
-                        && this.submarines.red.canShoot(distance)) this.submarines.blue.loseHealth(5);
+                    if (isTargetDir1) this.submarines.blue.loseHealth(5);
                 }
-               if (distance == 2) {
-                    this.submarines.red.shoot(distance);
-                    if (isTarget2 && 
-                        this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 2, direction) &&
-                        this.submarines.red.canShoot(distance)) this.submarines.blue.loseHealth(2);
-                }
+                if (distance == 2) {
+                        this.submarines.red.shoot(distance);
+                        if (isTargetDir2 || isTargetDir1) this.submarines.blue.loseHealth(2);
+                    }
             });
           
         });

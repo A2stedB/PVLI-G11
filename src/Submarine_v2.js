@@ -213,11 +213,11 @@ export class Submarine_v2 extends Phaser.GameObjects.Image
         let mismaX = this.position.x == x ; let mismaY = this.position.y == y ;
         return (mismaY && (this.position.x - distance === x || this.position.x + distance === x)) || (mismaX && (this.position.y - distance === y || this.position.y + distance === y));
     }
-      // Le pasas la posicion del submarino enemigo, y te dice si es objetivo valido
+    
+    
     isTargetDir(x, y, distance, direction) 
     {
         distance = distance * 2
-        console.log("Comprobando objetivo en:", x, y, direction);
         let mismaX = this.position.x == x ; let mismaY = this.position.y == y ;
         switch (direction) {
             case "front":
