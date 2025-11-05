@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const blackOverlay = document.querySelector('.black-overlay'); 
     
     let currentIndex = 0;
-    const intervalTime = 6000; // Tiempo total entre cambios (6 segundos)
+    const intervalTime = 10000; // Tiempo total entre cambios (6 segundos)
     const transitionDuration = 1000; // Duración del fade CSS (0.5 segundos)
 
     if (backgroundImages.length <= 1) {

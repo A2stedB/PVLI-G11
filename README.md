@@ -14,6 +14,6 @@ Es un juego competitivo multijugador local por turno en el que manipulas un subm
 La característica principal es la información asimétrica: cada jugador solo puede ver su entorno inmediato (frontal y laterales), creando un intenso juego de deducción psicológica y anticipación de movimientos.
 
 # Capturas del juego
-![][https://raw.githubusercontent.com/A2stedB/PVLI-G11/8ec30b404dcf98a054692907836a1d144d89ee0f/Documentacion/images/Screenshot.png]
+![Screenshot](https://raw.githubusercontent.com/A2stedB/PVLI-G11/00c369e6c387fc94ea3d4cd8dd09284de76fed62/Documentacion/images/Screenshot.png)
 
 [Link al juego](https://a2stedb.github.io/PVLI-G11/)
