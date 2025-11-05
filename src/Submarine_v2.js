@@ -22,10 +22,11 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         this.texture = "Submarine";
       
         container.add(this);
-       this.setScale(0.1);
+       this.setScale(0.2);
         this.setOrigin(0.5, 0.5); //
         this.updateSprite();
         console.log("Submarine created")
+        console.log(this.position);
     }
 
     get X(){
@@ -192,6 +193,15 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
 
     }
 
+    loseHealth(damage){
+        this.damage -= damage;
+        console.log(`Submarino ha recibido ${damage} de dano. Vida restante: ${this.damage}`);  
+
+
+    }
+    isSunk(){
+        return this.damage <= 0;
+    }
     //Metodos para debugear
     positionReferenceCheck(){
         console.log(`Position has correct reference: ${this.position === this.board.matrix[this.X][this.Y].position}`);

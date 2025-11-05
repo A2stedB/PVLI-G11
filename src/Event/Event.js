@@ -3,6 +3,7 @@ const Event = Object.freeze({
     MOVE_FRONT:Symbol("Move Front"),
     MOVE_LEFT:Symbol("Move Left"),
     MOVE_RIGHT:Symbol("Move Right"),
+    SHOOT:Symbol("Shoot"),
 })
 
 export default Event;

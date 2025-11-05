@@ -15,7 +15,7 @@ let config = {
 	scale: {
 		autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
 	},
-	scene: [Menu,GameScreen, Submarine_View],
+	scene: [Menu,GameScreen],
 };
 
 new Phaser.Game(config);

@@ -24,13 +24,16 @@ export class InputManager {
     }
 
     createKeys(){
-        // Input submarino 1
+       
+        // Input submarino 1 (red )
         this.w = this.scene.input.keyboard.addKey('W');
         this.s = this.scene.input.keyboard.addKey('S');
         this.a = this.scene.input.keyboard.addKey('A');
         this.d = this.scene.input.keyboard.addKey('D');
+         this.space = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         
-        // Input submarino 2
+        
+        // Input submarino 2 (blue)
         this.upArrow = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         this.downArrow = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         this.rightArrow = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -59,6 +62,10 @@ export class InputManager {
         this.scene.input.keyboard.on('keydown-A',()=>{
             EventDispatch.emit(Event.MOVE_LEFT); 
             console.log("A pressed")
+        })
+        this.scene.input.keyboard.on('keydown-SPACE',()=>{
+            EventDispatch.emit(Event.SHOOT); 
+            console.log("SPACE pressed")
         })
 
     }
