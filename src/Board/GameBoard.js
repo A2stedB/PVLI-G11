@@ -94,8 +94,11 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         )
         EventDispatch.on(Event.SHOOT,() => 
           {
-               if (this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 1)
-                    || this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 2)) console.log("Target!");
+            let isTarget1 = this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 1)
+            let isTarget2 = this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 2)
+
+            if (isTarget1 || isTarget2) console.log("Target!");
+
             this.showShootPopup(this.submarines.red, (direction, distance) => {
                 if (!direction) {
                     console.log("No disparó");
@@ -104,10 +107,19 @@ export default class GameBoard extends Phaser.GameObjects.Container{
 
                 console.log("Disparo:", direction, "Distancia:", distance);
                 //Logica del disparo - aqui se comprueba la municion y se resta
-                if (distance == 1) this.submarines.red.shoot1(direction, distance);
-                if (distance == 2) this.submarines.red.shoot2(direction, distance);
-
-                
+                // El disparo largo da a corta distancia, pero no viceversa y hace menos daño
+                if (distance == 1) {
+                    this.submarines.red.shoot(distance);
+                    if (isTarget1&&
+                        this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 1, direction) 
+                        && this.submarines.red.canShoot(distance)) this.submarines.blue.loseHealth(5);
+                }
+               if (distance == 2) {
+                    this.submarines.red.shoot(distance);
+                    if (isTarget2 && 
+                        this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 2, direction) &&
+                        this.submarines.red.canShoot(distance)) this.submarines.blue.loseHealth(2);
+                }
             });
           
         });

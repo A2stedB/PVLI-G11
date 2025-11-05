@@ -1,7 +1,8 @@
 // import { Position } from "./Position.js";
 import { Orientation } from "./Orientation.js";
 // import {Game_Board} from "./Board/Game_Board.js";
-export class Submarine_v2 extends Phaser.GameObjects.Image{
+export class Submarine_v2 extends Phaser.GameObjects.Image
+{
     /**
      * 
      * @param {Number} x 
@@ -17,8 +18,8 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         this.range = 2;
         this.orientation = Orientation.E;
         this.damage = 10;
-        this.mun1= 5; // municion corta
-        this.mun2= 5; // municion larga
+        this.mun1= 15; // municion corta
+        this.mun2= 15; // municion larga
         this.texture = "Submarine";
       
         container.add(this);
@@ -169,35 +170,84 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
 
 
     // METODOS DISPARO
-    shoot1(){
-
-        if (this.mun1 > 0){
-            this.mun1 -= 1;
-            console.log("Disparo corta distacia. Municion restante:", this.mun1);
-        }
-        else  console.log("No hay municion de corta distancia");
-
+    shootFront(direction, distance)
+    {
+        
     }
 
-    shoot2(){
-        if (this.mun2 > 0){
-            this.mun2 -= 1;
-            console.log("Disparo larga distacia. Municion restante:", this.mun2);
+    //Disparo segun la municion
+    shoot(distance)
+    {
+        if (distance == 1){
+            if (this.canShoot(distance)){
+                this.mun1 -= 1;
+                console.log("Disparo corta distacia. Municion restante:", this.mun1);
+            }
+            else  console.log("No hay municion de corta distancia");
         }
-        else  console.log("No hay municion de larga distancia");
+        if (distance == 2){
+            if (this.canShoot(distance)){
+                this.mun2 -= 1;
+                console.log("Disparo larga distacia. Municion restante:", this.mun2);
+            }
+            else  console.log("No hay municion de larga distancia");
+        }
     }
+    //Comprueba si hay municion
+    canShoot(distance)
+    {
+        if (distance == 1){
+            return this.mun1 > 0;
+        }
+        else if (distance == 2){
+            return this.mun2 > 0;
+        }
+    }
+  
     
     // Le pasas la posicion del submarino enemigo, y te dice si es objetivo valido
-    isTarget(x, y, distance) {
+    isTarget(x, y, distance) 
+    {
         distance = distance * 2
         console.log("Comprobando objetivo en:", x, y);
         let mismaX = this.position.x == x ; let mismaY = this.position.y == y ;
         return (mismaY && (this.position.x - distance === x || this.position.x + distance === x)) || (mismaX && (this.position.y - distance === y || this.position.y + distance === y));
     }
+      // Le pasas la posicion del submarino enemigo, y te dice si es objetivo valido
+    isTargetDir(x, y, distance, direction) 
+    {
+        distance = distance * 2
+        console.log("Comprobando objetivo en:", x, y, direction);
+        let mismaX = this.position.x == x ; let mismaY = this.position.y == y ;
+        switch (direction) {
+            case "front":
+                if (this.orientation == Orientation.N) return (mismaX && (this.position.y - distance === y));
+                if (this.orientation == Orientation.S) return (mismaX && (this.position.y + distance === y));
+                if (this.orientation == Orientation.E) return (mismaY && (this.position.x + distance === x));
+                if (this.orientation == Orientation.W) return (mismaY && (this.position.x - distance === x));
+            break;
+            case "right":
+                if (this.orientation == Orientation.N) return (mismaY && (this.position.x + distance === x));
+                if (this.orientation == Orientation.S) return (mismaY && (this.position.x - distance === x));
+                if (this.orientation == Orientation.E) return (mismaX && (this.position.y + distance === y));
+                if (this.orientation == Orientation.W) return (mismaX && (this.position.y - distance === y));
+            break;
+            case "left":
+                if (this.orientation == Orientation.N) return (mismaY && (this.position.x - distance === x));
+                if (this.orientation == Orientation.S) return (mismaY && (this.position.x + distance === x));
+                if (this.orientation == Orientation.E) return (mismaX && (this.position.y - distance === y));
+                if (this.orientation == Orientation.W) return (mismaX && (this.position.y + distance === y));
+            break;
+        }
+        
+         return false;
+    }
+
 
 
     //CARGAR MUNICION
-    addMun1(mun){
+    addMun1(mun)
+    {
         if (this.mun1 + mun < 5){
             mun = 5 - this.mun1;
         }
@@ -207,7 +257,8 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
 
     }
 
-    addMun2(mun){
+    addMun2(mun)
+    {
         if (this.mun2 + mun < 5){
             mun = 5 - this.mun2;
         }
@@ -217,21 +268,25 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
     }
 
     // METODOS VIDA
-    loseHealth(damage){
-        this.damage -= damage;
+    loseHealth(damage)
+    {
+         this.damage -= damage;
         console.log(`Submarino ha recibido ${damage} de dano. Vida restante: ${this.damage}`);  
     }
 
-    isSunk(){
+    isSunk()
+    {
         return this.damage <= 0;
     }
     
 
     //Metodos para debugear
-    positionReferenceCheck(){
+    positionReferenceCheck()
+    {
         console.log(`Position has correct reference: ${this.position === this.board.matrix[this.X][this.Y].position}`);
     }
-    vertexReferenceCheck(){
+    vertexReferenceCheck()
+    {
         let x = this.X - 1;
         let y = this.Y + 1;
         let list = this.board.matrix[x][y].nextPoint;
@@ -241,6 +296,7 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
             }
         })
     }
+ 
 
 
     
