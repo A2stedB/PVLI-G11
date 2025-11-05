@@ -94,6 +94,8 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         )
         EventDispatch.on(Event.SHOOT,() => 
           {
+            if (this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 1)) console.log("Target!");
+
             this.showShootPopup(this.submarines.red, (direction, distance) => {
                 if (!direction) {
                     console.log("No disparó");
@@ -104,14 +106,18 @@ export default class GameBoard extends Phaser.GameObjects.Container{
                 //Logica del disparo - aqui se comprueba la municion y se resta
                 if (distance == 1) this.submarines.red.shoot1(direction, distance);
                 if (distance == 2) this.submarines.red.shoot2(direction, distance);
+
+               
             });
           
         });
           
-        
+       
         this.render();
         console.log("Board created")
         scene.add.existing(this);
+        
+
     }
 
     render(){
@@ -127,7 +133,7 @@ export default class GameBoard extends Phaser.GameObjects.Container{
                 })
             })
         }
-
+        
         // console.table(this.matrix.graphic)
     }
 

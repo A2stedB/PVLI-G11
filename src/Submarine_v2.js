@@ -36,6 +36,8 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
     get Y(){
         return this.position.y;
     }
+
+
     updateSprite() {
         const cellSize = this.container.data.cellSize;
         this.setPosition(this.position.x * cellSize, this.position.y * cellSize);
@@ -44,9 +46,10 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
        
             this.positionReferenceCheck();
             // this.vertexReferenceCheck();
-    this.setAngle(this.orientation);
+         this.setAngle(this.orientation);
     }
 
+    // METODOS MOVIMIENTO
     canMoveTo(newX, newY) {
         return newX >= 0 && newY >= 0 && newX <=  this.board.matrix.length - 1 && newY <= this.board.matrix[0].length - 1;
     }
@@ -127,7 +130,7 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
 
     moveLeft() {
         let newdirection = Orientation.N;
-          let newX = this.position.x;
+        let newX = this.position.x;
         let newY = this.position.y;
         switch (this.orientation) {
             case Orientation.N:
@@ -146,20 +149,28 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
                 newdirection = Orientation.S;
                 newY += 2;
                 break;
-        }
+            }
+
          if (this.canMoveTo(newX, newY)) {
             this.position = this.board.matrix[newX][newY].position;
             // this.vertexReferenceCheck();
             this.updateSprite();
             console.log("movendose a", this.position);
-        } else {
+        } 
+
+        else 
+        {
             console.log("fuera del tablero.");
         }
-         this.orientation = newdirection;
+
+        this.orientation = newdirection;
         console.log("girar izquierda:", this.orientation);
     }
 
+
+    // METODOS DISPARO
     shoot1(){
+
         if (this.mun1 > 0){
             this.mun1 -= 1;
             console.log("Disparo corta distacia. Municion restante:", this.mun1);
@@ -167,41 +178,55 @@ export class Submarine_v2 extends Phaser.GameObjects.Image{
         else  console.log("No hay municion de corta distancia");
 
     }
-      addMun1(mun){
-        if (this.mun1 + mun < 5){
-            mun = 5 - this.mun1;
-        }
-        this.mun1 += mun;
-    console.log(`Cargar ${mun} de municion corta distancia. Total : ${this.mun1}`);
 
-    }
     shoot2(){
-           if (this.mun2 > 0){
+        if (this.mun2 > 0){
             this.mun2 -= 1;
             console.log("Disparo larga distacia. Municion restante:", this.mun2);
         }
         else  console.log("No hay municion de larga distancia");
+    }
+    
+    // Le pasas la posicion del submarino enemigo, y te dice si es objetivo valido
+    isTarget(x, y, distance) {
+        distance = distance * 2
+        console.log("Comprobando objetivo en:", x, y);
+        let mismaX = this.position.x == x ; let mismaY = this.position.y == y ;
+        return (mismaY && (this.position.x - distance === x || this.position.x + distance === x)) || (mismaX && (this.position.y - distance === y || this.position.y + distance === y));
+    }
 
+
+    //CARGAR MUNICION
+    addMun1(mun){
+        if (this.mun1 + mun < 5){
+            mun = 5 - this.mun1;
+        }
+
+        this.mun1 += mun;
+        console.log(`Cargar ${mun} de municion corta distancia. Total : ${this.mun1}`);
 
     }
-      addMun2(mun){
+
+    addMun2(mun){
         if (this.mun2 + mun < 5){
             mun = 5 - this.mun2;
         }
         this.mun2 += mun;
-    console.log(`Cargar ${mun} de municion larga distancia. Total : ${this.mun2}`);
+        console.log(`Cargar ${mun} de municion larga distancia. Total : ${this.mun2}`);
 
     }
 
+    // METODOS VIDA
     loseHealth(damage){
         this.damage -= damage;
         console.log(`Submarino ha recibido ${damage} de dano. Vida restante: ${this.damage}`);  
-
-
     }
+
     isSunk(){
         return this.damage <= 0;
     }
+    
+
     //Metodos para debugear
     positionReferenceCheck(){
         console.log(`Position has correct reference: ${this.position === this.board.matrix[this.X][this.Y].position}`);
