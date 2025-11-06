@@ -64,11 +64,11 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         this.initializeBackground(x,y,"BG");
 
          // Inicializar el ResourceManager
-    this.resourceManager = new ResourceManager_Complete(scene, this);
+    // this.resourceManager = new ResourceManager_Complete(scene, this);
     
     // Distribuir recursos en el mapa
     // Opción A: Distribución aleatoria
-    this.resourceManager.distributeRandomResources(8); // 8 recursos aleatorios
+    // this.resourceManager.distributeRandomResources(8); // 8 recursos aleatorios
     
     // Opción B: Distribución específica por tipo
     /*
