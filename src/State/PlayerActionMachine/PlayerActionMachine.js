@@ -1,0 +1,30 @@
+// import { State } from "./State.js";
+import {StateMachine} from "../StateMachine.js";
+import { MoveState } from "./MoveState.js"
+import { FireState } from "./FireState.js"
+import { AirAttackState } from "./AirAttackState.js"
+import { EndState } from "./endState.js";
+export class PlayerActionMachine extends StateMachine{
+
+    constructor(gameLoopMachine){
+        super();
+        this._name = "PlayerAction Machine"
+        this._context = gameLoopMachine;
+        this._moveState = new MoveState(this);
+        this._fireState = new FireState(this);
+        this._airAttackState = new AirAttackState(this);
+        this._endState = new EndState(this);
+
+        this._currentState = this._moveState;
+    }
+
+    get stateList(){
+        let availableStates = Object.freeze({
+            moveState: this._moveState,
+            fireState: this._fireState,
+            airAttackState: this._airAttackState,
+            endState: this._endState,
+        })
+        return availableStates;
+    }
+}

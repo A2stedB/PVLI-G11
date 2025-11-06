@@ -2,10 +2,12 @@ import State from "./State.js";
 
 export class StateMachine{
     constructor(){
-        /**
-         * @type {State}
-         */
+        // /**
+        //  * @type {State}
+        //  */
+        this._name;
         this._currentState = null;
+        this._context = null;
     }
 
     /**
@@ -17,11 +19,40 @@ export class StateMachine{
     }
 
     execute(){
-        this._currentState.execute();
+        if(this._currentState){
+            this._currentState.execute();
+        }
     }
 
     transition(){
-        this._currentState = this._currentState.transition();
-        console.log(`Changing to ${this._currentState}`)
+        /**
+         * @type {State}
+         */
+        let nextState = this._currentState.transition();
+        if(nextState){
+            if(this.context){
+                console.log(`${this.context.name}: ${this.context.currentState.name}`)
+                console.log(`Changing "${this.name}" from "${this._currentState.name}" to “${nextState.name}”`)
+            }
+            else{
+                console.log(`Changing "${this.name}" from "${this._currentState.name}" to “${nextState.name}”`)
+            }
+            this.setState(nextState)
+            this._currentState.execute();
+        }
+    }
+
+    get name(){
+        return this._name;
+    }
+
+    get currentState(){
+        return this._currentState;
+    }
+
+    get stateList(){}
+
+    get context(){
+        return this._context;
     }
 }
