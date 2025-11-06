@@ -1,4 +1,4 @@
-import { Position } from "./Position.js";
+import { Position } from "../Board/Position.js";
 
 /**
  * Clase base para todos los recursos del juego que pueden ser recogidos en el mapa

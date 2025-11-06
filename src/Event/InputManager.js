@@ -23,7 +23,7 @@ export class InputManager {
         this.createEvents();
     }
 
-    createKeys(){
+    createKeys(){   
        
         // Input submarino 1 (red )
         this.w = this.scene.input.keyboard.addKey('W');
