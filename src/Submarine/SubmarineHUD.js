@@ -1,299 +1,184 @@
-import LogicBoard from "../Board/LogicBoard.js"
-import { GraphicVertex } from "../Board/GraphicVertex.js";
-import { GraphicSquare } from "../Board/GraphicSquare.js";
-import EventDispatch from "../Event/EventDispatch.js"
-import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
-import Event from "../Event/Event.js";
-// import { Orientation } from "../Submarine/Orientation.js";
-import { ResourceManager } from "../Resources/ResourceManager.js";
-// import { SubmarineInventory } from "./SubmarineInventory.js";
-
-
-export default class GameBoard extends Phaser.GameObjects.Container{
+/**
+ * SubmarineHUD
+ * Clase para mostrar la información del submarino en pantalla
+ */
+export class SubmarineHUD {
     /**
-     * 
-     * @param {*} scene El nombre de la escena
-     * @param {Number} boardWidth El ancho del tablero
-     * @param {Number} boardHeight El alto del tablero
-     * @param {Number} x La posicion x de la esquina superior izquierda de donde esta el tablero
-     * @param {Number} y La posicion y de la esquina superior izquierda de donde esta el tablero
-     * @param {Array.<string>} texture La lista de texturas que utilizara el tablero
-     * @param {Number} cellSize El tamaÃ±o de la celda
+     * @param {Phaser.Scene} scene - La escena de Phaser
+     * @param {Submarine_Complete} submarine - El submarino a monitorear
+     * @param {Number} x - Posición X del HUD
+     * @param {Number} y - Posición Y del HUD
+     * @param {String} playerName - Nombre del jugador ("Jugador 1" o "Jugador 2")
      */
-    constructor(scene,boardWidth,boardHeight,x,y,texture,cellSize){
-        super(scene,x,y);
-        this.active = true;
-        
-        this.texture = texture
-        this.GRAPHIC = scene.add.graphics({ lineStyle: { width: 1, color: 0x00ff00 } });
-        this.add(this.GRAPHIC)
+    constructor(scene, submarine, x, y, playerName) {
+        this.scene = scene;
+        this.submarine = submarine;
+        this.x = x;
+        this.y = y;
+        this.playerName = playerName;
 
-        this.data = {
-            x:x,
-            y:y,
-            boardWidth:boardWidth,
-            boardHeight:boardHeight,
-            cellSize:cellSize,
-            submarineLimit:{
-                x:Math.round(boardWidth/2),
-                y:Math.round(boardHeight/2),
-            }
-        }
+        // Contenedor del HUD
+        this.container = scene.add.container(x, y);
+        this.container.setDepth(1000); // Siempre visible
 
-        this.matrix = {
-            logic: new LogicBoard(boardWidth,boardHeight),
-            graphic: null
-        }
+        this.createHUD();
+    }
 
-        // this.matrix.logic.getVertexListForSquare();
-        this.matrix.graphic = this.graphicMatrixInitialize(boardWidth,boardHeight,this.matrix.logic)
-
-        this.submarines = {
-            blue: new SubmarineComplete(scene, 3, 3, this.matrix.logic, this),   
-            red:  new SubmarineComplete(scene, 2, 2, this.matrix.logic, this)  
+    /**
+     * Crea todos los elementos visuales del HUD
+     */
+    createHUD() {
+        const style = {
+            fontSize: '16px',
+            color: '#ffffff',
+            fontFamily: 'Arial'
         };
 
-        
-        this.submarines.blue.setTint(0x00aaff);
-        this.submarines.red.setTint(0xff4444);
-       this.submarines.blue.setAlpha(1);
-        this.submarines.red.setAlpha(1);
+        const smallStyle = {
+            fontSize: '14px',
+            color: '#ffffff',
+            fontFamily: 'Arial'
+        };
 
-        this.submarines.blue.setDepth(100);
-        this.submarines.red.setDepth(100);
-        this.initializeBackground(x,y,"BG");
+        // Fondo semi-transparente
+        this.background = this.scene.add.rectangle(0, 0, 280, 180, 0x000000, 0.7);
+        this.background.setOrigin(0, 0);
+        this.container.add(this.background);
 
-         // Inicializar el ResourceManager
-        //this.resourceManager = new ResourceManager(scene, this);
-    
-        // Distribuir recursos en el mapa
-        // Opción A: Distribución aleatoria
-        //this.resourceManager.distributeRandomResources(8); // 8 recursos aleatorios
-    
-    // Opci
-    //on B: Distribución especí­fica por tipo
-    /*
-    this.resourceManager.distributeResourcesByType({
-        "cooldown_reducer": 2,
-        "repair_kit": 3,
-        "movement_limiter": 1,
-        "ammunition_extra": 2
-    });
-    */
-
-        EventDispatch.on(Event.TOGGLE_MAP,()=>{
-            this.refresh();
-            console.log("Refreshed");
-        })
-
-        EventDispatch.on(Event.MOVE_RIGHT,() => 
-            {
-                this.submarines.red.moveRight();
-                // this.submarines.red.move(this.submarines.red.orientation+90);
-            }
-        )
-
-        EventDispatch.on(Event.MOVE_FRONT,() => 
-            {
-                this.submarines.red.moveFront();
-                // this.submarines.red.move(this.submarines.red.orientation+90);
-
-                    // emit event to "state machine" to change state
-                    // Same for shoot
-            }
-        )
-
-        EventDispatch.on(Event.MOVE_LEFT,() => 
-            {
-                this.submarines.red.moveLeft();
-                // this.submarines.red.move(this.submarines.red.orientation+90);
-
-                    // emit event to "state machine" to change state
-                    // Same for shoot
-            }
-        )
-        EventDispatch.on(Event.SHOOT,() => 
-          {
-            let isTarget1 = this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 1)
-            let isTarget2 = this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 2)
-
-            if (isTarget1 || isTarget2) console.log("Target!");
-
-            this.showShootPopup(this.submarines.red, (direction, distance) => {
-                if (!direction) {
-                    console.log("No disparó");
-                    return;
-                }
-
-                console.log("Disparo:", direction, "Distancia:", distance);
-                
-                //Logica del disparo - aqui se comprueba la municion y se resta
-                // El disparo largo da a corta distancia, pero no viceversa y hace menos daÃ±o
-                let isTargetDir1 = isTarget1&&
-                        this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 1, direction) 
-                        && this.submarines.red.canShoot(distance);
-                let isTargetDir2 = isTarget2 && 
-                            this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 2, direction) &&
-                            this.submarines.red.canShoot(distance);
-
-                if (distance == 1) {
-                    this.submarines.red.shoot(distance);
-                    if (isTargetDir1) this.submarines.blue.loseHealth(5);
-                }
-                if (distance == 2) {
-                        this.submarines.red.shoot(distance);
-                        if (isTargetDir2 || isTargetDir1) this.submarines.blue.loseHealth(2);
-                    }
-            });
-          
+        // Nombre del jugador
+        this.playerNameText = this.scene.add.text(10, 10, this.playerName, {
+            fontSize: '18px',
+            color: '#FFD700',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
         });
-          
-        
-        this.render();
-        console.log("Board created")
-        scene.add.existing(this);
-    }
+        this.container.add(this.playerNameText);
 
-    render(){
-        if(this.active){
-            this.matrix.graphic.forEach((row) =>{
-                row.forEach(point =>{
-                    if(point instanceof GraphicSquare){
-                        point.render();
-                    }
-                    if(point instanceof GraphicVertex){
-                        point.render();
-                    }
-                })
-            })
-        }
-        
-        // console.table(this.matrix.graphic)
-    }
+        // Barra de vida
+        this.hpLabel = this.scene.add.text(10, 35, 'Vida:', style);
+        this.container.add(this.hpLabel);
 
-    graphicMatrixInitialize(boardWidth,boardHeight,logic){
-        let aux = []
-        for(let i = 0; i < boardWidth; ++i){
-            aux[i] = [];
-            for(let j = 0; j < boardHeight; ++j){
-                this.createGraphicPoint(aux,i,j,logic);
-            }
-        }
-        return aux;
-    }
+        // Fondo de la barra de vida
+        this.hpBarBackground = this.scene.add.rectangle(60, 43, 200, 20, 0x660000);
+        this.hpBarBackground.setOrigin(0, 0.5);
+        this.container.add(this.hpBarBackground);
 
-    initializeBackground(x,y,image){
+        // Barra de vida (relleno)
+        this.hpBar = this.scene.add.rectangle(60, 43, 200, 20, 0x00ff00);
+        this.hpBar.setOrigin(0, 0.5);
+        this.container.add(this.hpBar);
 
-        let centerX = ((this.data.boardWidth-1)*this.data.cellSize)/2
-        let centerY = ((this.data.boardHeight-1)*this.data.cellSize)/2  
-        this.background_image = new Phaser.GameObjects.Image(this.scene,0,0,image);
-        this.background_image.setPosition(centerX,centerY)
+        // Texto de HP numérico
+        this.hpText = this.scene.add.text(265, 35, '100/100', smallStyle);
+        this.hpText.setOrigin(1, 0);
+        this.container.add(this.hpText);
 
-        let width = ((this.data.boardWidth-1)*this.data.cellSize);
-        let height = ((this.data.boardHeight-1)*this.data.cellSize);
-        this.background_image.setDisplaySize(width,height)
-        this.scene.add.existing(this.background_image);
-        this.background_image.setAlpha(0.2);
+        // Munición
+        this.ammoLabel = this.scene.add.text(10, 65, 'Munición:', style);
+        this.container.add(this.ammoLabel);
 
-        console.log(this.background_image.getCenter());
+        this.ammoText = this.scene.add.text(100, 65, 'Corta: 15 | Larga: 15', smallStyle);
+        this.container.add(this.ammoText);
 
-        this.add(this.background_image)
-        this.moveDown(this.background_image)
+        // Ataque aéreo
+        this.aerialLabel = this.scene.add.text(10, 90, 'Ataque Aéreo:', style);
+        this.container.add(this.aerialLabel);
+
+        this.aerialText = this.scene.add.text(130, 90, 'Cooldown: 2', smallStyle);
+        this.container.add(this.aerialText);
+
+        // Inventario
+        this.inventoryLabel = this.scene.add.text(10, 115, 'Inventario:', style);
+        this.container.add(this.inventoryLabel);
+
+        this.inventoryText = this.scene.add.text(10, 135, '', smallStyle);
+        this.container.add(this.inventoryText);
+
+        // Estado (fugas, restricciones)
+        this.statusText = this.scene.add.text(10, 155, '', {
+            fontSize: '12px',
+            color: '#ff0000',
+            fontFamily: 'Arial'
+        });
+        this.container.add(this.statusText);
+
+        // Actualizar información inicial
+        this.update();
     }
 
     /**
-     * 
-     * @param {*} m 
-     * @param {*} i 
-     * @param {*} j 
-     * @param {Logic_Board} logic 
+     * Actualiza toda la información del HUD
      */
-    createGraphicPoint(m,i,j,logic){
-        if((i%2 === 0) && (j%2 === 0)){
-            m[i][j] = new GraphicVertex(this.scene,this.GRAPHIC,this.data.cellSize,logic.matrix[i][j],this.data.x,this.data.y);
+    update() {
+        // Actualizar barra de vida
+        const hpPercent = this.submarine.currentHP / this.submarine.maxHP;
+        this.hpBar.width = 200 * hpPercent;
+        
+        // Cambiar color según la vida
+        if (hpPercent > 0.5) {
+            this.hpBar.fillColor = 0x00ff00; // Verde
+        } else if (hpPercent > 0.25) {
+            this.hpBar.fillColor = 0xffff00; // Amarillo
+        } else {
+            this.hpBar.fillColor = 0xff0000; // Rojo
         }
-        else if((i%2 === 1) && (j%2 === 1)){
-            m[i][j] = new GraphicSquare(this.scene,logic.matrix[i][j],"Square",this.data.cellSize,this.data.x,this.data.y);
-            this.add(m[i][j])
+
+        this.hpText.setText(`${this.submarine.currentHP}/${this.submarine.maxHP}`);
+
+        // Actualizar munición
+        this.ammoText.setText(`Corta: ${this.submarine.mun1} | Larga: ${this.submarine.mun2}`);
+
+        // Actualizar ataque aéreo
+        if (this.submarine.aerialCooldown <= 0) {
+            this.aerialText.setText('DISPONIBLE');
+            this.aerialText.setColor('#00ff00');
+        } else {
+            this.aerialText.setText(`Cooldown: ${this.submarine.aerialCooldown}`);
+            this.aerialText.setColor('#ffffff');
         }
-        else {
-            m[i][j] = null;
+
+        // Actualizar inventario
+        const inv = this.submarine.inventory;
+        let invText = `Kits: ${inv.repairKits} | Reductores: ${inv.cooldownReducers}\n`;
+        invText += `Limitadores: ${inv.movementLimiters}`;
+        this.inventoryText.setText(invText);
+
+        // Actualizar estado
+        let status = '';
+        if (this.submarine.hasLeaks) {
+            status += '⚠️ FUGAS ';
         }
+        if (this.submarine.movementRestricted) {
+            status += '🔒 MOVIMIENTO LIMITADO';
+        }
+        this.statusText.setText(status);
     }
 
-    refresh(){
-        this.active = !this.active;
-        if(this.active){
-            this.setVisible(true);
-        }
-        else this.setVisible(false);
-         
-        this.render()
+    /**
+     * Muestra el HUD
+     */
+    show() {
+        this.container.setVisible(true);
     }
 
-    //Muestra el popup para elegir si dirpara, en que direccion y la distancia. Si queda municion o si se puede disparar se gestiona en Subarine_v2
-    showShootPopup(submarine, callback) {
+    /**
+     * Oculta el HUD
+     */
+    hide() {
+        this.container.setVisible(false);
+    }
 
-    const scene = this.scene; 
-    let popup2 = null;
+    /**
+     * Destruye el HUD
+     */
+    destroy() {
+        this.container.destroy();
+    }
 
-    const overlay = scene.add.rectangle(400, 300, 800, 600, 0x000000, 0.6)
-        .setScrollFactor(0)
-        .setDepth(1000);
-
-    const panel = scene.add.rectangle(400, 300, 300, 220, 0xffffff, 1)
-        .setStrokeStyle(2, 0x000000)
-        .setScrollFactor(0)
-        .setDepth(1001);
-
-    const popup = scene.add.container(0, 0, [overlay, panel]).setDepth(1002);
-
-    const boton = (text, y, action) => {
-        const btn = scene.add.text(400, y, text, { fontSize: '20px', color: '#000' })
-            .setOrigin(0.5)
-            .setScrollFactor(0)
-            .setInteractive({ useHandCursor: true })
-            .setDepth(1003)
-            .on("pointerdown", () => action());
-        popup.add(btn);
-    };
-
-    // Primera pantalla: direcciÃ³n
-    boton("Derecha", 260, () => choose("right"));
-    boton("Izquierda", 290, () => choose("left"));
-    boton("Delante", 320, () => choose("front"));
-    boton("No disparar", 350, () => close(null, null));
-
-   
-const choose = (direction) => {
-    popup.removeAll(true);
-    popup.destroy(true); 
-
-    const overlay2 = scene.add.rectangle(400, 300, 800, 600, 0x000000, 0.6).setDepth(1000);
-    const panel2 = scene.add.rectangle(400, 300, 300, 160, 0xffffff, 1).setStrokeStyle(2, 0x000000).setDepth(1001);
-
-    popup2 = scene.add.container(0, 0, [overlay2, panel2]).setDepth(1002);
-
-    const boton2 = (label, y, dist) => {
-        const btn = scene.add.text(400, y, label, { fontSize: "20px", color: "#000" })
-            .setOrigin(0.5)
-            .setInteractive({ useHandCursor: true })
-            .setDepth(1003)
-            .on("pointerdown", () => close(direction, dist));
-
-        popup2.add(btn);
-    };
-
-    boton2("Distancia 1", 290, 1);
-    boton2("Distancia 2", 330, 2);
-};
-
-const close = (direction, distance) => {
-    if (popup) popup.destroy(true);
-    if (popup2) popup2.destroy(true); 
-    callback(direction, distance);
-};
-}
-
-
+    /**
+     * Cambia la posición del HUD
+     */
+    setPosition(x, y) {
+        this.container.setPosition(x, y);
+    }
 }

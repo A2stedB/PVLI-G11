@@ -1,7 +1,7 @@
-import { CooldownReducer } from "../Resources/Cooldown_Reducer.js";
-import { MovementLimiter } from "../Resources/Movement_Limiter.js";
+import { CooldownReducer } from "./CooldownReducer.js";
+import { MovementLimiter } from "./MovementLimiter.js";
 import { RepairKit } from "../Resources/RepairKit.js";
-import { AmmunitionExtra } from "../Resources/AmunitionExtra.js";
+import { AmunitionExtra } from "../Resources/AmunitionExtra.js";
 
 /**
  * Gestor de recursos del juego
@@ -238,7 +238,7 @@ export class ResourceManager_Complete {
      * Intenta recoger un recurso en una posición específica
      * @param {Number} x - Coordenada X
      * @param {Number} y - Coordenada Y
-     * @param {Submarine_Complete} submarine - El submarino que recoge el recurso
+     * @param {SubmarineComplete} submarine - El submarino que recoge el recurso
      * @returns {Boolean} true si se recogió un recurso
      */
     collectResourceAt(x, y, submarine) {
@@ -317,7 +317,7 @@ export class ResourceManager_Complete {
 
     /**
      * Verifica y recoge recursos para un submarino después de moverse
-     * @param {Submarine_Complete} submarine - El submarino que se movió
+     * @param {SubmarineComplete} submarine - El submarino que se movió
      */
     checkAndCollectResource(submarine) {
         const x = submarine.position.x;
