@@ -24,7 +24,7 @@ export class GameScreen extends Phaser.Scene{
         
         this.load.image("Square","Page/img/Profile/Lappland.jpeg")
         this.load.image("BG","assets/GameBoard_BG.jpg")
-        this.load.image("Submarine","assets/red.png")
+        this.load.image("Submarine","assets/submarino.png")
     }
     
     //La dimension de la tabla tiene que ser un numero impar

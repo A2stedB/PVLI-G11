@@ -74,7 +74,7 @@ export class SubmarineComplete extends Phaser.GameObjects.Image {
         // Configuración visual
         this.texture = "Submarine";
         container.add(this);
-        this.setScale(0.2);
+        this.setScale(0.1);
         this.setOrigin(0.5, 0.5);
         this.updateSprite();
 
@@ -102,7 +102,7 @@ export class SubmarineComplete extends Phaser.GameObjects.Image {
     updateSprite() {
         const cellSize = this.container.data.cellSize;
         this.setPosition(this.position.x * cellSize, this.position.y * cellSize);
-        this.setAngle(this.orientation);
+        this.setAngle(this.orientation -90); 
         this.positionReferenceCheck();
     }
 
