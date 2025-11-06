@@ -1,4 +1,5 @@
-import { Resource } from "../Resources/Resource.js";
+import { Resource } from "./Resource.js";
+import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
 
 /**
  * Recurso que limita el movimiento del submarino enemigo
@@ -22,32 +23,29 @@ export class MovementLimiter extends Resource {
 
     /**
      * Añade el limitador al inventario del submarino
-     * @param {Submarine} submarine - El submarino que recoge el recurso
+     * @param {SubmarineComplete} submarine - El submarino que recoge el recurso
      */
     applyEffect(submarine) {
-        // TODO: Implementar sistema de inventario en Submarine
+        submarine.addMovementLimiter(1);
         console.log("Limitador de movimiento añadido al inventario");
-        
-        // Placeholder para futura implementación:
-        // submarine.inventory.add(this);
     }
 
     /**
      * Usa el limitador sobre el submarino enemigo
      * Debe ser llamado manualmente desde el inventario
-     * @param {Submarine} targetSubmarine - El submarino enemigo a afectar
+     * @param {SubmarineComplete} targetSubmarine - El submarino enemigo a afectar
      */
     use(targetSubmarine) {
         if (!this.usedFromInventory) {
             this.usedFromInventory = true;
             
-            // TODO: Implementar lógica de limitación de movimiento
-            console.log("Limitador de movimiento activado sobre el enemigo");
+            // Aplicar restricción al enemigo
+            targetSubmarine.movementRestricted = true;
+            targetSubmarine.restrictedTurnsRemaining = this.duration;
+            targetSubmarine.allowedDirections = ['forward', this.getRandomLateral()];
             
-            // Placeholder para futura implementación:
-            // targetSubmarine.movementRestricted = true;
-            // targetSubmarine.restrictedTurnsRemaining = this.duration;
-            // targetSubmarine.allowedDirections = ['forward', this.getRandomLateral()];
+            console.log("Limitador de movimiento activado sobre el enemigo");
+
         }
     }
 

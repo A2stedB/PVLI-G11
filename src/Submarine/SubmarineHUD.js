@@ -5,7 +5,7 @@
 export class SubmarineHUD {
     /**
      * @param {Phaser.Scene} scene - La escena de Phaser
-     * @param {Submarine_Complete} submarine - El submarino a monitorear
+     * @param {SubmarineComplete} submarine - El submarino a monitorear
      * @param {Number} x - Posición X del HUD
      * @param {Number} y - Posición Y del HUD
      * @param {String} playerName - Nombre del jugador ("Jugador 1" o "Jugador 2")
@@ -146,10 +146,10 @@ export class SubmarineHUD {
         // Actualizar estado
         let status = '';
         if (this.submarine.hasLeaks) {
-            status += '⚠️ FUGAS ';
+            status += 'FUGAS ';
         }
         if (this.submarine.movementRestricted) {
-            status += '🔒 MOVIMIENTO LIMITADO';
+            status += 'MOVIMIENTO LIMITADO ';
         }
         this.statusText.setText(status);
     }

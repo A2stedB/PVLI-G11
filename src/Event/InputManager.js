@@ -68,6 +68,22 @@ export class InputManager {
             console.log("SPACE pressed")
         })
 
+        this.scene.input.keyboard.on('keydown-RIGHT', ()=>{
+            EventDispatch.emit(Event.MOVE_RIGHT); 
+            console.log("RIGHT pressed")
+        })
+
+        this.scene.input.keyboard.on('keydown-UP', ()=>{
+            EventDispatch.emit(Event.MOVE_FRONT); 
+            console.log("UP pressed")
+        })
+        this.scene.input.keyboard.on('keydown-LEFT',()=>{
+            EventDispatch.emit(Event.MOVE_LEFT); 
+            console.log("LEFT pressed")
+        }
+        )   
+    
+
     }
 
     preUpdate(){

@@ -8,6 +8,7 @@ import Event from "../Event/Event.js";
 import { ResourceManager_Complete } from "../Resources/ResourceManager.js";
 // import { SubmarineInventory } from "../SubmarineInventory.js";
 import { SubmarineHUD } from "../Submarine/SubmarineHUD.js";
+
 export default class GameBoard extends Phaser.GameObjects.Container {
     /**
      * @param {*} scene El nombre de la escena
