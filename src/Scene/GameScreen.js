@@ -30,9 +30,21 @@ export class GameScreen extends Phaser.Scene{
     //La dimension de la tabla tiene que ser un numero impar
     create(){
         let texturas = ["Square","BG", "Submarine"];
-      //  this.submarineView = new SubmarineView(this,0,0)
+        this.fullscreen = false;
+        // this.submarineView = new SubmarineView(this,0,0)
         this.tablero = new GameBoard(this,11,11,200,0,texturas,40);
         this.inputManager = new InputManager(this, this.tablero.submarines.blue, this.tablero.submarines.red);
+
+        this.input.keyboard.on("keydown-F",()=>{
+            if (this.scale.isFullscreen)
+            {
+                this.scale.stopFullscreen();
+            }
+            else
+            {
+                this.scale.startFullscreen();
+            }
+        })
     }
 
     update(){}

@@ -12,6 +12,7 @@ let config = {
 	width:  800,
 	height: 600,
 	pixelArt: true,
+	mode:Phaser.Scale.WIDTH_CONTROLS_HEIGHT,
 	scale: {
 		autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
 	},

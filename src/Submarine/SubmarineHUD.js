@@ -31,13 +31,13 @@ export class SubmarineHUD {
         const style = {
             fontSize: '16px',
             color: '#ffffff',
-            fontFamily: 'Arial'
+            fontFamily: 'Inconsolata'
         };
 
         const smallStyle = {
             fontSize: '14px',
             color: '#ffffff',
-            fontFamily: 'Arial'
+            fontFamily: 'Inconsolata'
         };
 
         // Fondo semi-transparente
@@ -49,7 +49,7 @@ export class SubmarineHUD {
         this.playerNameText = this.scene.add.text(10, 10, this.playerName, {
             fontSize: '18px',
             color: '#FFD700',
-            fontFamily: 'Arial',
+            fontFamily: 'Inconsolata',
             fontStyle: 'bold'
         });
         this.container.add(this.playerNameText);
@@ -98,7 +98,7 @@ export class SubmarineHUD {
         this.statusText = this.scene.add.text(10, 155, '', {
             fontSize: '12px',
             color: '#ff0000',
-            fontFamily: 'Arial'
+            fontFamily: 'Outfit'
         });
         this.container.add(this.statusText);
 
