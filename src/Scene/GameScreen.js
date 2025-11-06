@@ -1,11 +1,11 @@
 import GameBoard from "../Board/GameBoard.js";
-import { Submarine_v2 } from "../Submarine_v2.js";
+import { Submarine_v2 } from "../Submarine/Submarine_v2.js";
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
 import { InputManager } from "../Event/InputManager.js";
 import SubmarineView from "./SubmarineViewObject.js";
-import { ResourceManager } from "./ResourceManager.js";
-import { SubmarineInventory } from "./SubmarineInventory.js";
+// import { ResourceManager } from "./ResourceManager.js";
+// import { SubmarineInventory } from "./SubmarineInventory.js";
 
 export class GameScreen extends Phaser.Scene{
     constructor(){

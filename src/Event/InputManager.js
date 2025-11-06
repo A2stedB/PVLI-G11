@@ -1,4 +1,4 @@
-import { Submarine_v2 } from "../Submarine_v2.js";
+import { Submarine_v2 } from "../Submarine/Submarine_v2.js";
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
 
