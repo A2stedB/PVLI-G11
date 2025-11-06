@@ -23,8 +23,9 @@ export class CooldownReducer extends Resource {
      * @param {SubmarineComplete} submarine - El submarino que recoge el recurso
      */
     applyEffect(submarine) {
-        // TODO: Implementar cuando Submarine tenga el sistema de cooldown
-        console.log(`Cooldown de ataque aéreo reducido en ${this.cooldownReduction} turno(s)`);
+        // Añadir al inventario para uso manual
+        submarine.addCooldownReducer(1);
+        console.log(`Reductor de cooldown añadido al inventario`);
         
         // Placeholder para futura implementación:
         // if (submarine.aerialAttackCooldown > 0) {

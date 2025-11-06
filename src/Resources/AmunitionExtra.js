@@ -24,11 +24,8 @@ export class AmunitionExtra extends Resource {
      * @param {SubmarineComplete} submarine - El submarino que recoge el recurso
      */
     applyEffect(submarine) {
-        // TODO: Implementar cuando Submarine tenga el sistema de munición
+        submarine.addAmmunition(this.ammoAmount);
         console.log(`Munición extra recogida: +${this.ammoAmount} disparos`);
-        
-        // Placeholder para futura implementación:
-        // submarine.ammunition += this.ammoAmount;
         // 
         // // Opcional: límite máximo de munición
         // if (submarine.maxAmmunition && submarine.ammunition > submarine.maxAmmunition) {

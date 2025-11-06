@@ -1,11 +1,13 @@
-import LogicBoard from "../LogicBoard.js"
-import { GraphicVertex } from "../GraphicVertex.js";
-import { GraphicSquare } from "../GraphicSquare.js";
+import LogicBoard from "../Board/LogicBoard.js"
+import { GraphicVertex } from "../Board/GraphicVertex.js";
+import { GraphicSquare } from "../Board/GraphicSquare.js";
 import EventDispatch from "../Event/EventDispatch.js"
-import { SubmarineComplete } from "../SubmarineComplete.js";
+import { SubmarineComplete} from "../Submarine/SubmarineComplete.js";
 import Event from "../Event/Event.js";
-// import { Orientation } from "../ScriptsInutilesADesechar/Orientation.js";
-
+// import { Orientation } from "../Submarine/Orientation.js";
+import { ResourceManager_Complete } from "../Resources/ResourceManager.js";
+// import { SubmarineInventory } from "../SubmarineInventory.js";
+import { SubmarineHUD } from "../Submarine/SubmarineHUD.js";
 
 export default class GameBoard extends Phaser.GameObjects.Container{
     /**
