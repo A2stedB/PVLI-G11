@@ -1,4 +1,4 @@
-import { Square } from "./Square.js";
+import { Square } from "../Board/Square.js";
 import EventDispatch from "../Event/EventDispatch.js";
 export class GraphicSquare extends Phaser.GameObjects.Image{
 

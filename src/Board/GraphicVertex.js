@@ -1,4 +1,4 @@
-import { Vertex } from "./Vertex.js";
+import { Vertex } from "../Board/Vertex.js";
 
 export class GraphicVertex extends Phaser.GameObjects.Graphics{
     constructor(scene,graphic,cellSize,v,offsetX,offsetY){

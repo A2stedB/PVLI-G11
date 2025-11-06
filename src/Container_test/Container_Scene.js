@@ -1,4 +1,4 @@
-import { Container_object } from "./Container_object.js";
+import { Container_object } from "../Container_test/Container_object.js";
 export default class Container_Scene extends Phaser.Scene{
     constructor(){
         super({key:"Test"})

@@ -1,10 +1,12 @@
-import LogicBoard from "../LogicBoard.js"
-import { GraphicVertex } from "../GraphicVertex.js";
-import { GraphicSquare } from "../GraphicSquare.js";
+import LogicBoard from "../Board/LogicBoard.js"
+import { GraphicVertex } from "../Board/GraphicVertex.js";
+import { GraphicSquare } from "../Board/GraphicSquare.js";
 import EventDispatch from "../Event/EventDispatch.js"
-import { SubmarineComplete } from "../SubmarineComplete.js";
+import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
 import Event from "../Event/Event.js";
-// import { Orientation } from "../ScriptsInutilesADesechar/Orientation.js";
+// import { Orientation } from "../Submarine/Orientation.js";
+import { ResourceManager } from "../Resources/ResourceManager.js";
+// import { SubmarineInventory } from "./SubmarineInventory.js";
 
 
 export default class GameBoard extends Phaser.GameObjects.Container{
@@ -14,9 +16,9 @@ export default class GameBoard extends Phaser.GameObjects.Container{
      * @param {Number} boardWidth El ancho del tablero
      * @param {Number} boardHeight El alto del tablero
      * @param {Number} x La posicion x de la esquina superior izquierda de donde esta el tablero
-     * @param {Number} y La posicion y de la esquina superior izquierda de donde esta el tablZero
+     * @param {Number} y La posicion y de la esquina superior izquierda de donde esta el tablero
      * @param {Array.<string>} texture La lista de texturas que utilizara el tablero
-     * @param {Number} cellSize El tamaño de la celda
+     * @param {Number} cellSize El tamaÃ±o de la celda
      */
     constructor(scene,boardWidth,boardHeight,x,y,texture,cellSize){
         super(scene,x,y);
@@ -47,8 +49,8 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         this.matrix.graphic = this.graphicMatrixInitialize(boardWidth,boardHeight,this.matrix.logic)
 
         this.submarines = {
-            blue: new Submarine_v2(scene, 3, 3, this.matrix.logic, this),   
-            red:  new Submarine_v2(scene, 2, 2, this.matrix.logic, this)  
+            blue: new SubmarineComplete(scene, 3, 3, this.matrix.logic, this),   
+            red:  new SubmarineComplete(scene, 2, 2, this.matrix.logic, this)  
         };
 
         
@@ -60,6 +62,24 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         this.submarines.blue.setDepth(100);
         this.submarines.red.setDepth(100);
         this.initializeBackground(x,y,"BG");
+
+         // Inicializar el ResourceManager
+        //this.resourceManager = new ResourceManager(scene, this);
+    
+        // Distribuir recursos en el mapa
+        // Opción A: Distribución aleatoria
+        //this.resourceManager.distributeRandomResources(8); // 8 recursos aleatorios
+    
+    // Opci
+    //on B: Distribución especí­fica por tipo
+    /*
+    this.resourceManager.distributeResourcesByType({
+        "cooldown_reducer": 2,
+        "repair_kit": 3,
+        "movement_limiter": 1,
+        "ammunition_extra": 2
+    });
+    */
 
         EventDispatch.on(Event.TOGGLE_MAP,()=>{
             this.refresh();
@@ -94,7 +114,10 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         )
         EventDispatch.on(Event.SHOOT,() => 
           {
-            if (this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 1)) console.log("Target!");
+            let isTarget1 = this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 1)
+            let isTarget2 = this.submarines.red.isTarget(this.submarines.blue.position.x, this.submarines.blue.position.y, 2)
+
+            if (isTarget1 || isTarget2) console.log("Target!");
 
             this.showShootPopup(this.submarines.red, (direction, distance) => {
                 if (!direction) {
@@ -103,21 +126,32 @@ export default class GameBoard extends Phaser.GameObjects.Container{
                 }
 
                 console.log("Disparo:", direction, "Distancia:", distance);
+                
                 //Logica del disparo - aqui se comprueba la municion y se resta
-                if (distance == 1) this.submarines.red.shoot1(direction, distance);
-                if (distance == 2) this.submarines.red.shoot2(direction, distance);
+                // El disparo largo da a corta distancia, pero no viceversa y hace menos daÃ±o
+                let isTargetDir1 = isTarget1&&
+                        this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 1, direction) 
+                        && this.submarines.red.canShoot(distance);
+                let isTargetDir2 = isTarget2 && 
+                            this.submarines.red.isTargetDir(this.submarines.blue.position.x, this.submarines.blue.position.y, 2, direction) &&
+                            this.submarines.red.canShoot(distance);
 
-               
+                if (distance == 1) {
+                    this.submarines.red.shoot(distance);
+                    if (isTargetDir1) this.submarines.blue.loseHealth(5);
+                }
+                if (distance == 2) {
+                        this.submarines.red.shoot(distance);
+                        if (isTargetDir2 || isTargetDir1) this.submarines.blue.loseHealth(2);
+                    }
             });
           
         });
           
-       
+        
         this.render();
         console.log("Board created")
         scene.add.existing(this);
-        
-
     }
 
     render(){
@@ -224,7 +258,7 @@ export default class GameBoard extends Phaser.GameObjects.Container{
         popup.add(btn);
     };
 
-    // Primera pantalla: dirección
+    // Primera pantalla: direcciÃ³n
     boton("Derecha", 260, () => choose("right"));
     boton("Izquierda", 290, () => choose("left"));
     boton("Delante", 320, () => choose("front"));

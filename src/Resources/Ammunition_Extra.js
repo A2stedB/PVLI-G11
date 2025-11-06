@@ -1,4 +1,4 @@
-import { Resource } from "./Resource.js";
+import { Resource } from "../Resources/Resource.js";
 
 /**
  * Recurso que proporciona munición extra para los cañones

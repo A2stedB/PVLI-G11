@@ -1,4 +1,4 @@
-import { Container_image } from "./Container_image.js"
+import { Container_image } from "../Container_test/Container_image.js"
 
 export class Container_object extends Phaser.GameObjects.Container{
     constructor(scene,x,y){

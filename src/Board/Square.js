@@ -1,5 +1,5 @@
-import { Position } from "./Position.js";
-import { Vertex } from "./Vertex.js";
+import { Position } from "../Board/Position.js";
+import { Vertex } from "../Board/Vertex.js";
 export class Square{
 
     resource;

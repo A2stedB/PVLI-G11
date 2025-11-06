@@ -1,13 +1,13 @@
-import { Submarine_v2 } from "../Submarine/Submarine_v2.js";
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
+import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
 
 
 export class InputManager {
     /**
      * 
-     * @param {Submarine_v2} player1
-     * @param {Submarine_v2} player2
+     * @param {SubmarineComplete} player1
+     * @param {SubmarineComplete} player2
      * @param {Phaser.Scene} scene
      */
 

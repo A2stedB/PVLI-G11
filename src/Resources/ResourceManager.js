@@ -1,22 +1,25 @@
-import { CooldownReducer } from "./Cooldown_Reducer.js";
-import { MovementLimiter } from "./Movement_Limiter.js";
-import { RepairKit } from "./Repair_Kit.js";
-import { AmmunitionExtra } from "./Ammunition_Extra.js";
-import { Submarine_v2 } from "../Submarine/Submarine_v2.js";
+import { CooldownReducer } from "../Resources/Cooldown_Reducer.js";
+import { MovementLimiter } from "../Resources/Movement_Limiter.js";
+import { RepairKit } from "../Resources/RepairKit.js";
+import { AmmunitionExtra } from "../Resources/AmunitionExtra.js";
 
 /**
  * Gestor de recursos del juego
  * Facilita la creación, distribución y gestión de recursos en el mapa
  */
-export class ResourceManager {
+export class ResourceManager_Complete {
     /**
      * @param {Phaser.Scene} scene - La escena de Phaser
-     * @param {Game_Board} board - El tablero de juego
+     * @param {GameBoard} board - El tablero de juego
      */
     constructor(scene, board) {
         this.scene = scene;
         this.board = board;
         this.resources = []; // Array de todos los recursos activos en el mapa
+        this.resourceSprites = []; // Array de sprites visuales
+        
+        // Color dorado para los recursos
+        this.resourceColor = 0xFFD700;
         
         // Tipos de recursos disponibles
         this.resourceTypes = {
@@ -47,11 +50,11 @@ export class ResourceManager {
                 break;
             
             case this.resourceTypes.REPAIR_KIT:
-                resource = new RepairKit(this.scene, x, y, "Resource", 30); // 30 HP de curación
+                resource = new RepairKit(this.scene, x, y, "Resource", 30);
                 break;
             
             case this.resourceTypes.AMMUNITION_EXTRA:
-                resource = new AmmunitionExtra(this.scene, x, y, "Resource", 2); // 2 disparos extra
+                resource = new AmmunitionExtra(this.scene, x, y, "Resource", 4);
                 break;
             
             default:
@@ -68,7 +71,7 @@ export class ResourceManager {
         return resource;
     }
 
-     /**
+    /**
      * Crea el sprite visual del recurso
      * @param {Resource} resource - El recurso lógico
      * @param {Number} x - Posición X
@@ -123,8 +126,7 @@ export class ResourceManager {
      * Distribuye recursos de forma aleatoria en el mapa
      * @param {Number} count - Cantidad de recursos a distribuir
      */
-    distributeRandomResources(count) 
-    {
+    distributeRandomResources(count) {
         const availablePositions = this.getAvailablePositions();
         
         if (availablePositions.length < count) {
@@ -149,8 +151,7 @@ export class ResourceManager {
      * @param {Object} distribution - Objeto con la cantidad de cada tipo
      * Ejemplo: { cooldown_reducer: 2, repair_kit: 3, movement_limiter: 1, ammunition_extra: 2 }
      */
-    distributeResourcesByType(distribution) 
-    {
+    distributeResourcesByType(distribution) {
         const availablePositions = this.getAvailablePositions();
         let positionIndex = 0;
 
@@ -179,13 +180,13 @@ export class ResourceManager {
      */
     getAvailablePositions() {
         const positions = [];
-        const matrix = this.board.matrix.logic;
+        const matrix = this.board.matrix.logic.matrix;
 
         for (let i = 0; i < matrix.length; i++) {
             for (let j = 0; j < matrix[i].length; j++) {
                 // Los recursos se colocan en vértices (posiciones pares)
                 if (i % 2 === 0 && j % 2 === 0) {
-                    // Verificar que no esté ocupado por submarinos u otros elementos
+                    // Verificar que no esté ocupado
                     if (this.isPositionAvailable(i, j)) {
                         positions.push({ x: i, y: j });
                     }
@@ -203,24 +204,20 @@ export class ResourceManager {
      * @returns {Boolean} true si está disponible
      */
     isPositionAvailable(x, y) {
-        // TODO: Verificar colisiones con submarinos, zonas de salida, etc.
-        // Por ahora, solo verificar que no haya otro recurso en esa posición
-        return !this.resources.some(resource => 
+        // Verificar que no haya otro recurso
+        const hasResource = this.resources.some(resource => 
             resource.position.x === x && resource.position.y === y && resource.isAvailable()
         );
-
-        if (hasResource) {return false};
+        
+        if (hasResource) return false;
         
         // Verificar que no sea la posición inicial de los submarinos
         const sub1Pos = this.board.submarines.blue.position;
         const sub2Pos = this.board.submarines.red.position;
         
-        if ((sub1Pos.x === x && sub1Pos.y === y) || (sub2Pos.x === x && sub2Pos.y === y)) 
-        {
+        if ((sub1Pos.x === x && sub1Pos.y === y) || (sub2Pos.x === x && sub2Pos.y === y)) {
             return false;
         }
-        
-        // TODO: Verificar zonas de salida
         
         return true;
     }
@@ -241,15 +238,13 @@ export class ResourceManager {
      * Intenta recoger un recurso en una posición específica
      * @param {Number} x - Coordenada X
      * @param {Number} y - Coordenada Y
-     * @param {Submarine_v2} submarine - El submarino que recoge el recurso
+     * @param {Submarine_Complete} submarine - El submarino que recoge el recurso
      * @returns {Boolean} true si se recogió un recurso
      */
-    collectResourceAt(x, y, submarine) 
-    {
+    collectResourceAt(x, y, submarine) {
         const resource = this.getResourceAt(x, y);
         
-        if (resource) 
-        {
+        if (resource) {
             console.log(`Recogiendo recurso en (${x}, ${y})`);
             
             // Aplicar efecto del recurso
@@ -267,7 +262,6 @@ export class ResourceManager {
         return false;
     }
 
-    
     /**
      * Oculta el sprite de un recurso recogido
      * @param {Resource} resource - El recurso recogido
@@ -297,7 +291,7 @@ export class ResourceManager {
     createCollectionEffect(x, y) {
         const cellSize = this.board.data.cellSize;
         
-        // Crear partículas o círculos expansivos
+        // Crear círculo expansivo
         const effect = this.scene.add.circle(
             x * cellSize,
             y * cellSize,
@@ -323,7 +317,7 @@ export class ResourceManager {
 
     /**
      * Verifica y recoge recursos para un submarino después de moverse
-     * @param {Submarine_v2} submarine - El submarino que se movió
+     * @param {Submarine_Complete} submarine - El submarino que se movió
      */
     checkAndCollectResource(submarine) {
         const x = submarine.position.x;
@@ -331,7 +325,6 @@ export class ResourceManager {
         
         this.collectResourceAt(x, y, submarine);
     }
-
 
     /**
      * Obtiene todos los recursos disponibles (no recogidos)
@@ -346,6 +339,7 @@ export class ResourceManager {
      */
     cleanupCollectedResources() {
         this.resources = this.resources.filter(resource => resource.isAvailable());
+        this.resourceSprites = this.resourceSprites.filter(data => data.resource.isAvailable());
     }
 
     /**
@@ -364,14 +358,15 @@ export class ResourceManager {
      */
     clear() {
         this.resources.forEach(resource => resource.destroy());
+        this.resourceSprites.forEach(data => data.sprite.destroy());
         this.resources = [];
+        this.resourceSprites = [];
     }
 
-        /**
+    /**
      * Actualiza la visualización de recursos (llamar en update)
      */
     update() {
         // Por si necesitamos animaciones adicionales
     }
-
 }
