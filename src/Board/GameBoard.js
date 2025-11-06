@@ -5,10 +5,9 @@ import EventDispatch from "../Event/EventDispatch.js"
 import { SubmarineComplete} from "../Submarine/SubmarineComplete.js";
 import Event from "../Event/Event.js";
 // import { Orientation } from "../Submarine/Orientation.js";
-import { ResourceManager } from "../Resources/ResourceManager.js";
+import { ResourceManager_Complete } from "../Resources/ResourceManager.js";
 // import { SubmarineInventory } from "../SubmarineInventory.js";
-
-
+import { SubmarineHUD } from "../Submarine/SubmarineHUD.js";
 export default class GameBoard extends Phaser.GameObjects.Container {
     /**
      * @param {*} scene El nombre de la escena
@@ -62,7 +61,7 @@ export default class GameBoard extends Phaser.GameObjects.Container {
         this.initializeBackground(x, y, "BG");
 
         // Inicializar el ResourceManager
-        this.resourceManager = new ResourceManager(scene, this);
+        this.resourceManager = new ResourceManager_Complete(scene, this);
         
         // Distribuir recursos en el mapa (8 recursos aleatorios)
         this.resourceManager.distributeRandomResources(8);

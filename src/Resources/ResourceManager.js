@@ -54,7 +54,7 @@ export class ResourceManager_Complete {
                 break;
             
             case this.resourceTypes.AMMUNITION_EXTRA:
-                resource = new AmmunitionExtra(this.scene, x, y, "Resource", 4);
+                resource = new AmunitionExtra(this.scene, x, y, "Resource", 4);
                 break;
             
             default:
