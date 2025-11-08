@@ -3,7 +3,7 @@ import {StateMachine} from "../StateMachine.js";
 import { MoveState } from "./MoveState.js"
 import { FireState } from "./FireState.js"
 import { AirAttackState } from "./AirAttackState.js"
-import { EndState } from "./endState.js";
+import { EndState } from "./EndState.js";
 export class PlayerActionMachine extends StateMachine{
 
     constructor(gameLoopMachine){

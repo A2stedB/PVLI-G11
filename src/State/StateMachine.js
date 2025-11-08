@@ -18,27 +18,29 @@ export class StateMachine{
         this._currentState = state;
     }
 
-    execute(){
+    onStateEnter(){
         if(this._currentState){
-            this._currentState.execute();
+            this._currentState.onStateEnter();
         }
+    }
+
+    onStateExit(){
+
     }
 
     transition(){
         /**
          * @type {State}
          */
+        this._currentState.onStateExit();
         let nextState = this._currentState.transition();
         if(nextState){
             if(this.context){
                 console.log(`${this.context.name}: ${this.context.currentState.name}`)
-                console.log(`Changing "${this.name}" from "${this._currentState.name}" to “${nextState.name}”`)
             }
-            else{
-                console.log(`Changing "${this.name}" from "${this._currentState.name}" to “${nextState.name}”`)
-            }
+            console.log(`Changing "${this.name}" from "${this._currentState.name}" to “${nextState.name}”`)
             this.setState(nextState)
-            this._currentState.execute();
+            this._currentState.onStateEnter();
         }
     }
 

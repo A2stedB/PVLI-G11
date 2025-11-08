@@ -13,9 +13,13 @@ export class MoveState extends State{
         //  * @type {PlayerActionMachine}
         //  */
     }
-    execute(){
+    onStateEnter(){
         console.log("Move Phase")
         EventDispatch.emit("Moving");
+    }
+
+    onStateExit(){
+        
     }
 
     transition(){

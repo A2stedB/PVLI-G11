@@ -5,7 +5,7 @@ import { CheckState } from "./CheckState.js";
 export class GameLoopMachine extends StateMachine{
     constructor(){
         super();
-        this._turn = 0;
+        this._round = 0;
         this._name = "Gameloop Machine"
         this._player1 = new Player1(this);
         this._player2 = new Player2(this);
@@ -26,5 +26,9 @@ export class GameLoopMachine extends StateMachine{
     updateTurn(){
         ++this._turn;
         this.setState(this._player1);
+    }
+
+    get round(){
+        return this._round;
     }
 }

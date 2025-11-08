@@ -7,9 +7,13 @@ export class FireState extends State{
         this._name = "Fire State"
     }
 
-    execute(){
+    onStateEnter(){
         console.log("Fire Phase");
         EventDispatch.emit("Firing");
+    }
+
+    onStateExit(){
+        
     }
 
     transition(){

@@ -6,9 +6,13 @@ export class AirAttackState extends State{
         this._name = "Air attack State"
     }
 
-    execute(){
+    onStateEnter(){
         console.log("Air Attack Phase");
         EventDispatch.emit("Air attacking");
+    }
+
+    onStateExit(){
+        
     }
 
     transition(){

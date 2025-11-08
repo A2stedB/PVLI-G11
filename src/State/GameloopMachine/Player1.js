@@ -6,7 +6,7 @@ export class Player1 extends State{
         this._name = "Player 1"
     }
 
-    execute(){
+    onStateEnter(){
         //Bloquear teclas del jugador 2
     }
 

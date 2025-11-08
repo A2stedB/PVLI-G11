@@ -6,9 +6,10 @@ export class CheckState extends State{
         this._name = "Check State"
     }
 
-    execute(){
+    onStateEnter(){
         this.stateMachine.updateTurn();
         console.log("Updating information")
+        console.log(`Ronda ${this.stateMachine.turn}`)
     }
 
     transition(){

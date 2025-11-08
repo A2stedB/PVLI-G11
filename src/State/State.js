@@ -3,8 +3,12 @@ export default class State{
         this._stateMachine = stateMachine
         this._name;
     }
-    execute(){
+    onStateEnter(){
         console.log("No hay metodos para ejecutar en este estado")
+    }
+
+    onStateExit(){
+        console.log("No hay metodos a ejecutar cuando sales de este estado")
     }
 
     transition(){

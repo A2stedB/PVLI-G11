@@ -6,9 +6,12 @@ export class EndState extends State{
         this._name = "End State"
     }
 
-    execute(){
-
+    onStateEnter(){
         console.log("Updating information")
+    }
+
+    onStateExit(){
+
     }
 
     transition(){
