@@ -1,5 +1,5 @@
-import { Vertex } from "./Vertex.js";
-import { Square } from "./Square.js";
+import { Vertex } from "../Board/Vertex.js";
+import { Square } from "../Board/Square.js";
 
 export default class Logic_Board{
     constructor(x,y){

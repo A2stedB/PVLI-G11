@@ -1,11 +1,13 @@
-import LogicBoard from "./LogicBoard.js"
-import { GraphicVertex } from "./GraphicVertex.js";
-import { GraphicSquare } from "./GraphicSquare.js";
+import LogicBoard from "../Board/LogicBoard.js"
+import { GraphicVertex } from "../Board/GraphicVertex.js";
+import { GraphicSquare } from "../Board/GraphicSquare.js";
 import EventDispatch from "../Event/EventDispatch.js"
-import { Submarine_v2 } from "../Submarine_v2.js";
+import { SubmarineComplete} from "../Submarine/SubmarineComplete.js";
 import Event from "../Event/Event.js";
-import { Orientation } from "../Submarine/Orientation.js";
-
+// import { Orientation } from "../Submarine/Orientation.js";
+import { ResourceManager_Complete } from "../Resources/ResourceManager.js";
+// import { SubmarineInventory } from "../SubmarineInventory.js";
+import { SubmarineHUD } from "../Submarine/SubmarineHUD.js";
 
 export default class GameBoard extends Phaser.GameObjects.Container{
     /**
@@ -14,7 +16,7 @@ export default class GameBoard extends Phaser.GameObjects.Container{
      * @param {Number} boardWidth El ancho del tablero
      * @param {Number} boardHeight El alto del tablero
      * @param {Number} x La posicion x de la esquina superior izquierda de donde esta el tablero
-     * @param {Number} y La posicion y de la esquina superior izquierda de donde esta el tablero
+     * @param {Number} y La posicion y de la esquina superior izquierda de donde esta el tablZero
      * @param {Array.<string>} texture La lista de texturas que utilizara el tablero
      * @param {Number} cellSize El tamaño de la celda
      */

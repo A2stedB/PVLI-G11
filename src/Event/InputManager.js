@@ -1,13 +1,13 @@
-import { Submarine_v2 } from "../Submarine/Submarine_v2.js";
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
+import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
 
 
 export class InputManager {
     /**
      * 
-     * @param {Submarine_v2} player1
-     * @param {Submarine_v2} player2
+     * @param {SubmarineComplete} player1
+     * @param {SubmarineComplete} player2
      * @param {Phaser.Scene} scene
      */
 
@@ -23,7 +23,7 @@ export class InputManager {
         this.createEvents();
     }
 
-    createKeys(){
+    createKeys(){   
        
         // Input submarino 1 (red )
         this.w = this.scene.input.keyboard.addKey('W');
@@ -67,6 +67,22 @@ export class InputManager {
             EventDispatch.emit(Event.SHOOT); 
             console.log("SPACE pressed")
         })
+
+        this.scene.input.keyboard.on('keydown-RIGHT', ()=>{
+            EventDispatch.emit(Event.MOVE_RIGHT); 
+            console.log("RIGHT pressed")
+        })
+
+        this.scene.input.keyboard.on('keydown-UP', ()=>{
+            EventDispatch.emit(Event.MOVE_FRONT); 
+            console.log("UP pressed")
+        })
+        this.scene.input.keyboard.on('keydown-LEFT',()=>{
+            EventDispatch.emit(Event.MOVE_LEFT); 
+            console.log("LEFT pressed")
+        }
+        )   
+    
 
     }
 

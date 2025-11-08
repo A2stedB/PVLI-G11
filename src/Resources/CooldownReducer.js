@@ -1,4 +1,5 @@
 import { Resource } from "./Resource.js";
+import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
 
 /**
  * Recurso que reduce el cooldown del ataque aéreo
@@ -6,7 +7,7 @@ import { Resource } from "./Resource.js";
  */
 export class CooldownReducer extends Resource {
     /**
-     * @param {Phaser.Scene} scene - La escena de Phaser
+     * @param {*} scene - La escena de Phaser
      * @param {Number} x - Posición X en el tablero lógico
      * @param {Number} y - Posición Y en el tablero lógico
      * @param {String} texture - Textura del recurso
@@ -19,11 +20,12 @@ export class CooldownReducer extends Resource {
 
     /**
      * Aplica el efecto de reducir el cooldown del ataque aéreo
-     * @param {Submarine} submarine - El submarino que recoge el recurso
+     * @param {SubmarineComplete} submarine - El submarino que recoge el recurso
      */
     applyEffect(submarine) {
-        // TODO: Implementar cuando Submarine tenga el sistema de cooldown
-        console.log(`Cooldown de ataque aéreo reducido en ${this.cooldownReduction} turno(s)`);
+        // Añadir al inventario para uso manual
+        submarine.addCooldownReducer(1);
+        console.log(`Reductor de cooldown añadido al inventario`);
         
         // Placeholder para futura implementación:
         // if (submarine.aerialAttackCooldown > 0) {

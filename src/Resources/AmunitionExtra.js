@@ -5,9 +5,9 @@ import { Resource } from "./Resource.js";
  * "Incrementa los disparos disponibles"
  * Uso: Automático al recogerlo, añade munición al inventario del submarino
  */
-export class AmmunitionExtra extends Resource {
+export class AmunitionExtra extends Resource {
     /**
-     * @param {Phaser.Scene} scene - La escena de Phaser
+     * @param {*} scene - La escena de Phaser
      * @param {Number} x - Posición X en el tablero lógico
      * @param {Number} y - Posición Y en el tablero lógico
      * @param {String} texture - Textura del recurso
@@ -21,14 +21,11 @@ export class AmmunitionExtra extends Resource {
 
     /**
      * Aplica el efecto de añadir munición extra al submarino
-     * @param {Submarine} submarine - El submarino que recoge el recurso
+     * @param {SubmarineComplete} submarine - El submarino que recoge el recurso
      */
     applyEffect(submarine) {
-        // TODO: Implementar cuando Submarine tenga el sistema de munición
+        submarine.addAmmunition(this.ammoAmount);
         console.log(`Munición extra recogida: +${this.ammoAmount} disparos`);
-        
-        // Placeholder para futura implementación:
-        // submarine.ammunition += this.ammoAmount;
         // 
         // // Opcional: límite máximo de munición
         // if (submarine.maxAmmunition && submarine.ammunition > submarine.maxAmmunition) {

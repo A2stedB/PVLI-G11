@@ -1,4 +1,5 @@
-import { Resource } from "./Resource.js";
+import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
+import { Resource } from "../Resources/Resource.js";
 
 /**
  * Recurso que repara el submarino
@@ -24,12 +25,10 @@ export class RepairKit extends Resource {
      * Aplica el efecto de reparación al submarino
      * Si el submarino está dañado, lo repara inmediatamente
      * Si está a vida completa, se guarda en el inventario para uso posterior
-     * @param {Submarine} submarine - El submarino que recoge el recurso
+     * @param {SubmarineComplete} submarine - El submarino que recoge el recurso
      */
     applyEffect(submarine) {
-        // TODO: Implementar cuando Submarine tenga el sistema de vida completo
-        
-        // Verificar si el submarino necesita reparación
+         // Verificar si el submarino necesita reparación
         const needsRepair = submarine.currentHP < submarine.maxHP;
         
         if (needsRepair && this.autoUse) {
@@ -38,17 +37,15 @@ export class RepairKit extends Resource {
             console.log(`Kit de reparación usado automáticamente. HP restaurado: ${this.healAmount}`);
         } else {
             // Guardar en inventario para uso manual posterior
-            console.log("Kit de reparación añadido al inventario para uso posterior");
-            
-            // Placeholder para futura implementación:
-            // submarine.inventory.add(this);
+            submarine.addRepairKit(1);
+            console.log("Kit de reparación añadido al inventario");
         }
     }
 
     /**
      * Usa el kit de reparación sobre el submarino
      * Puede ser llamado manualmente desde el inventario
-     * @param {Submarine} submarine - El submarino a reparar
+     * @param {SubmarineComplete} submarine - El submarino a reparar
      */
     use(submarine) {
         this.heal(submarine);
@@ -56,34 +53,30 @@ export class RepairKit extends Resource {
 
     /**
      * Realiza la reparación del submarino
-     * @param {Submarine} submarine - El submarino a reparar
+     * @param {SubmarineComplete} submarine - El submarino a reparar
      */
     heal(submarine) {
-        // TODO: Implementar cuando Submarine tenga propiedades currentHP y maxHP
-        console.log(`Reparando submarino: +${this.healAmount} HP`);
+        const hpBefore = submarine.currentHP;
+        submarine.currentHP = Math.min(submarine.currentHP + this.healAmount, submarine.maxHP);
+        const actualHeal = submarine.currentHP - hpBefore;
         
-        // Placeholder para futura implementación:
-        // const hpBefore = submarine.currentHP;
-        // submarine.currentHP = Math.min(submarine.currentHP + this.healAmount, submarine.maxHP);
-        // const actualHeal = submarine.currentHP - hpBefore;
-        // 
-        // // Detener fugas si el sistema de fugas está implementado
-        // if (submarine.hasLeaks) {
-        //     submarine.hasLeaks = false;
-        //     submarine.leakDamagePerTurn = 0;
-        //     console.log("Fugas reparadas");
-        // }
-        // 
-        // return actualHeal;
+        // Detener fugas si el sistema de fugas está implementado
+        if (submarine.hasLeaks) {
+            submarine.hasLeaks = false;
+            submarine.leakDamagePerTurn = 0;
+            console.log("Fugas reparadas");
+        }
+        
+        console.log(`Reparando submarino: +${actualHeal} HP`);
+        return actualHeal;
     }
 
     /**
      * Verifica si el kit puede ser usado en un submarino
-     * @param {Submarine} submarine - El submarino a verificar
+     * @param {SubmarineComplete} submarine - El submarino a verificar
      * @returns {Boolean} true si el submarino está dañado
      */
     canUse(submarine) {
-        // TODO: Implementar cuando Submarine tenga sistema de vida
-        return true; // submarine.currentHP < submarine.maxHP;
+        return submarine.currentHP < submarine.maxHP;
     }
 }
