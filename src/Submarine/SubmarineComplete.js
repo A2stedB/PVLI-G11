@@ -1,4 +1,5 @@
 import { Position } from "../Board/Position.js";
+import EventDispatch from "../Event/EventDispatch.js";
 
 /**
  * Orientaciones del submarino
@@ -79,6 +80,14 @@ export class SubmarineComplete extends Phaser.GameObjects.Image {
         this.updateSprite();
 
         console.log("Submarine created at", this.position);
+
+        EventDispatch.on(Event.MOVE,(direction,player)=>{
+            switch (direction){
+                case "Right":
+                    this.moveRight();
+                    break;
+            }  
+        })
     }
 
     // ========== GETTERS ==========
@@ -103,7 +112,7 @@ export class SubmarineComplete extends Phaser.GameObjects.Image {
         const cellSize = this.container.data.cellSize;
         this.setPosition(this.position.x * cellSize, this.position.y * cellSize);
         this.setAngle(this.orientation -90); 
-        this.positionReferenceCheck();
+        // this.positionReferenceCheck();
     }
 
     // ========== MOVIMIENTO ==========

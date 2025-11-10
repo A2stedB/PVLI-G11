@@ -3,6 +3,12 @@ import Event from "../Event/Event.js";
 import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
 
 
+const Key = Object.freeze({
+    D:"D"
+})
+
+export default Key;
+
 export class InputManager {
     /**
      * 
@@ -12,8 +18,10 @@ export class InputManager {
      */
 
 
-    constructor(scene, player1, player2){
-            
+    constructor(scene, player1, player2,gameloopMachine,playerActionMachine){
+        
+        this.gameloopMachine = gameloopMachine;
+        this.playerActionMachine = playerActionMachine;
         this.scene = scene;
         this.board = this.scene.tablero;
         this.player1 = player1;
@@ -50,8 +58,9 @@ export class InputManager {
         })
         
         this.scene.input.keyboard.on('keydown-D', ()=>{
-            EventDispatch.emit(Event.MOVE_RIGHT); 
-            console.log("D pressed")
+            EventDispatch.emit(Key.D,this.playerActionMachine.currentState,this.player1); 
+            console.log("D pressed") 
+            this.playerActionMachine.transition();
         })
 
         this.scene.input.keyboard.on('keydown-W', ()=>{
@@ -80,8 +89,7 @@ export class InputManager {
         this.scene.input.keyboard.on('keydown-LEFT',()=>{
             EventDispatch.emit(Event.MOVE_LEFT); 
             console.log("LEFT pressed")
-        }
-        )   
+        })   
     
 
     }

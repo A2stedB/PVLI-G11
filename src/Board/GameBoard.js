@@ -90,29 +90,33 @@ export default class GameBoard extends Phaser.GameObjects.Container {
             console.log("Refreshed");
         })
 
-        EventDispatch.on(Event.MOVE_RIGHT, () => {
-            const submarine = this.submarines[this.currentTurn];
-            if (submarine.moveRight()) {
-                this.resourceManager.checkAndCollectResource(submarine);
-                this.huds[this.currentTurn].update();
-            }
+        EventDispatch.on(Event.MOVE,(direction,player)=>{
+            
         })
 
-        EventDispatch.on(Event.MOVE_FRONT, () => {
-            const submarine = this.submarines[this.currentTurn];
-            if (submarine.moveFront()) {
-                this.resourceManager.checkAndCollectResource(submarine);
-                this.huds[this.currentTurn].update();
-            }
-        })
+        // EventDispatch.on(Event.MOVE_RIGHT, () => {
+        //     const submarine = this.submarines[this.currentTurn];
+        //     if (submarine.moveRight()) {
+        //         this.resourceManager.checkAndCollectResource(submarine);
+        //         this.huds[this.currentTurn].update();
+        //     }
+        // })
 
-        EventDispatch.on(Event.MOVE_LEFT, () => {
-            const submarine = this.submarines[this.currentTurn];
-            if (submarine.moveLeft()) {
-                this.resourceManager.checkAndCollectResource(submarine);
-                this.huds[this.currentTurn].update();
-            }
-        })
+        // EventDispatch.on(Event.MOVE_FRONT, () => {
+        //     const submarine = this.submarines[this.currentTurn];
+        //     if (submarine.moveFront()) {
+        //         this.resourceManager.checkAndCollectResource(submarine);
+        //         this.huds[this.currentTurn].update();
+        //     }
+        // })
+
+        // EventDispatch.on(Event.MOVE_LEFT, () => {
+        //     const submarine = this.submarines[this.currentTurn];
+        //     if (submarine.moveLeft()) {
+        //         this.resourceManager.checkAndCollectResource(submarine);
+        //         this.huds[this.currentTurn].update();
+        //     }
+        // })
 
         EventDispatch.on(Event.SHOOT, () => {
             const attacker = this.submarines[this.currentTurn];

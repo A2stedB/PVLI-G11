@@ -4,6 +4,8 @@ import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
 import { InputManager } from "../Event/InputManager.js";
 import SubmarineView from "../Scene/SubmarineViewObject.js";
+import { GameLoopMachine } from "../State/GameloopMachine/GameLoopMachine.js";
+import { PlayerActionMachine } from "../State/PlayerActionMachine/PlayerActionMachine.js";
 // import { ResourceManager } from "../Resources/ResourceManager.js";
 // import { SubmarineInventory } from "../Resources/SubmarineInventory.js";
 
@@ -29,10 +31,12 @@ export class GameScreen extends Phaser.Scene{
     
     //La dimension de la tabla tiene que ser un numero impar
     create(){
+        this.gameloopMachine = new GameLoopMachine;
+        this.playerActionMachine = new PlayerActionMachine(this.gameloopMachine);
         let texturas = ["Square","BG", "Submarine"];
       //  this.submarineView = new SubmarineView(this,0,0)
         this.tablero = new GameBoard(this,11,11,200,0,texturas,40);
-        this.inputManager = new InputManager(this, this.tablero.submarines.blue, this.tablero.submarines.red);
+        this.inputManager = new InputManager(this, this.tablero.submarines.red, this.tablero.submarines.blue,this.gameloopMachine,this.playerActionMachine);
     }
 
     update(){}

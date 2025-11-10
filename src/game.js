@@ -16,7 +16,7 @@ let config = {
 	scale: {
 		autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
 	},
-	scene: [StateMachineTest],
+	scene: [GameScreen,StateMachineTest],
 };
 
 new Phaser.Game(config);
