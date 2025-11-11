@@ -1,4 +1,6 @@
 import State from "../State.js";
+import EventDispatch from "../../Event/EventDispatch.js";
+import Event from "../../Event/Event.js";
 
 export class Player1 extends State{
     constructor(stateMachine){
@@ -8,6 +10,7 @@ export class Player1 extends State{
 
     onStateEnter(){
         //Bloquear teclas del jugador 2
+        EventDispatch.emit(Event.DISABLE_KEY,2);
     }
 
     transition(){

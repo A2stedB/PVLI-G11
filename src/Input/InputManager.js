@@ -1,6 +1,7 @@
 import EventDispatch from "../Event/EventDispatch.js";
 import Event from "../Event/Event.js";
 import { SubmarineComplete } from "../Submarine/SubmarineComplete.js";
+import { KeySet } from "./KeySet.js";
 
 
 const Key = Object.freeze({
@@ -29,6 +30,7 @@ export class InputManager {
 
         this.createKeys();
         this.createEvents();
+        this.KeyParse();
     }
 
     createKeys(){   
@@ -38,7 +40,8 @@ export class InputManager {
         this.s = this.scene.input.keyboard.addKey('S');
         this.a = this.scene.input.keyboard.addKey('A');
         this.d = this.scene.input.keyboard.addKey('D');
-         this.space = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.playe1Key = new KeySet([this.w,this.s,this.a,this.d])
+        this.space = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         
         
         // Input submarino 2 (blue)
@@ -46,6 +49,8 @@ export class InputManager {
         this.downArrow = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         this.rightArrow = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         this.leftArrow = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+
+        this.playe2Key = new KeySet([this.upArrow,this.downArrow,this.rightArrow,this.leftArrow])
         
     }
 
@@ -58,7 +63,7 @@ export class InputManager {
         })
         
         this.scene.input.keyboard.on('keydown-D', ()=>{
-            EventDispatch.emit(Key.D,this.playerActionMachine.currentState,this.player1); 
+            EventDispatch.emit(Key.D,this.playerActionMachine.currentState.name,this.player1); 
             console.log("D pressed") 
             this.playerActionMachine.transition();
         })
@@ -92,6 +97,14 @@ export class InputManager {
         })   
     
 
+    }
+
+    KeyParse(){
+        // EventDispatch.on(Key.D,(state,player)=>{
+        //     switch()
+        // })
+
+        // EventDispatch.on()
     }
 
     preUpdate(){

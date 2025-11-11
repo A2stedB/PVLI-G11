@@ -1,5 +1,5 @@
 // import { InputManager } from "./InputManager.js";
-import Key from "./InputManager.js";
+import Key from "../Input/InputManager.js";
 class EventBroker extends Phaser.Events.EventEmitter{
     constructor(){
         super();
@@ -21,5 +21,5 @@ class EventBroker extends Phaser.Events.EventEmitter{
     }
 }
 
-let EventDispatch = new EventBroker()
-export default EventDispatch
+let EventDispatch = new EventBroker();
+export default EventDispatch;

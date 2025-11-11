@@ -80,14 +80,6 @@ export class SubmarineComplete extends Phaser.GameObjects.Image {
         this.updateSprite();
 
         console.log("Submarine created at", this.position);
-
-        EventDispatch.on(Event.MOVE,(direction,player)=>{
-            switch (direction){
-                case "Right":
-                    this.moveRight();
-                    break;
-            }  
-        })
     }
 
     // ========== GETTERS ==========

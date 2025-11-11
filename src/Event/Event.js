@@ -8,7 +8,8 @@ const Event = Object.freeze({
         Left:"Move left",
         front:"Move front",
         right:"Move right"
-    }
+    },
+    DISABLE_KEY:"Disable key"
 })
 
 export default Event;
