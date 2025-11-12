@@ -62,6 +62,16 @@ export class InputManager {
 
         })
         
+        //Una tecla dependiendo del estado tiene diferentes usos, el uso es diferente si estas en movimiento o en disparo
+        //Alternativas:
+        //1. Cuando recibe un input del teclado, manda esa tecla y el estado actual a otro script
+        //y esa cosa dependiendo de la tecla y del estado pues ya manda mediandte el bus de evento lo que tiene que hacer las cosas
+        //Pero asi hay que hacer todo esto para todas las teclas y para todos los eventos que recibe el script
+        //O parsear directamente aqui
+
+        //2.Crear un evento para todas las acciones de los dos jugadores
+        //Y este script tendra las maquinas del estado, cuando una tecla es presionada mira directamente el estado que se encuentra
+        //Y dependiendo del estado manda el evento correspondiente mediante el bus de los eventos
         this.scene.input.keyboard.on('keydown-D', ()=>{
             EventDispatch.emit(Key.D,this.playerActionMachine.currentState.name,this.player1); 
             console.log("D pressed") 
