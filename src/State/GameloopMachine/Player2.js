@@ -1,3 +1,5 @@
+import Event from "../../Event/Event.js";
+import EventDispatch from "../../Event/EventDispatch.js";
 import State from "../State.js";
 
 export class Player2 extends State{
@@ -8,6 +10,12 @@ export class Player2 extends State{
 
     onStateEnter(){
         //Bloquear teclas del jugador 1
+        EventDispatch.emit(Event.EABLE_KEY,2);
+        console.log("Player 2 key activated")
+    }
+    onStateExit(){
+        EventDispatch.emit(Event.DISABLE_KEY,2);
+        console.log("Player 2 key desactivated")
     }
 
     transition(){

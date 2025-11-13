@@ -11,6 +11,9 @@ export class CheckState extends State{
         console.log("Updating information")
         console.log(`Ronda ${this.stateMachine.turn}`)
     }
+    onStateExit(){
+        
+    }
 
     transition(){
         return this.stateMachine.stateList.player1;

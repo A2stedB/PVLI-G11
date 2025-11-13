@@ -25,7 +25,9 @@ export class StateMachine{
     }
 
     onStateExit(){
-
+        if(this._currentState){
+            this._currentState.onStateExit()
+        }
     }
 
     transition(){
