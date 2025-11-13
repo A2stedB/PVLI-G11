@@ -5,8 +5,15 @@ import { KeySet } from "./KeySet.js";
 
 
 const Key = Object.freeze({
-    W:Symbol("D"),
+    W:Symbol("W"),
+    A:Symbol("A"),
+    S:Symbol("S"),
+    D:Symbol("D"),
+
     UP:Symbol("UpArrow"),
+    LEFT:Symbol("LeftArrow"),
+    RIGHT:Symbol("RightArrow"),
+    DOWN:Symbol("DownArrow"),
 })
 
 export default Key;
@@ -60,14 +67,43 @@ export class InputManager {
         this.w.on("down",()=>{
             console.log("W pressed");
             this.keyParse(Key.W,this.player1,this.playerActionMachine.currentState);
-            // this.playerActionMachine.transition();
+        });
+
+        this.a.on("down",()=>{
+            console.log("A pressed");
+            this.keyParse(Key.A,this.player1,this.playerActionMachine.currentState);
+        });
+
+        this.s.on("down",()=>{
+            console.log("S pressed");
+            this.keyParse(Key.S,this.player1,this.playerActionMachine.currentState);
+        });
+
+        this.d.on("down",()=>{
+            console.log("D pressed");
+            this.keyParse(Key.D,this.player1,this.playerActionMachine.currentState);
         });
 
         this.upArrow.on("down",()=>{
             console.log("upArrow");
-            this.keyParse(Key.W,this.player2,this.playerActionMachine.currentState);
-            // this.playerActionMachine.transition();
+            this.keyParse(Key.UP,this.player2,this.playerActionMachine.currentState);
         })
+
+        this.downArrow.on("down",()=>{
+            console.log("downArrow");
+            this.keyParse(Key.DOWN,this.player2,this.playerActionMachine.currentState);
+        })
+
+        this.leftArrow.on("down",()=>{
+            console.log("leftArrow");
+            this.keyParse(Key.LEFT,this.player2,this.playerActionMachine.currentState);
+        })
+
+        this.rightArrow.on("down",()=>{
+            console.log("rightArrow");
+            this.keyParse(Key.RIGHT,this.player2,this.playerActionMachine.currentState);
+        })
+        
 
         
         //Evento para desactivar tecla
@@ -147,12 +183,42 @@ export class InputManager {
      * @param {Key} key 
      */
     keyParse(key,player,state){
+        console.log(`key: ${typeof(key)}`)
+        console.log(`keyEnum: ${typeof(Key.W)}`)
+        console.log(key == Key.W )
         if(key == Key.W || Key.UP){
             switch (state.name){
                 case "Move State":
                     console.log("Move state")
                     EventDispatch.emit(Event.MOVE,player,0);
                     break
+            }
+        }
+
+        else if(key == Key.A || Key.LEFT){
+            switch (state.name){
+                case "Move State":
+                    console.log("Move state")
+                    EventDispatch.emit(Event.MOVE,player,-90);
+                    break;
+            }
+        }
+
+        else if(key == Key.D || Key.RIGHT){
+            switch (state.name){
+                case "Move State":
+                    console.log("Move state")
+                    EventDispatch.emit(Event.MOVE,player,90);
+                    break;
+            }
+        }
+
+        else if(key == Key.S || Key.DOWN){
+            switch (state.name){
+                case "Move State":
+                    console.log("Move state");
+                    EventDispatch.emit(Event.MOVE,player,null);
+                    break;
             }
         }
 

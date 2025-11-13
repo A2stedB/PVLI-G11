@@ -92,6 +92,8 @@ export default class GameBoard extends Phaser.GameObjects.Container {
 
         EventDispatch.on(Event.MOVE,(player,direction)=>{
             if(direction == 0) player.moveFront();
+            if(direction == 90) player.moveRight();
+            if(direction == -90) player.moveLeft();
         })
 
         // EventDispatch.on(Event.MOVE,(direction,player)=>{
