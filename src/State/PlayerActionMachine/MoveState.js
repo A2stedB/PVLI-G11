@@ -14,7 +14,7 @@ export class MoveState extends State{
         //  */
     }
     onStateEnter(){
-        console.log("Move Phase")
+        // console.log("Move Phase")
         EventDispatch.emit("Moving");
     }
 

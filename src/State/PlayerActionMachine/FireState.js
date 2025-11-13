@@ -8,7 +8,7 @@ export class FireState extends State{
     }
 
     onStateEnter(){
-        console.log("Fire Phase");
+        // console.log("Fire Phase");
         EventDispatch.emit("Firing");
     }
 

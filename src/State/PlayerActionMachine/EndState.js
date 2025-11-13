@@ -7,15 +7,15 @@ export class EndState extends State{
     }
 
     onStateEnter(){
-        console.log("Updating information")
+        // console.log("Updating information")
+        this.stateMachine.transition();
     }
-
+    
     onStateExit(){
-
-    }
-
-    transition(){
         this.stateMachine.context.transition();
+    }
+    
+    transition(){
         return this.stateMachine.stateList.moveState;
     }
 }

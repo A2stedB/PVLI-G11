@@ -4,9 +4,9 @@ const Event = Object.freeze({
     MOVE_LEFT:Symbol("Move Left"),
     MOVE_RIGHT:Symbol("Move Right"),
     SHOOT:Symbol("Shoot"),
-    MOVE:"Move",
-    DISABLE_KEY:"Disable key",
-    ENABLE_KEY:"Enable key"
+    MOVE:Symbol("Move"),
+    DISABLE_KEY:Symbol("Disable key"),
+    ENABLE_KEY:Symbol("Enable key")
 })
 
 export default Event;

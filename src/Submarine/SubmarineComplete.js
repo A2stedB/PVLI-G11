@@ -1,5 +1,6 @@
 import { Position } from "../Board/Position.js";
 import EventDispatch from "../Event/EventDispatch.js";
+import Event from "../Event/Event.js";
 
 /**
  * Orientaciones del submarino
@@ -80,6 +81,7 @@ export class SubmarineComplete extends Phaser.GameObjects.Image {
         this.updateSprite();
 
         console.log("Submarine created at", this.position);
+
     }
 
     // ========== GETTERS ==========

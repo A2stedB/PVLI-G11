@@ -7,7 +7,7 @@ export class AirAttackState extends State{
     }
 
     onStateEnter(){
-        console.log("Air Attack Phase");
+        // console.log("Air Attack Phase");
         EventDispatch.emit("Air attacking");
     }
 

@@ -5,7 +5,8 @@ import { KeySet } from "./KeySet.js";
 
 
 const Key = Object.freeze({
-    D:"D"
+    W:Symbol("D"),
+    UP:Symbol("UpArrow"),
 })
 
 export default Key;
@@ -30,7 +31,6 @@ export class InputManager {
 
         this.createKeys();
         this.createEvents();
-        this.KeyParse();
     }
 
     createKeys(){   
@@ -59,24 +59,34 @@ export class InputManager {
 
         this.w.on("down",()=>{
             console.log("W pressed");
-            this.playerActionMachine.transition();
+            this.keyParse(Key.W,this.player1,this.playerActionMachine.currentState);
+            // this.playerActionMachine.transition();
         });
 
         this.upArrow.on("down",()=>{
             console.log("upArrow");
-            this.playerActionMachine.transition();
+            this.keyParse(Key.W,this.player2,this.playerActionMachine.currentState);
+            // this.playerActionMachine.transition();
         })
 
-    
+        
         //Evento para desactivar tecla
         EventDispatch.on(Event.DISABLE_KEY,(player)=>{
             if(player == 1){
-                this.player2Key.enable();
                 this.player1Key.disable();
             }
             else if(player == 2){
-                this.player1Key.enable();
                 this.player2Key.disable();
+            }
+        })
+
+        //Evento para activar tecla
+        EventDispatch.on(Event.ENABLE_KEY,(player)=>{
+            if(player == 1){
+                this.player1Key.enable();
+            }
+            else if(player == 2){
+                this.player2Key.enable();
             }
         })
 
@@ -132,13 +142,30 @@ export class InputManager {
     
 
     }
+    /**
+     * 
+     * @param {Key} key 
+     */
+    keyParse(key,player,state){
+        if(key == Key.W || Key.UP){
+            switch (state.name){
+                case "Move State":
+                    console.log("Move state")
+                    EventDispatch.emit(Event.MOVE,player,0);
+                    break
+            }
+        }
 
-    KeyParse(){
-        // EventDispatch.on(Key.D,(state,player)=>{
-        //     switch()
-        // })
+        // if(key == Key.W || Key.UP){
+        //     switch (state.name){
+        //         case "Move State":
+        //             console.log("Move state")
+        //             EventDispatch.emit(Event.MOVE,player,0);
+        //             break
+        //     }
+        // }
 
-        // EventDispatch.on()
+        this.playerActionMachine.transition();
     }
 
     preUpdate(){

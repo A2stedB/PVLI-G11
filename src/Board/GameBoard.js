@@ -90,9 +90,13 @@ export default class GameBoard extends Phaser.GameObjects.Container {
             console.log("Refreshed");
         })
 
-        EventDispatch.on(Event.MOVE,(direction,player)=>{
-            
+        EventDispatch.on(Event.MOVE,(player,direction)=>{
+            if(direction == 0) player.moveFront();
         })
+
+        // EventDispatch.on(Event.MOVE,(direction,player)=>{
+            
+        // })
 
         // EventDispatch.on(Event.MOVE_RIGHT, () => {
         //     const submarine = this.submarines[this.currentTurn];
